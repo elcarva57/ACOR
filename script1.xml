@@ -1,0 +1,22 @@
+<RTML>
+<Request>
+ <ID>101</ID>
+ <Target>
+  <Name> NG3 </Name>
+  <DateTime>  2007-06-06T12:11:00  </DateTime>
+  <Coordinates>                                 
+	<RightAscension>212,85</RightAscension>
+	<Declination>1,3333</Declination>
+  </Coordinates>
+
+  <Picture>
+     <Filter>1</Filter>
+     <Count>3</Count>
+     <Bining>2</Bining>
+     <ExposureTime>1</ExposureTime>
+  </Picture>
+
+ </Target>
+</Request>
+
+</RTML>

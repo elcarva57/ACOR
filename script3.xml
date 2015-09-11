@@ -1,0 +1,63 @@
+<RTML>
+<Target>
+  <ID>dir1</ID> directorio
+  <Name> NGC6709 </Name>
+  <DateTime>2007-06-06T06:24:00</DateTime>
+  <Coordinates>                            
+     <RightAscension>282.925</RightAscension>
+     <Declination>-10.35</Declination>
+  </Coordinates>
+
+  <Picture>
+     <Filter>0</Filter>
+     <Count>2</Count>
+     <Bining>2</Bining>
+     <ExposureTime>5</ExposureTime>
+  </Picture>
+
+</Target>
+
+
+<Request>
+    <UserName>Admin</UserName>
+    <Observers>Cristobal</Observers>
+    <TimeStamp>2012-03-13T23:46:00</TimeStamp>
+
+	<Target>
+	  <ID>dir2</ID>
+	  <Name> M71 </Name>
+	  <DateTime>2007-06-06T06:26:00</DateTime>
+	  <Coordinates> 
+	     <RightAscension>298,550</RightAscension>
+	     <Declination>18,8</Declination>
+	  </Coordinates>
+
+	  <Picture>  
+	     <Filter>0</Filter>
+	     <Count>2</Count>
+	     <Bining>2</Bining>
+	     <ExposureTime>5</ExposureTime>
+	  </Picture>
+	</Target>
+
+
+	<Target>
+	  <ID>dir3</ID>
+	  <Name> M27 </Name>
+	  <DateTime>2007-06-06T06:26:30</DateTime>
+	  <Coordinates>
+	     <RightAscension>300,00</RightAscension>
+	     <Declination>22,730</Declination>
+	  </Coordinates>
+
+	  <Picture>  
+	     <Filter>0</Filter>
+	     <Count>2</Count>
+	     <Bining>2</Bining>
+	     <ExposureTime>3</ExposureTime>
+	  </Picture>
+	</Target>
+</Request>
+
+
+</RTML>

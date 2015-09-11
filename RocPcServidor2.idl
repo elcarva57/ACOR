@@ -1,0 +1,97 @@
+[
+  uuid(88B924B2-99C6-4B1B-B13A-EF64509CDE41), 
+  version(1.0), 
+  helpstring("RocPcServidor Library")
+    
+]
+library RocPcServidor
+{
+
+  importlib("stdole2.tlb");
+
+  [
+    uuid(A5A73D7E-9916-4F9F-AF63-C2748F9B7CD5), 
+    version(1.0), 
+    helpstring("Dispatch interface for cRocPcServidor Object"), 
+    dual, 
+    oleautomation
+  ]
+   interface IcRocPcServidor: IDispatch
+  {
+    [
+    id(0x00000001)
+    ]
+    HRESULT _stdcall OnStartPage([in]  IUnknown * AScriptingContext );
+    [
+    id(0x00000002)
+    ]
+    HRESULT _stdcall OnEndPage( void );
+    [
+    id(0x00000003)
+    ]
+    HRESULT _stdcall Foto([in] BSTR nombre );
+    [
+    id(0x00000004)
+    ]
+    HRESULT _stdcall Slew([in] BSTR com );
+    [
+    id(0x00000006)
+    ]
+    HRESULT _stdcall Slewd([in] double Ra, [in] double De );
+    [
+    id(0x00000007)
+    ]
+    HRESULT _stdcall GetRaDe([out] double * Ra, [out] double * De );
+    [
+    propget, 
+    id(0x0000000A)
+    ]
+    HRESULT _stdcall Ra([out, retval] double * Value );
+    [
+    propget, 
+    id(0x0000000B)
+    ]
+    HRESULT _stdcall Dec([out, retval] double * Value );
+    [
+    propget, 
+    id(0x00000008)
+    ]
+    HRESULT _stdcall Tambiente([out, retval] double * Value );
+    [
+    propget, 
+    id(0x00000005)
+    ]
+    HRESULT _stdcall pTccd([out, retval] double * Value );
+    [
+    propget, 
+    id(0x00000009)
+    ]
+    HRESULT _stdcall humedadR([out, retval] double * Value );
+    [
+    propget, 
+    id(0x0000000C)
+    ]
+    HRESULT _stdcall Nubes([out, retval] long * Value );
+    [
+    propget, 
+    id(0x0000000D)
+    ]
+    HRESULT _stdcall EstadoCor([out, retval] long * Value );
+    [
+    propget, 
+    id(0x0000000E)
+    ]
+    HRESULT _stdcall MensEMAv2([out, retval] BSTR * Value );
+  };
+
+  [
+    uuid(ABD30286-D456-41A1-BC57-8D14A639FFA6), 
+    version(1.0), 
+    helpstring("cRocPcServidor Object")
+  ]
+  coclass cRocPcServidor
+  {
+    [default] interface IcRocPcServidor;
+  };
+
+}; 

@@ -1,0 +1,243 @@
+[
+  uuid(88B924B2-99C6-4B1B-B13A-EF64509CDE41), 
+  version(1.0), 
+  helpstring("RocPcServidor Library")
+    
+]
+library RocPcServidor
+{
+
+  importlib("stdole2.tlb");
+
+  [
+    uuid(A5A73D7E-9916-4F9F-AF63-C2748F9B7CD5), 
+    version(1.0), 
+    helpstring("Dispatch interface for cRocPcServidor Object"), 
+    dual, 
+    oleautomation
+  ]
+   interface IcRocPcServidor: IDispatch
+  {
+    [
+    id(0x00000001)
+    ]
+    HRESULT _stdcall OnStartPage([in]  IUnknown * AScriptingContext );
+    [
+    id(0x00000002)
+    ]
+    HRESULT _stdcall OnEndPage( void );
+    [
+    id(0x00000003)
+    ]
+    HRESULT _stdcall Foto([in] BSTR nombre );
+    [
+    id(0x00000004)
+    ]
+    HRESULT _stdcall Slew([in] BSTR com );
+    [
+    id(0x00000006)
+    ]
+    HRESULT _stdcall Slewd([in] double Ra, [in] double De );
+    [
+    id(0x00000007)
+    ]
+    HRESULT _stdcall GetRaDe([out] double * Ra, [out] double * De );
+    [
+    propget, 
+    id(0x0000000A)
+    ]
+    HRESULT _stdcall Ra([out, retval] double * Value );
+    [
+    propget, 
+    id(0x0000000B)
+    ]
+    HRESULT _stdcall Dec([out, retval] double * Value );
+    [
+    propget, 
+    id(0x00000008)
+    ]
+    HRESULT _stdcall Tambiente([out, retval] double * Value );
+    [
+    propget, 
+    id(0x00000005)
+    ]
+    HRESULT _stdcall pTccd([out, retval] double * Value );
+    [
+    propget, 
+    id(0x00000009)
+    ]
+    HRESULT _stdcall humedadR([out, retval] double * Value );
+    [
+    propget, 
+    id(0x0000000C)
+    ]
+    HRESULT _stdcall Nubes([out, retval] long * Value );
+    [
+    propget, 
+    id(0x0000000D)
+    ]
+    HRESULT _stdcall EstadoCor([out, retval] long * Value );
+    [
+    propget, 
+    id(0x0000000E)
+    ]
+    HRESULT _stdcall MensEMAv2([out, retval] BSTR * Value );
+    [
+    propget, 
+    id(0x00000011)
+    ]
+    HRESULT _stdcall FocusAbsolute([out, retval] long * Value );
+  };
+
+  [
+    uuid(ABD30286-D456-41A1-BC57-8D14A639FFA6), 
+    version(1.0), 
+    helpstring("cRocPcServidor Object")
+  ]
+  coclass cRocPcServidor
+  {
+    [default] interface IcRocPcServidor;
+  };
+
+  [
+    uuid(1671E3FC-C0C0-44FB-A79C-9DF0A4E4EB2D), 
+    version(1.0), 
+    helpstring("Dispatch interface for Focuser Object"), 
+    dual, 
+    oleautomation
+  ]
+   interface IFocuser: IDispatch
+  {
+    [
+    propget, 
+    id(0x00000001)
+    ]
+    HRESULT _stdcall Position([out, retval] double * Value );
+    [
+    id(0x00000002)
+    ]
+    HRESULT _stdcall Move([in] double destino );
+    [
+    propget, 
+    id(0x00000003), 
+    helpstring("Enfocador con contador absoluto.")
+    ]
+    HRESULT _stdcall Absolute([out, retval] double * absoluto );
+    [
+    propget, 
+    id(0x00000004)
+    ]
+    HRESULT _stdcall IsMoving([out, retval] VARIANT_BOOL * Value );
+    [
+    propget, 
+    id(0x00000005)
+    ]
+    HRESULT _stdcall MaxIncrement([out, retval] long * Value );
+    [
+    propget, 
+    id(0x00000006)
+    ]
+    HRESULT _stdcall MaxStep([out, retval] long * Value );
+    [
+    propget, 
+    id(0x00000007)
+    ]
+    HRESULT _stdcall StepSize([out, retval] long * Value );
+    [
+    id(0x00000008)
+    ]
+    HRESULT _stdcall Halt( void );
+    [
+    propget, 
+    id(0x0000000A)
+    ]
+    HRESULT _stdcall Temperature([out, retval] long * Value );
+    [
+    propget, 
+    id(0x0000000B)
+    ]
+    HRESULT _stdcall TempCompAvailable([out, retval] VARIANT_BOOL * Value );
+    [
+    propget, 
+    id(0x0000000C)
+    ]
+    HRESULT _stdcall TempComp([out, retval] VARIANT_BOOL * Value );
+    [
+    propput, 
+    id(0x0000000C)
+    ]
+    HRESULT _stdcall TempComp([in] VARIANT_BOOL Value );
+  };
+
+  [
+    uuid(936E0CDD-F317-4759-902A-5A6AFE01FF74), 
+    version(1.0), 
+    helpstring("Focuser Object")
+  ]
+  coclass Focuser
+  {
+    [default] interface IFocuser;
+  };
+
+  [
+    uuid(66B2796B-5575-43DA-9199-226B1DE9D006), 
+    version(1.0), 
+    helpstring("Dispatch interface for CCD1 Object"), 
+    dual, 
+    oleautomation
+  ]
+   interface ICCD1: IDispatch
+  {
+    [
+    id(0x00000001), 
+    helpstring("Inicia adquisicion.")
+    ]
+    HRESULT _stdcall Foto( void );
+    [
+    id(0x00000002), 
+    helpstring("Numero de fotos a realizar")
+    ]
+    HRESULT _stdcall NumFotos([in] double Numero );
+    [
+    propget, 
+    id(0x00000004), 
+    helpstring("Evolucion de la foto, valor de la barrra de progreso.")
+    ]
+    HRESULT _stdcall Estado([out, retval] double * Value );
+    [
+    propget, 
+    id(0x00000005), 
+    helpstring("Foto en curso.")
+    ]
+    HRESULT _stdcall FotoActual([out, retval] double * Value );
+    [
+    id(0x00000006), 
+    helpstring("Exposicion en sg.")
+    ]
+    HRESULT _stdcall Exposicion([in] double Exposg );
+    [
+    id(0x00000007), 
+    helpstring("Bining de la foto.")
+    ]
+    HRESULT _stdcall Binin([in] double binin );
+    [
+    id(0x00000008)
+    ]
+    HRESULT _stdcall TipoFoto([in] double tipo );
+    [
+    id(0x00000009)
+    ]
+    HRESULT _stdcall Nombre([in] BSTR nombre );
+  };
+
+  [
+    uuid(FFE394F9-C03C-4B70-962D-AF8AD5AE06CF), 
+    version(1.0), 
+    helpstring("CCD1 Object")
+  ]
+  coclass CCD1
+  {
+    [default] interface ICCD1;
+  };
+
+}; 

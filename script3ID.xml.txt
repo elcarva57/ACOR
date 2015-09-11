@@ -1,0 +1,67 @@
+<RTML>
+<Target>
+ <ID>kk1</ID>
+  <Name> NGC3031 </Name>
+  <DateTime>2007-06-06T06:24:00</DateTime>
+  <Coordinates>                            <RightAscension>212,85</RightAscension>
+     <Declination>1,3333</Declination>
+  </Coordinates>
+
+  <Picture>
+     <Filter>1</Filter>
+     <Count>1</Count>
+     <Bining>2</Bining>
+     <ExposureTime>1</ExposureTime>
+  </Picture>
+
+  <Picture>
+     <Filter>2</Filter>
+     <Count>2</Count>
+     <Bining>2</Bining>
+     <ExposureTime>1</ExposureTime>
+  </Picture>
+
+  <Picture>
+     <Filter>3</Filter>
+     <Count>3</Count>
+     <Bining>2</Bining>
+     <ExposureTime>1</ExposureTime>
+  </Picture>
+</Target>
+
+
+
+<Target>
+<ID>kk2</ID>
+  <Name> NGC2130 </Name>
+  <DateTime>2007-06-06T06:26:00</DateTime>
+  <Coordinates>                                 <RightAscension>212,85</RightAscension>
+     <Declination>1,3333</Declination>
+  </Coordinates>
+
+  <Picture>  
+     <Filter>4</Filter>
+     <Count>2</Count>
+     <Bining>3</Bining>
+     <ExposureTime>3</ExposureTime>
+  </Picture>
+</Target>
+
+
+<Target>
+<ID>kk3</ID>
+  <Name> NGC222 </Name>
+  <DateTime>2007-06-06T06:26:30</DateTime>
+  <Coordinates>                                 <RightAscension>200,85</RightAscension>
+     <Declination>3,3333</Declination>
+  </Coordinates>
+
+  <Picture>  
+     <Filter>0</Filter>
+     <Count>2</Count>
+     <Bining>3</Bining>
+     <ExposureTime>3</ExposureTime>
+  </Picture>
+</Target>
+
+</RTML>

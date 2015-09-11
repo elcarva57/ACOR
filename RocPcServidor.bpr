@@ -1,0 +1,187 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!-- C++Builder XML Project -->
+<PROJECT>
+  <MACROS>
+    <VERSION value="BCB.06.00"/>
+    <PROJECT value="RocPcServidor.exe"/>
+    <OBJFILES value="RocPcServidor.obj rueda.obj ConfiFiltro.obj RocPcServidor_TLB.obj 
+      cRocPcServidorImpl.obj RocPcServidor_ATL.obj Principal.obj visualizar.obj 
+      Foto.obj socket.obj Unit3.obj"/>
+    <RESFILES value="RocPcServidor.tlb RocPcServidor.res"/>
+    <IDLFILES value=""/>
+    <IDLGENFILES value=""/>
+    <DEFFILE value=""/>
+    <RESDEPEN value="$(RESFILES) ConfiFiltro.dfm Principal.dfm visualizar.dfm Unit3.dfm"/>
+    <LIBFILES value="cfitsio.lib NTOFOCUS.LIB"/>
+    <LIBRARIES value="vclnp.lib indy.lib tee.lib bcbsmp.lib vclx.lib bdertl.lib vcldb.lib 
+      dbrtl.lib vcl.lib rtl.lib"/>
+    <SPARELIBS value="rtl.lib vcl.lib dbrtl.lib vcldb.lib bdertl.lib vclx.lib bcbsmp.lib tee.lib 
+      indy.lib"/>
+    <PACKAGES value="vclx.bpi rtl.bpi vcl.bpi dbrtl.bpi vcldb.bpi bdertl.bpi vcldbx.bpi 
+      bcbsmp.bpi dclocx.bpi qrpt.bpi teeui.bpi teedb.bpi tee.bpi ibsmp.bpi 
+      dss.bpi nmfast.bpi inetdb.bpi inet.bpi dsnap.bpi"/>
+    <PATHCPP value=".;"/>
+    <PATHPAS value=".;"/>
+    <PATHRC value=".;"/>
+    <PATHASM value=".;"/>
+    <DEBUGLIBPATH value="$(BCB)\lib\debug"/>
+    <RELEASELIBPATH value="$(BCB)\lib\release"/>
+    <LINKER value="ilink32"/>
+    <USERDEFINES value="_DEBUG"/>
+    <SYSDEFINES value="_ATL_APARTMENT_THREADED;USING_ATLVCL;_ATL_NO_SECURITY;INC_ATL_HEADERS;_BCB_ATL_DEBUG"/>
+    <MAINSOURCE value="RocPcServidor.cpp"/>
+    <INCLUDEPATH value="&quot;C:\Archivos de programa\Borland\CBuilder6\Projects&quot;;&quot;C:\Archivos de programa\Borland\CBuilder6\Bin&quot;;$(BCB)\include;$(BCB)\include\vcl;$(BCB)\include\atl"/>
+    <LIBPATH value="&quot;C:\Archivos de programa\Borland\CBuilder6\Projects&quot;;&quot;C:\Archivos de programa\Borland\CBuilder6\Bin&quot;;$(BCB)\lib\obj;$(BCB)\lib"/>
+    <WARNINGS value="-w-par -w-8027 -w-8026"/>
+    <WARNOPTSTR value=""/>
+    <OTHERFILES value=""/>
+  </MACROS>
+  <OPTIONS>
+    <IDLCFLAGS value="-I&quot;C:\Archivos de programa\Borland\CBuilder6\Projects&quot; 
+      -I&quot;C:\Archivos de programa\Borland\CBuilder6\Bin&quot; 
+      -I&quot;C:\Archivos de programa\Borland\CBuilder5\Bin&quot; 
+      -I&quot;C:\Archivos de programa\Borland\archivos de programa\borland\cbuilder3\bin&quot; 
+      -I&quot;C:\Archivos de programa\Borland\CBuilder5\spv&quot; 
+      -I&quot;D:\archivos de programa\borland\cbuilder3\projects&quot; 
+      -I&quot;d:\archivos de programa\borland\cbuilder3\bin&quot; 
+      -I&quot;C:\Archivos de programa\Borland\CBuilder5\comunes&quot; 
+      -I&quot;C:\Archivos de programa\Borland\bin&quot; -I$(BCB)\include 
+      -I$(BCB)\include\vcl -I$(BCB)\Components -I$(BCB)\include\atl -src_suffix 
+      cpp -D_DEBUG -no_stdstream -no_tie -boa"/>
+    <CFLAG1 value="-Od -H=$(BCB)\lib\vcl60.csm -Vx -Ve -Tkh30000 -X- -r- -a8 -5 -b- -k -y -v 
+      -vi- -c -tW -tWM"/>
+    <CFLAG2 value=""/>
+    <CFLAG3 value=""/>
+    <PFLAGS value="-$Y+ -$W -$O- -$I- -$A8 -v -M -JPHNE"/>
+    <RFLAGS value=""/>
+    <AFLAGS value="/mx /w2 /zi"/>
+    <LFLAGS value="-D&quot;&quot; -aa -Tpe -x -Gn -v"/>
+    <IFLAGS value=""/>
+    <OTHERFILES value=""/>
+  </OPTIONS>
+  <LINKER>
+    <ALLOBJ value="c0w32.obj sysinit.obj $(OBJFILES)"/>
+    <ALLRES value="$(RESFILES)"/>
+    <ALLLIB value="$(LIBFILES) $(LIBRARIES) import32.lib cp32mt.lib"/>
+    <OTHERFILES value=""/>
+  </LINKER>
+  <FILELIST>
+      <FILE FILENAME="RocPcServidor.cpp" FORMNAME="" UNITNAME="RocPcServidor" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="rueda.cpp" FORMNAME="" UNITNAME="rueda" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="ConfiFiltro.cpp" FORMNAME="FConfiguracion" UNITNAME="ConfiFiltro" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="RocPcServidor.tlb" FORMNAME="" UNITNAME="RocPcServidor.tlb" CONTAINERID="TypeLibTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="RocPcServidor_TLB.cpp" FORMNAME="" UNITNAME="RocPcServidor_TLB" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="cRocPcServidor.asp" FORMNAME="" UNITNAME="cRocPcServidor" CONTAINERID="" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="cRocPcServidorImpl.cpp" FORMNAME="" UNITNAME="cRocPcServidorImpl" COCLASSES="cRocPcServidor" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="RocPcServidor_ATL.cpp" FORMNAME="" UNITNAME="RocPcServidor_ATL" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="RocPcServidor.res" FORMNAME="" UNITNAME="" CONTAINERID="ResTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="Principal.cpp" FORMNAME="Form1" UNITNAME="Principal" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="visualizar.cpp" FORMNAME="Form2" UNITNAME="visualizar" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="Foto.cpp" FORMNAME="" UNITNAME="Foto" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="socket.cpp" FORMNAME="" UNITNAME="socket" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="Unit3.cpp" FORMNAME="FGraficas" UNITNAME="Unit3" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="cfitsio.lib" FORMNAME="" UNITNAME="cfitsio.lib" CONTAINERID="LibTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="NTOFOCUS.LIB" FORMNAME="" UNITNAME="NTOFOCUS.LIB" CONTAINERID="LibTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+  </FILELIST>
+  <BUILDTOOLS>
+  </BUILDTOOLS>
+
+  <IDEOPTIONS>
+[Version Info]
+IncludeVerInfo=1
+AutoIncBuild=1
+MajorVer=1
+MinorVer=1
+Release=1
+Build=16
+Debug=0
+PreRelease=0
+Special=0
+Private=1
+DLL=0
+Locale=3082
+CodePage=1252
+
+[Version Info Keys]
+CompanyName=
+FileDescription=
+FileVersion=1.1.1.16
+InternalName=RocPcServidor
+LegalCopyright=
+LegalTrademarks=
+OriginalFilename=
+ProductName=Acor
+ProductVersion=1.0.0.0
+Comments=
+PrivateBuild=
+
+[HistoryLists\hlIncludePath]
+Count=15
+Item0=C:\Archivos de programa\Borland\CBuilder6\Projects;C:\Archivos de programa\Borland\CBuilder6\Bin;$(BCB)\include;$(BCB)\include\vcl;$(BCB)\include\atl
+Item1=C:\Archivos de programa\Borland\CBuilder6\Projects;C:\Archivos de programa\Borland\CBuilder6\Bin;C:\Archivos de programa\Borland\CBuilder5\Bin;C:\Archivos de programa\Borland\archivos de programa\borland\cbuilder3\bin;C:\Archivos de programa\Borland\CBuilder5\spv;D:\archivos de programa\borland\cbuilder3\projects;d:\archivos de programa\borland\cbuilder3\bin;C:\Archivos de programa\Borland\CBuilder5\comunes;C:\Archivos de programa\Borland\bin;$(BCB)\include;$(BCB)\include\vcl;$(BCB)\Components;$(BCB)\include\atl
+Item2=C:\Archivos de programa\Borland\CBuilder6\Bin;C:\Archivos de programa\Borland\CBuilder5\Bin;C:\Archivos de programa\Borland\archivos de programa\borland\cbuilder3\bin;C:\Archivos de programa\Borland\CBuilder5\spv;D:\archivos de programa\borland\cbuilder3\projects;d:\archivos de programa\borland\cbuilder3\bin;C:\Archivos de programa\Borland\CBuilder5\comunes;C:\Archivos de programa\Borland\bin;$(BCB)\include;$(BCB)\include\vcl;$(BCB)\Components;$(BCB)\include\atl
+Item3=C:\Archivos de programa\Borland\CBuilder6\Bin;C:\Archivos de programa\Borland\CBuilder5\Bin;C:\Archivos de programa\Borland\archivos de programa\borland\cbuilder3\bin;C:\Archivos de programa\Borland\CBuilder5\spv;D:\archivos de programa\borland\cbuilder3\projects;d:\archivos de programa\borland\cbuilder3\bin;C:\Archivos de programa\Borland\CBuilder5\comunes;C:\Archivos de programa\Borland\bin;$(BCB)\include;$(BCB)\include\vcl;$(BCB)\Components;$(BCB)\include\atl;$(BCB)\include\atl
+Item4=C:\Archivos de programa\Borland\CBuilder5\Bin;C:\Archivos de programa\Borland\archivos de programa\borland\cbuilder3\bin;C:\Archivos de programa\Borland\CBuilder5\spv;D:\archivos de programa\borland\cbuilder3\projects;d:\archivos de programa\borland\cbuilder3\bin;C:\Archivos de programa\Borland\CBuilder5\comunes;C:\Archivos de programa\Borland\bin;$(BCB)\include;$(BCB)\include\vcl;$(BCB)\Components;$(BCB)\include\atl
+Item5=C:\Archivos de programa\Borland\CBuilder5\Bin\;C:\Archivos de programa\Borland\archivos de programa\borland\cbuilder3\bin\;C:\Archivos de programa\Borland\CBuilder5\spv\;D:\archivos de programa\borland\cbuilder3\projects\;d:\archivos de programa\borland\cbuilder3\bin\;C:\Archivos de programa\Borland\CBuilder5\comunes\;C:\Archivos de programa\Borland\bin\;$(BCB)\include;$(BCB)\include\vcl;$(BCB)\Components;$(BCB)\include\atl
+Item6=C:\Archivos de programa\Borland\CBuilder5\Bin;C:\Archivos de programa\Borland\archivos de programa\borland\cbuilder3\bin\;C:\Archivos de programa\Borland\CBuilder5\spv\;D:\archivos de programa\borland\cbuilder3\projects\;d:\archivos de programa\borland\cbuilder3\bin\;C:\Archivos de programa\Borland\CBuilder5\comunes\;C:\Archivos de programa\Borland\bin\;$(BCB)\include;$(BCB)\include\vcl;$(BCB)\Components;$(BCB)\include\atl
+Item7=C:\Archivos de programa\Borland\archivos de programa\borland\cbuilder3\bin\;C:\Archivos de programa\Borland\CBuilder5\spv\;D:\archivos de programa\borland\cbuilder3\projects\;d:\archivos de programa\borland\cbuilder3\bin\;C:\Archivos de programa\Borland\CBuilder5\comunes\;C:\Archivos de programa\Borland\bin\;$(BCB)\include;$(BCB)\include\vcl;$(BCB)\Components;$(BCB)\include\atl
+Item8=..\..\archivos de programa\borland\cbuilder3\bin;..\spv;D:\archivos de programa\borland\cbuilder3\projects\;d:\archivos de programa\borland\cbuilder3\bin\;..\comunes;..\..\bin;$(BCB)\include;$(BCB)\include\vcl;$(BCB)\Components
+Item9=..\..\archivos de programa\borland\cbuilder3\bin;..\spv;..\..\..\..\archivos de programa\borland\cbuilder3\projects;d:\archivos de programa\borland\cbuilder3\projects;d:\archivos de programa\borland\cbuilder3\bin;..\comunes;..\..\bin;$(BCB)\include;$(BCB)\include\vcl;$(BCB)\Components
+Item10=d:\archivos de programa\borland\cbuilder3\projects;d:\archivos de programa\borland\cbuilder3\bin;..\comunes;..\..\bin;$(BCB)\include;$(BCB)\include\vcl;$(BCB)\Components
+Item11=..\comunes;..\..\bin;$(BCB)\include;$(BCB)\include\vcl;$(BCB)\Components
+Item12=..\..\bin;$(BCB)\include;$(BCB)\include\vcl;$(BCB)\Components
+Item13=$(BCB)\include;$(BCB)\include\vcl;$(BCB)\Components
+Item14=$(BCB)\include;$(BCB)\include\vcl
+
+[HistoryLists\hlLibraryPath]
+Count=14
+Item0=C:\Archivos de programa\Borland\CBuilder6\Projects;C:\Archivos de programa\Borland\CBuilder6\Bin;$(BCB)\lib\obj;$(BCB)\lib
+Item1=C:\Archivos de programa\Borland\CBuilder6\Projects;C:\Archivos de programa\Borland\CBuilder6\Bin;C:\Archivos de programa\Borland\CBuilder5\Bin;C:\Archivos de programa\Borland\archivos de programa\borland\cbuilder3\bin;C:\Archivos de programa\Borland\CBuilder5\spv;D:\archivos de programa\borland\cbuilder3\projects;d:\archivos de programa\borland\cbuilder3\bin;C:\Archivos de programa\Borland\CBuilder5\comunes;C:\Archivos de programa\Borland\bin;$(BCB)\lib\obj;$(BCB)\lib;$(BCB)\Components
+Item2=C:\Archivos de programa\Borland\CBuilder6\Bin;C:\Archivos de programa\Borland\CBuilder5\Bin;C:\Archivos de programa\Borland\archivos de programa\borland\cbuilder3\bin;C:\Archivos de programa\Borland\CBuilder5\spv;D:\archivos de programa\borland\cbuilder3\projects;d:\archivos de programa\borland\cbuilder3\bin;C:\Archivos de programa\Borland\CBuilder5\comunes;C:\Archivos de programa\Borland\bin;$(BCB)\lib\obj;$(BCB)\lib;$(BCB)\Components
+Item3=C:\Archivos de programa\Borland\CBuilder5\Bin;C:\Archivos de programa\Borland\archivos de programa\borland\cbuilder3\bin;C:\Archivos de programa\Borland\CBuilder5\spv;D:\archivos de programa\borland\cbuilder3\projects;d:\archivos de programa\borland\cbuilder3\bin;C:\Archivos de programa\Borland\CBuilder5\comunes;C:\Archivos de programa\Borland\bin;$(BCB)\lib\obj;$(BCB)\lib;$(BCB)\Components
+Item4=C:\Archivos de programa\Borland\CBuilder5\Bin\;C:\Archivos de programa\Borland\archivos de programa\borland\cbuilder3\bin\;C:\Archivos de programa\Borland\CBuilder5\spv\;D:\archivos de programa\borland\cbuilder3\projects\;d:\archivos de programa\borland\cbuilder3\bin\;C:\Archivos de programa\Borland\CBuilder5\comunes\;C:\Archivos de programa\Borland\bin\;$(BCB)\lib\obj;$(BCB)\lib;$(BCB)\Components
+Item5=C:\Archivos de programa\Borland\CBuilder5\Bin;C:\Archivos de programa\Borland\archivos de programa\borland\cbuilder3\bin\;C:\Archivos de programa\Borland\CBuilder5\spv\;D:\archivos de programa\borland\cbuilder3\projects\;d:\archivos de programa\borland\cbuilder3\bin\;C:\Archivos de programa\Borland\CBuilder5\comunes\;C:\Archivos de programa\Borland\bin\;$(BCB)\lib\obj;$(BCB)\lib;$(BCB)\Components
+Item6=C:\Archivos de programa\Borland\archivos de programa\borland\cbuilder3\bin\;C:\Archivos de programa\Borland\CBuilder5\spv\;D:\archivos de programa\borland\cbuilder3\projects\;d:\archivos de programa\borland\cbuilder3\bin\;C:\Archivos de programa\Borland\CBuilder5\comunes\;C:\Archivos de programa\Borland\bin\;$(BCB)\lib\obj;$(BCB)\lib;$(BCB)\Components
+Item7=..\..\archivos de programa\borland\cbuilder3\bin;..\spv;D:\archivos de programa\borland\cbuilder3\projects\;d:\archivos de programa\borland\cbuilder3\bin\;..\comunes;..\..\bin;$(BCB)\lib\obj;$(BCB)\lib;$(BCB)\Components
+Item8=..\..\archivos de programa\borland\cbuilder3\bin;..\spv;..\..\..\..\archivos de programa\borland\cbuilder3\projects;d:\archivos de programa\borland\cbuilder3\projects;d:\archivos de programa\borland\cbuilder3\bin;..\comunes;..\..\bin;$(BCB)\lib\obj;$(BCB)\lib;$(BCB)\Components
+Item9=d:\archivos de programa\borland\cbuilder3\projects;d:\archivos de programa\borland\cbuilder3\bin;..\comunes;..\..\bin;$(BCB)\lib\obj;$(BCB)\lib;$(BCB)\Components
+Item10=..\comunes;..\..\bin;$(BCB)\lib\obj;$(BCB)\lib;$(BCB)\Components
+Item11=..\..\bin;$(BCB)\lib\obj;$(BCB)\lib;$(BCB)\Components
+Item12=$(BCB)\lib\obj;$(BCB)\lib;$(BCB)\Components
+Item13=$(BCB)\lib\obj;$(BCB)\lib
+
+[HistoryLists\hlDebugSourcePath]
+Count=1
+Item0=$(BCB)\source\vcl
+
+[HistoryLists\hlConditionals]
+Count=2
+Item0=_DEBUG
+Item1=_RTLDLL
+
+[Debugging]
+DebugSourceDirs=$(BCB)\source\vcl
+
+[Parameters]
+RunParams=
+Launcher=
+UseLauncher=0
+DebugCWD=
+HostApplication=
+RemoteHost=
+RemotePath=
+RemoteLauncher=
+RemoteCWD=
+RemoteDebug=0
+
+[Compiler]
+ShowInfoMsgs=0
+LinkDebugVcl=0
+LinkCGLIB=0
+
+[Language]
+ActiveLang=
+ProjectLang=
+RootDir=
+  </IDEOPTIONS>
+</PROJECT>

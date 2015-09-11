@@ -1,0 +1,2 @@
+[ INFO] Autofocus: Fecha compilacion: Dec 25 2006 13:22:20
+[ INFO] Autofocus: Fecha ejecucion: 2015-08-17T16:16:52 

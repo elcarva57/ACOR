@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<RTML xmlns="x-schema:http://ASCOM-Standards.org/RTML/RTML-2.1.xdr" version="2.1">
+    <Contact>
+        <Email>rdenny@dc3.com</Email>
+        <User>Robert B. Denny</User>
+        <Organization>(#663) Red Mountain</Organization>
+    </Contact>
+    <Request>
+        <ID>101</ID>
+        <UserName>rdenny:mypasswd</UserName>
+        <Observers>Robert B. Denny</Observers>
+        <Reason>Test of XRTML</Reason>
+        <Schedule>
+            <Extinct>0.1</Extinct>
+            <Airmass>2.5</Airmass>
+            <Priority>1</Priority>
+        </Schedule>
+        <TimeStamp>2001-07-21T00:00:00</TimeStamp>
+        <Target count="2" interval="0.25">
+            <Name>IC 986</Name>
+            <Coordinates>
+                <RightAscension>212.85</RightAscension>
+                <Declination>1.3333</Declination>
+            </Coordinates>
+            <Picture>
+                <ExposureTime>60</ExposureTime>
+            </Picture>
+        </Target>
+    </Request>
+    <Request>
+        <ID>102</ID>
+        <UserName>rdenny</UserName>
+        <Observers>Robert B. Denny</Observers>
+        <TimeStamp>2001-07-13T23:46:00</TimeStamp>
+        <Target>
+            <Name>NGC 5564</Name>
+            <ObjectType>GlC</ObjectType>
+            <Coordinates>
+                <RightAscension>215.05</RightAscension>
+                <Declination>7.016667</Declination>
+            </Coordinates>
+            <Picture>
+                <ExposureTime>60</ExposureTime>
+                <Filter>R</Filter>
+            </Picture>
+            <Picture>
+                <ExposureTime>240</ExposureTime>
+                <Filter>B</Filter>
+            </Picture>
+        </Target>
+        <Target>
+            <Name>NGC 5575</Name>
+            <Coordinates>
+                <RightAscension>215.225</RightAscension>
+                <Declination>6.2000</Declination>
+            </Coordinates>
+            <Picture>
+                <ExposureTime>60</ExposureTime>
+            </Picture>
+        </Target>
+        <Correction dark="true" flat="true"/>
+    </Request>
+</RTML>
+
