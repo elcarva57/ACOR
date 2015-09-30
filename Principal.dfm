@@ -1193,7 +1193,7 @@ object Form1: TForm1
             Height = 15
             Align = alTop
             Alignment = taCenter
-            Caption = 'Ultimo Slew Recibido:'
+            Caption = 'Ultimo Slew Recibido2:'
             Font.Charset = ANSI_CHARSET
             Font.Color = clMaroon
             Font.Height = -12
@@ -1776,7 +1776,7 @@ object Form1: TForm1
           Width = 53
           Height = 21
           TabOrder = 3
-          Text = '#:GS#'
+          Text = 'h'
         end
         object BSendLX: TButton
           Left = 9

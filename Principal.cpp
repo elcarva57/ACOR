@@ -156,6 +156,36 @@ typedef struct     //configuracion de la estacion
 
 CONF_METEO confEMA;
 
+typedef struct     //Posición del telescopio
+{
+    unsigned short degLatA; // A is the number of degrees of latitude.
+    unsigned short minLatB; // B is the number of minutes of latitude.
+    unsigned short secLatC; // C is the number of seconds of latitude.
+    unsigned short nosLatD; // D is 0 for north and 1 for south.
+    unsigned short degLonE; // E is the number of degrees of longitude.
+    unsigned short minLonF; // F is the number of minutes of longitude.
+    unsigned short secLonG; // G is the number of seconds of longitude.
+    unsigned short eowLonH; // H is 0 for east and 1 for west.
+} SCOPE_POS;
+
+// Posición telescopio El Cerro:
+//                  40º25'5"N 3h33m11sW
+SCOPE_POS telPos = {40,25,5,0,3,33,11,1};
+
+typedef struct     //Fecha y hora del telescopio
+{
+    unsigned short horQ; // Q is the hour (24 hour clock).
+    unsigned short minR; // R is the minutes.
+    unsigned short secS; // S is the seconds.
+    unsigned short monT; // T is the month.
+    unsigned short dayU; // U is the day.
+    unsigned short yerV; // V is the year (century assumed as 20).
+    unsigned short offW; // W is the offset from GMT for the time zone. Note: if zone is negative, use 256-zone.
+    unsigned short dstX; // X is 1 to enable Daylight Savings and 0 for Standard Time.
+} SCOPE_DAT;
+
+SCOPE_DAT telDat;
+
 int CuentaMensMeteo;
 TDateTime Fecha;
 
@@ -2128,7 +2158,28 @@ void ProcesarCGEM()
 
         LXresponde = true;   //las fragmentadas por el momento no se usan
     }
+    if (Long == 9)  // Prueba get time
+    {
+        AnsiString cmd = Form1->ELXsend->Text;
+        if (cmd == "h")
+        {
+            sprintf(aux, " %02d:%02d:%02d  %04d-%02d-%02d %d Off %dDST %c",
+            BuffLX[0], BuffLX[1], BuffLX[2],
+            BuffLX[5] + 2000, BuffLX[3], BuffLX[4],
+            BuffLX[6], BuffLX[7], BuffLX[8]);
+        }
+        else if (cmd == "w")
+        {
+            AnsiString Lat = "N", Lon = "E";
+            if (BuffLX[3] == 1) Lat = "S";
+            if (BuffLX[7] == 1) Lon = "W";
 
+            sprintf(aux, " %02dº %02d' %02d\" %s %02dh %02dm %02ds %s %c",
+            BuffLX[0], BuffLX[1], BuffLX[2], Lat, BuffLX[4], BuffLX[5], BuffLX[6], Lon, BuffLX[8]);
+        }
+        TimeRxLX200 = Fecha.CurrentTime();
+        Historico->Mhistory->Lines->Add( AnsiString(TimeRxLX200) + "->" + AnsiString(aux) );
+    }
 }
 
 //==============================================================================
@@ -6546,11 +6597,93 @@ void __fastcall TForm1::BrtmlClick(TObject *Sender)
 {
     Fprog->Visible = true;
 }
+/*
+Time/Location Commands (Hand Control)
+The following commands set the time and location in the hand control.
+The format of the location commands is: ABCDEFGH, where:
+
+A is the number of degrees of latitude.
+B is the number of minutes of latitude.
+C is the number of seconds of latitude.
+D is 0 for north and 1 for south.
+E is the number of degrees of longitude.
+F is the number of minutes of longitude.
+G is the number of seconds of longitude.
+H is 0 for east and 1 for west.
+
+For example, to set (W) the location to
+118°20’17" W, 33°50’41" N
+you would send (note that latitude is before longitude):
+
+"W" & chr(33) & chr(50) & chr(41) & chr(0) & chr(118) & chr(20) & chr(17) & chr(1)
+
+The format of the time commands is: QRSTUVWX, where:
+
+Q is the hour (24 hour clock).
+R is the minutes.
+S is the seconds.
+T is the month.
+U is the day.
+V is the year (century assumed as 20).
+W is the offset from GMT for the time zone. Note: if zone is negative, use 256-zone.
+X is 1 to enable Daylight Savings and 0 for Standard Time.
+
+For example, to set (H) the time to
+3:26:00PM on April 6, 2005
+in the Eastern time zone (-5 UTC: 256-5 = 251) you would send:
+
+"H" & chr(15) & chr(26) & chr(0) & chr(4) & chr(6) & chr(5) & chr(251) & chr(1)
+
+Note: All values are sent in binary format, not ASCII.
+Note: The Get commands do not retrieve the time and location from the GPS unit (if one is present). The time and
+location are retrieved from the hand control. You must first enter the View Time/Site menu to update the hand control
+time if you want the time from the GPS or, use the GPS Commands in the next section.
+
+Function: Get Location
+Command : "w"
+Response: chr(A) & chr(B) & chr(C) & chr(D) & chr(E) & chr(F) & chr(G) & chr(H) & "#"
+
+Function: Set Location
+Command : "W" & chr(A)  & chr(B)  & chr(C)  & chr(D) & chr(E)   & chr(F)  & chr(G)  & chr(H)
+Example : "W" & chr(33) & chr(50) & chr(41) & chr(0) & chr(118) & chr(20) & chr(17) & chr(1)
+Example : 118°20'17" W, 33°50'41" N
+Response: "#"
+
+Function: Get Time
+Command : "h"
+Response: chr(Q) & chr(R) & chr(S) & chr(T) & chr(U) & chr(V) & chr(W) & chr(X) & "#"
+
+Function: Set Time
+Command : "H" & chr(Q)  & chr(R)  & chr(S) & chr(T) & chr(U) & chr(V) & chr(W)   & chr(X)
+Example : "H" & chr(15) & chr(26) & chr(0) & chr(4) & chr(6) & chr(5) & chr(251) & chr(1)
+Example : 3:26:00PM on April 6, 2005 in the Eastern time zone (-5 UTC: 256-5 = 251)
+Response: "#"
+
+*/
 //------------------------------------------------------------------------------
 void __fastcall TForm1::BSendLXClick(TObject *Sender)
 //------------------------------------------------------------------------------
 {
     pedidaRaDe = false;
+    char pos[9] = {'W', telPos.degLatA, telPos.minLatB, telPos.secLatC, telPos.nosLatD,
+                        telPos.degLonE, telPos.minLonF, telPos.secLonG, telPos.eowLonH};
+
+    EnviaLX(pos, 9);
+
+    TimeRxLX200 = Now();
+    unsigned short msc;
+    TimeRxLX200.DecodeTime(&telDat.horQ, &telDat.minR, &telDat.secS, &msc);
+    TimeRxLX200.DecodeDate(&telDat.yerV, &telDat.monT, &telDat.dayU);
+
+    telDat.yerV = telDat.yerV - 2000;
+
+    telDat.offW = 1; // UTC+1 (Madrid)
+    telDat.dstX = 1; // DST=1 (Madrid) Daylight Savings Time enabled
+
+    char tim[9] = {'H', telDat.horQ, telDat.minR, telDat.secS, telDat.monT,
+                        telDat.dayU, telDat.yerV, telDat.offW, telDat.dstX};
+
+    EnviaLX(tim, 9);
 
     EnviaLX(Form1->ELXsend->Text.c_str());
     //EnviaLX(":GT#");
