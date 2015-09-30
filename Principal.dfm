@@ -46,7 +46,7 @@ object Form1: TForm1
     Top = 0
     Width = 225
     Height = 675
-    ActivePage = CAMARA
+    ActivePage = TELESCOPIO
     Align = alLeft
     Constraints.MinWidth = 225
     Font.Charset = ANSI_CHARSET
@@ -58,7 +58,7 @@ object Form1: TForm1
     MultiLine = True
     ParentFont = False
     TabHeight = 17
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     TabPosition = tpLeft
     object CAMARA: TTabSheet
@@ -73,7 +73,7 @@ object Form1: TForm1
         object Label62: TLabel
           Left = 1
           Top = 17
-          Width = 198
+          Width = 110
           Height = 14
           Align = alTop
           Alignment = taCenter
@@ -101,7 +101,7 @@ object Form1: TForm1
         object Label43: TLabel
           Left = 1
           Top = 1
-          Width = 198
+          Width = 26
           Height = 16
           Align = alTop
           Alignment = taCenter
@@ -1931,7 +1931,7 @@ object Form1: TForm1
         object Label18: TLabel
           Left = 2
           Top = 2
-          Width = 192
+          Width = 98
           Height = 16
           Align = alTop
           Alignment = taCenter
@@ -1969,8 +1969,8 @@ object Form1: TForm1
           object Label72: TLabel
             Left = 1
             Top = 1
-            Width = 139
-            Height = 18
+            Width = 49
+            Height = 15
             Align = alClient
             Alignment = taCenter
             Caption = 'Auxiliar 3'
@@ -2018,8 +2018,8 @@ object Form1: TForm1
           object Label71: TLabel
             Left = 1
             Top = 1
-            Width = 139
-            Height = 18
+            Width = 49
+            Height = 15
             Align = alClient
             Alignment = taCenter
             Caption = 'Auxiliar 2'
@@ -2065,8 +2065,8 @@ object Form1: TForm1
           object Label70: TLabel
             Left = 1
             Top = 1
-            Width = 139
-            Height = 18
+            Width = 49
+            Height = 15
             Align = alClient
             Alignment = taCenter
             Caption = 'Auxiliar 1'
@@ -2112,8 +2112,8 @@ object Form1: TForm1
           object Label69: TLabel
             Left = 1
             Top = 1
-            Width = 139
-            Height = 18
+            Width = 42
+            Height = 15
             Align = alClient
             Alignment = taCenter
             Caption = 'Luz Flat'
@@ -2159,8 +2159,8 @@ object Form1: TForm1
           object Label68: TLabel
             Left = 1
             Top = 1
-            Width = 139
-            Height = 18
+            Width = 75
+            Height = 15
             Align = alClient
             Alignment = taCenter
             Caption = 'Calentadores'
@@ -2206,8 +2206,8 @@ object Form1: TForm1
           object Label67: TLabel
             Left = 1
             Top = 1
-            Width = 139
-            Height = 18
+            Width = 75
+            Height = 15
             Align = alClient
             Alignment = taCenter
             Caption = 'Apertura Obs.'
@@ -2259,8 +2259,8 @@ object Form1: TForm1
           object Label65: TLabel
             Left = 1
             Top = 1
-            Width = 139
-            Height = 18
+            Width = 60
+            Height = 15
             Align = alClient
             Alignment = taCenter
             Caption = 'Telescopio'
@@ -2306,8 +2306,8 @@ object Form1: TForm1
           object Label64: TLabel
             Left = 1
             Top = 1
-            Width = 139
-            Height = 18
+            Width = 64
+            Height = 15
             Align = alClient
             Alignment = taCenter
             Caption = 'CCD + CFS'
@@ -2355,7 +2355,7 @@ object Form1: TForm1
         object Label20: TLabel
           Left = 2
           Top = 2
-          Width = 192
+          Width = 104
           Height = 16
           Align = alTop
           Alignment = taCenter
@@ -2403,8 +2403,8 @@ object Form1: TForm1
             object LSensor6: TLabel
               Left = 1
               Top = 1
-              Width = 123
-              Height = 18
+              Width = 82
+              Height = 13
               Align = alClient
               Alignment = taCenter
               Caption = 'Alimentacion AC '
@@ -2436,8 +2436,8 @@ object Form1: TForm1
             object LSensor5: TLabel
               Left = 1
               Top = 1
-              Width = 123
-              Height = 18
+              Width = 86
+              Height = 13
               Align = alClient
               Alignment = taCenter
               Caption = 'Alarma Perimetral'
@@ -2469,8 +2469,8 @@ object Form1: TForm1
             object LSensor4: TLabel
               Left = 1
               Top = 1
-              Width = 123
-              Height = 18
+              Width = 93
+              Height = 13
               Align = alClient
               Alignment = taCenter
               Caption = 'Puerta Observatorio'
@@ -2502,8 +2502,8 @@ object Form1: TForm1
             object LSensor3: TLabel
               Left = 1
               Top = 1
-              Width = 123
-              Height = 18
+              Width = 58
+              Height = 13
               Align = alClient
               Alignment = taCenter
               Caption = 'Limites DEC'
@@ -2535,8 +2535,8 @@ object Form1: TForm1
             object LSensor2: TLabel
               Left = 1
               Top = 1
-              Width = 123
-              Height = 18
+              Width = 53
+              Height = 13
               Align = alClient
               Alignment = taCenter
               Caption = 'Limites AR '
@@ -2568,8 +2568,8 @@ object Form1: TForm1
             object LSensor1: TLabel
               Left = 1
               Top = 1
-              Width = 123
-              Height = 18
+              Width = 102
+              Height = 13
               Align = alClient
               Alignment = taCenter
               Caption = 'Apertura Observatorio'
@@ -2593,7 +2593,7 @@ object Form1: TForm1
         object Label63: TLabel
           Left = 2
           Top = 2
-          Width = 192
+          Width = 151
           Height = 16
           Align = alTop
           Alignment = taCenter
@@ -3093,7 +3093,7 @@ object Form1: TForm1
           object Label9: TLabel
             Left = 1
             Top = 1
-            Width = 194
+            Width = 32
             Height = 16
             Align = alTop
             Alignment = taCenter
@@ -3198,7 +3198,7 @@ object Form1: TForm1
         object Label55: TLabel
           Left = 2
           Top = 2
-          Width = 196
+          Width = 63
           Height = 16
           Align = alTop
           Alignment = taCenter
@@ -3591,7 +3591,7 @@ object Form1: TForm1
             Font.Height = -10
             Font.Name = 'Arial'
             Font.Style = []
-            ItemHeight = 13
+            ItemHeight = 0
             ParentFont = False
             TabOrder = 4
             OnChange = CBCCD_A_Change
@@ -3609,7 +3609,7 @@ object Form1: TForm1
             Font.Height = -10
             Font.Name = 'Arial'
             Font.Style = []
-            ItemHeight = 13
+            ItemHeight = 0
             ParentFont = False
             TabOrder = 5
             OnChange = CBCCD_B_Change
@@ -3724,7 +3724,7 @@ object Form1: TForm1
         object Label76: TLabel
           Left = 1
           Top = 1
-          Width = 198
+          Width = 48
           Height = 16
           Align = alTop
           Alignment = taCenter

@@ -1,76 +1,63 @@
 [Closed Files]
-File_0=SourceModule,'D:\C++\RocPcServidorAsp\ntofocus.h',0,1,1,1,42,0,0
-File_1=SourceModule,'D:\C++\RocPcServidorAsp\Unit3.cpp',0,1,44,3,69,0,0
-File_2=SourceModule,'D:\C++\RocPcServidorAsp\RUEDA.CPP',0,1,625,11,641,0,0
-File_3=SourceModule,'D:\C++\RocPcServidorAsp\SOCKET.cpp',0,1,66,18,82,0,0
-File_4=SourceModule,'D:\C++\RocPcServidorAsp\Programacion.cpp',0,1,730,50,746,0,0
-File_5=SourceModule,'D:\C++\RocPcServidorAsp\Historia.cpp',0,1,1,21,22,1,0
-File_6=SourceModule,'D:\C++\Version Info\src\Unit1.dfm',0,1,1,53,23,0,0
+File_0=SourceModule,'c:\program files (x86)\borland\cbuilder6\include\vcl\dstring.h',0,1,145,1,161,0,0
+File_1=SourceModule,'D:\Cpp\RocPcServidorAsp\conf_meteo.cpp',0,1,206,1,222,0,0
+File_2=SourceModule,'D:\C++\RocPcServidorAsp\visualizar.cpp',0,1,1,1,1,0,0
+File_3=SourceModule,'D:\C++\RocPcServidorAsp\Foto.cpp',0,1,37,38,207,0,0
+File_4=SourceModule,'D:\C++\RocPcServidorAsp\FocuserImpl.cpp',0,1,1,1,1,0,0
+File_5=SourceModule,'D:\C++\RocPcServidorAsp\cRocPcServidorImpl.cpp',0,1,87,31,103,0,0
 
 [Modules]
-Module0=D:\C++\RocPcServidorAsp\CCD1Impl.cpp
-Module1=D:\C++\RocPcServidorAsp\FocuserImpl.cpp
-Module2=D:\C++\RocPcServidorAsp\cRocPcServidorImpl.cpp
-Module3=D:\C++\RocPcServidorAsp\Foto.cpp
-Module4=D:\C++\RocPcServidorAsp\Enfoque.cpp
-Module5=D:\C++\RocPcServidorAsp\Principal.cpp
-Module6=D:\C++\RocPcServidorAsp\visualizar.cpp
-Module7=D:\C++\RocPcServidorAsp\Acor.bpr
-Count=8
+Module0=D:\Cpp\RocPcServidorAsp\CCD1Impl.cpp
+Module1=D:\Cpp\RocPcServidorAsp\FocuserImpl.cpp
+Module2=D:\Cpp\RocPcServidorAsp\cRocPcServidorImpl.cpp
+Module3=D:\Cpp\RocPcServidorAsp\Principal.cpp
+Module4=D:\Cpp\RocPcServidorAsp\Acor.bpr
+Module5=D:\Cpp\RocPcServidorAsp\SOCKET.cpp
+Count=6
 EditWindowCount=1
 TypeLibWindowCount=1
 
-[D:\C++\RocPcServidorAsp\CCD1Impl.cpp]
+[D:\Cpp\RocPcServidorAsp\CCD1Impl.cpp]
 ModuleType=SourceModule
 FormState=0
 FormOnTop=0
 
-[D:\C++\RocPcServidorAsp\FocuserImpl.cpp]
+[D:\Cpp\RocPcServidorAsp\FocuserImpl.cpp]
 ModuleType=SourceModule
 FormState=0
 FormOnTop=0
 
-[D:\C++\RocPcServidorAsp\cRocPcServidorImpl.cpp]
+[D:\Cpp\RocPcServidorAsp\cRocPcServidorImpl.cpp]
 ModuleType=SourceModule
 FormState=0
 FormOnTop=0
 
-[D:\C++\RocPcServidorAsp\Foto.cpp]
-ModuleType=SourceModule
-FormState=0
-FormOnTop=0
-
-[D:\C++\RocPcServidorAsp\Enfoque.cpp]
+[D:\Cpp\RocPcServidorAsp\Principal.cpp]
 ModuleType=SourceModule
 FormState=1
 FormOnTop=0
 
-[D:\C++\RocPcServidorAsp\Principal.cpp]
-ModuleType=SourceModule
-FormState=1
-FormOnTop=0
-
-[D:\C++\RocPcServidorAsp\visualizar.cpp]
-ModuleType=SourceModule
-FormState=0
-FormOnTop=1
-
-[D:\C++\RocPcServidorAsp\Acor.bpr]
+[D:\Cpp\RocPcServidorAsp\Acor.bpr]
 ModuleType=SourceModule
 FormState=0
 FormOnTop=0
 
-[D:\C++\RocPcServidorAsp\RocPcServidor.tlb]
+[D:\Cpp\RocPcServidorAsp\SOCKET.cpp]
+ModuleType=SourceModule
 FormState=0
-FormOnTop=1
+FormOnTop=0
 
 [C:\Program Files (x86)\Borland\CBuilder6\Projects\ProjectGroup1.bpg]
 FormState=0
 FormOnTop=0
 
+[D:\Cpp\RocPcServidorAsp\RocPcServidor.tlb]
+FormState=0
+FormOnTop=0
+
 [EditWindow0]
-ViewCount=8
-CurrentView=5
+ViewCount=7
+CurrentView=3
 View0=0
 View1=1
 View2=2
@@ -78,7 +65,6 @@ View3=3
 View4=4
 View5=5
 View6=6
-View7=7
 CodeExplorer=CodeExplorer@EditWindow0
 MessageView=MessageView@EditWindow0
 ClassHierarchy=ClassHierarchy@EditWindow0
@@ -100,59 +86,52 @@ BottomPanelClients=MessageView@EditWindow0
 BottomPanelData=00000400000000000605000000000000026700000000000000010000000000000000000000000100000000850300000000000001000000000605000000000000010000000006050000000000000100000000060500000000000001000000000605000000000000010000000006050000000000000100000000060500000B0000004D65737361676556696577FFFFFFFF
 
 [View0]
-Module=D:\C++\RocPcServidorAsp\Principal.cpp
-CursorX=22
-CursorY=4282
-TopLine=4266
+Module=D:\Cpp\RocPcServidorAsp\Principal.cpp
+CursorX=1
+CursorY=395
+TopLine=377
 LeftCol=1
 
 [View1]
-Module=D:\C++\RocPcServidorAsp\Enfoque.cpp
+Module=D:\Cpp\RocPcServidorAsp\cRocPcServidorImpl.cpp
 CursorX=1
 CursorY=1
 TopLine=1
 LeftCol=1
 
 [View2]
-Module=D:\C++\RocPcServidorAsp\Foto.cpp
-CursorX=38
-CursorY=207
-TopLine=37
+Module=D:\Cpp\RocPcServidorAsp\FocuserImpl.cpp
+CursorX=1
+CursorY=1
+TopLine=1
 LeftCol=1
 
 [View3]
-Module=D:\C++\RocPcServidorAsp\cRocPcServidorImpl.cpp
-CursorX=31
-CursorY=103
-TopLine=87
+Module=D:\Cpp\RocPcServidorAsp\CCD1Impl.cpp
+CursorX=1
+CursorY=1
+TopLine=1
 LeftCol=1
 
 [View4]
-Module=D:\C++\RocPcServidorAsp\FocuserImpl.cpp
-CursorX=1
-CursorY=1
-TopLine=1
+Module=D:\Cpp\RocPcServidorAsp\SOCKET.h
+CursorX=29
+CursorY=104
+TopLine=86
 LeftCol=1
 
 [View5]
-Module=D:\C++\RocPcServidorAsp\CCD1Impl.cpp
-CursorX=56
-CursorY=22
-TopLine=6
+Module=D:\Cpp\RocPcServidorAsp\SOCKET.cpp
+CursorX=25
+CursorY=857
+TopLine=850
 LeftCol=1
 
 [View6]
-Module=D:\C++\RocPcServidorAsp\visualizar.cpp
+Module=D:\Cpp\RocPcServidorAsp\Acor.cpp
 CursorX=1
-CursorY=1
-TopLine=1
-LeftCol=1
-
-[View7]
-Module=D:\C++\RocPcServidorAsp\Acor.cpp
-CursorX=48
-CursorY=21
-TopLine=20
+CursorY=47
+TopLine=25
 LeftCol=1
 
 [TypeLibEditWindow0]
@@ -167,7 +146,7 @@ MaxLeft=-1
 MaxTop=-1
 ClientWidth=642
 ClientHeight=419
-Module=D:\C++\RocPcServidorAsp\RocPcServidor.tlb
+Module=D:\Cpp\RocPcServidorAsp\RocPcServidor.tlb
 
 [Watches]
 Count=1
@@ -371,7 +350,7 @@ LRDockWidth=274
 Dockable=1
 SplitPos=144
 ArrangeBy=Name
-SelectedItem=Name
+SelectedItem=Hint
 ExpandedItems=DepthAxis.Axis,EdgeBorders,Font,LeftAxis,VisibleButtons
 HiddenCategories=Legacy
 

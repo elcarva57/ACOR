@@ -2,7 +2,13 @@
 // $SAVE $EDNAME --style=ansi -S --indent-preprocessor -p -L -H -Y
 // Montura Version 4.19 (V --> 04 13 23)
 // Montura Modelo    14 (m --> 0E 23)
+//
+// Utilities, Version:
+// HC: GEM 4.19
+// MC: 6.12 6.12
+// Mount Model: CGEM
 //------------------------------------------------------------------------------
+// includes generales
 #include <vcl.h>
 #pragma hdrstop
 #include <stdio.h>
@@ -12,7 +18,9 @@
 #include <ios>
 #include <sstream>
 #include <ostream>
+
 //---------------------------------------------------------------------------
+// includes proyecto
 #include "socket.h"
 #include "rueda.h"
 #include "ConfiFiltro.h"
@@ -37,6 +45,8 @@
 #include "ntofocus.h"
 #include "Historia.h"
 
+
+// defines
 #define min(a, b)  (((a) < (b)) ? (a) : (b))
 
 #define foco_proximo 500
@@ -46,6 +56,8 @@
 
 //#define EsperaCFSsg 15
 
+
+// variables
 int margen_enfoque = foco_proximo * 2;
 int periodo_x = 20;
 int pasos_x = 50;
@@ -325,8 +337,8 @@ bool CGEM = false;
 bool LX200 = false;
 bool HPREC = false;
 
-
 //---------------------------------------------------------------------------
+// Prototipos de funciones
 extern void LeerConfMeteo();
 void Slew_F(double Ra, double De);
 void Slew_F(char *comando);
@@ -381,11 +393,14 @@ void WriteHistory (AnsiString cadena);
 void EnviaLX(char *orden);
 void EnviaLX(char *orden, int long_orden);
 
+
 //==============================================================================
 //------------------------------------------------------------------------------
 //==============================================================================
 
+//------------------------------------------------------------------------------
 __fastcall TForm1::TForm1(TComponent* Owner) : TForm(Owner)
+//------------------------------------------------------------------------------
 {
     char *ptr;
     char aux[100];
@@ -560,10 +575,9 @@ __fastcall TForm1::TForm1(TComponent* Owner) : TForm(Owner)
     //   Form1->Timer2->Interval = confEMA.DiasGrafico * 60000;  // ajusta tiempo entre muestras
 }
 
-
-
-//---------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 void __fastcall TForm1::TBBininChange(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     PBinin->Caption = ((TTrackBar*)Sender)->Position;
     Binin = PBinin->Caption.ToInt();
@@ -596,9 +610,10 @@ void __fastcall TForm1::TBBininChange(TObject *Sender)
     FotoPrincipal->Resizear(NumeroColumnas, NumeroFilas);
     RellenarBitmap(0, 0, NumeroColumnas, NumeroFilas);
 }
-//---------------------------------------------------------------------------
 
+//==============================================================================
 void AnalizarCFS(char c)
+//==============================================================================
 {
     if (Filtro != NULL)
         Filtro->Analizar(c);
@@ -606,11 +621,11 @@ void AnalizarCFS(char c)
         Shuter->Analizar(c);
 }
 
-
-
 //---------------------------------------------------------------------------
 //-------Analiza cadena recibida---------------------------------------------
+//==============================================================================
 void ProcesarTESs(void)
+//==============================================================================
 {
     char Aux[3000];
     char cad[20];
@@ -697,8 +712,6 @@ void ProcesarTESs(void)
     }
 }
 
-
-
 /*
 void ProcesarTESs()  //atiende datos puerto serie A TESs
 {
@@ -783,7 +796,9 @@ void ProcesarTESs()  //atiende datos puerto serie A TESs
 }
 */
 
+//==============================================================================
 void ProcesarCFS()
+//==============================================================================
 {
     static char bufcfs[50];
     static int longbuf, pos, poscfs, inimens;
@@ -1002,7 +1017,9 @@ pos. 74: )   Fin de mensaje
                 ---------------------------
 */
 
+//==============================================================================
 void ProcesarMeteo()
+//==============================================================================
 {
     // static char Meteo[200];
     static int  Dif_LX, Dif_LY;
@@ -1525,13 +1542,14 @@ void ProcesarMeteo()
     } // fin del for
 }
 
-
 //-------------------------------------------------------------------
 //Se va guardando fichero mensual con los datos leidos de la estacion
 //-------------------------------------------------------------------
 
 //Leer datos EMAv2 via COM del programa EMA
+//==============================================================================
 void EMAv2COM()
+//==============================================================================
 {
     char aux[100];
     AnsiString cadEma;
@@ -1607,10 +1625,11 @@ void EMAv2COM()
     //    Historico->Mhistory->Lines->Add(Form1->Weather1->BarometricPressure);
 }
 
-
-
+//------------------------------------------------------------------------------
 //Creacion fichero de datos EMA
+//==============================================================================
 void FicheroEma()
+//==============================================================================
 {
     int k, sens;
     int cuenta = 0;
@@ -1745,11 +1764,13 @@ void FicheroEma()
     //  CopyFile(nombre, "mes_actual.txt",  NULL);
 }
 
-
+//---------------------------------------------------------------------------
 /*------------------------------------------------------------
   Crea o actualiza las graficas meteorologicas
 --------------------------------------------------------------*/
+//==============================================================================
 void DibujaGraficas()
+//==============================================================================
 {
     int kk;
 
@@ -1807,6 +1828,7 @@ LXdice: 19:30.2#+01ß02#
 EnvioLX #:GR##:GD#  18:14:07
 */
 
+//---------------------------------------------------------------------------
 // pedir AR DEC     #:GR#:GD#
 // pedir Alt Azimut #:GZ#:GA#
 //==============================================================================
@@ -1981,7 +2003,6 @@ void ProcesarLX200()
         CoordCal = CoordCal + ";" + (AnsiString)(cad);
     }
 }
-
 
 //==============================================================================
 void ProcesarCGEM()
@@ -2451,7 +2472,9 @@ AnsiString OrdenToArDec(char* ptr_buffer_in)
 
 //-------    Refresca informacion del panel de control ----------------------
 //-------- Es llamada desde el timer4 de 100ms  -----------------------------
+//==============================================================================
 void actualizar_datos(void)
+//==============================================================================
 {
     TColor col[2] = {clGray, clRed};
     TColor col1[2] = {clGray, clLime};
@@ -2601,10 +2624,9 @@ void actualizar_datos(void)
 
 }
 
-
-//---------------------------------------------------------------------------
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::FormDestroy(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     Timer1->Enabled = false;
     delete Filtro;
@@ -2613,12 +2635,13 @@ void __fastcall TForm1::FormDestroy(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-
 //---------------------------------------------------------------------------
 /*****************************************************/
 /* Print out cfitsio error messages and exit program */
 /*****************************************************/
+//------------------------------------------------------------------------------
 void __fastcall TForm1::printerror( int status)
+//------------------------------------------------------------------------------
 {
     char status_str[FLEN_STATUS], errmsg[FLEN_ERRMSG];
     char aux[300];
@@ -2636,10 +2659,9 @@ void __fastcall TForm1::printerror( int status)
     }
 }
 
-
-//---------------------------------------------------------------------------
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::BEnviarClick(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     char aux[300];
 
@@ -2661,11 +2683,9 @@ void __fastcall TForm1::BPonerHcorClick(TObject *Sender)
   S1->Escribir(aux, CBEnviar->Text.Length() + 2, S1->IPRabbit);
 }
 */
-
-
-//-----------------------------------------------------------------------
-
+//==============================================================================
 void RellenarBitmap(int x1, int y1, int x2, int y2)
+//==============================================================================
 {
     FotoPrincipal->Pintar(x1, y1, x2, y2);
 
@@ -2694,7 +2714,9 @@ void RellenarBitmap(int x1, int y1, int x2, int y2)
 //---------------------------------------------------------------
 //--------------------  Timer1 50ms Gestion Fotos  --------------------
 //---------------------------------------------------------------
+//------------------------------------------------------------------------------
 void __fastcall TForm1::Timer1Timer(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     char aux[300];
     char Name[80];
@@ -2964,7 +2986,9 @@ void __fastcall TForm1::Timer1Timer(TObject *Sender)
 // timer 2 de 60sg para la gestion de los graficos meteorologicos
 // Interval de T2 debe ser divisible por T3
 //-----------------------------------------------------------------------
+//------------------------------------------------------------------------------
 void __fastcall TForm1::Timer2Timer(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     char aux[300];
     static int refres_jpg;
@@ -3041,7 +3065,9 @@ void __fastcall TForm1::Timer2Timer(TObject *Sender)
 //---------------------------------------------------------------------------
 // ****** Timer de 5 sg  ********
 //peticion de informacion de meteo cada 5 segundos
+//------------------------------------------------------------------------------
 void __fastcall TForm1::Timer5Timer(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     if ((PBF->Position == 0) && (Lemav2->Visible == false))
     {
@@ -3057,7 +3083,9 @@ void __fastcall TForm1::Timer5Timer(TObject *Sender)
 // Abortar espera de foto
 // Regular temperatura.
 //---------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 void __fastcall TForm1::Timer3Timer(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     // necesario que T2/T3 = entero
     char aux[300];
@@ -3108,7 +3136,9 @@ void __fastcall TForm1::Timer3Timer(TObject *Sender)
 // Gestion mensajes CFS y Meteo
 // Coordenadas Telescopio
 //---------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 void __fastcall TForm1::Timer4Timer(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     char aux[3000];
     TJPEGImage *jp;
@@ -3511,14 +3541,12 @@ void __fastcall TForm1::Timer4Timer(TObject *Sender)
     SC->Brush->Color = ColorEstado;
 
 }
-//---------------------------------------------------------------------------
-
-
+//==============================================================================
 void HacerFoto( short x1, short y1, short x2, short y2, unsigned char binin,
                 short seg, short mseg, short NumCol, short NumFil,
                 unsigned char test, unsigned char cancel, short nfotos,
-                short limpiado, short obturador, short retraso, WideString nombppp
-              )
+                short limpiado, short obturador, short retraso, WideString nombppp)
+//==============================================================================
 {
     char *ptr;
     char aux[300];
@@ -3590,11 +3618,10 @@ void HacerFoto( short x1, short y1, short x2, short y2, unsigned char binin,
     //  FechaFoto = FechaFoto.CurrentDateTime();
     //  FechaFoto += (7000.0 / (24.0 * 60.0 * 60.0 * 1000.0));
 }
-//---------------------------------------------------------------------------
 
-
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::SpeedButton1Click(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     char aux[300];
     char sal = Salidas;
@@ -3686,10 +3713,10 @@ void __fastcall TForm1::SpeedButton1Click(TObject *Sender)
     aux[2] = sal;
     S1->Escribir(aux, 8, S1->IPRabbit);
 }
-//---------------------------------------------------------------------------
 
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::LConfigurarClick(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     TFConfiguracion *F;
 
@@ -3697,10 +3724,10 @@ void __fastcall TForm1::LConfigurarClick(TObject *Sender)
     F->ShowModal();
     delete F;
 }
-//---------------------------------------------------------------------------
 
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::BAbrirClick(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     fitsfile *fptr;                          // pointer to the FITS file, defined in fitsio.h
     int status, nkeys, keypos, hdutype, ii, jj;
@@ -3770,8 +3797,9 @@ void __fastcall TForm1::BAbrirClick(TObject *Sender)
     fits_close_file(fptr, &status);
 }
 
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::BGuardarClick(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     AnsiString N;
 
@@ -3795,9 +3823,10 @@ void __fastcall TForm1::BGuardarClick(TObject *Sender)
     else
         return;
 }
-//---------------------------------------------------------------------------
 
+//------------------------------------------------------------------------------
 void __fastcall TForm1::TBx0Change(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     double x, y;
 
@@ -3832,18 +3861,18 @@ void __fastcall TForm1::TBx0Change(TObject *Sender)
     }
     // RellenarBitmap(X1F, Y1F, X2F, Y2F);
 }
-//---------------------------------------------------------------------------
 
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::PCancelMouseDown(TObject *Sender,
         TMouseButton Button, TShiftState Shift, int X, int Y)
+//------------------------------------------------------------------------------
 {
     ((TPanel*)Sender)->BevelOuter = bvLowered;
 }
-//---------------------------------------------------------------------------
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::PCancelMouseUp(TObject *Sender,
                                        TMouseButton Button, TShiftState Shift, int X, int Y)
+//------------------------------------------------------------------------------
 {
     LeyendoFoto = false;
     FinFoto = true;
@@ -3879,22 +3908,21 @@ void __fastcall TForm1::PCancelMouseUp(TObject *Sender,
     */
 
 }
-//---------------------------------------------------------------------------
-
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::PB1Paint(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     RellenarBitmap(0, 0, FotoPrincipal->BM->Width, FotoPrincipal->BM->Height);
 }
-//---------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 void __fastcall TForm1::RBHClick(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     Lupa(celdaX, celdaY, FotoPrincipal, true);
 }
-//---------------------------------------------------------------------------
-
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::CBSelCamaraChange(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     if (CBSelCamara->ItemIndex == 0)
     {
@@ -3927,10 +3955,9 @@ void __fastcall TForm1::CBSelCamaraChange(TObject *Sender)
     RellenarBitmap(0, 0, NumeroColumnas, NumeroFilas);
     //   Memo1->Lines->Add("change cam Y1F: " + AnsiString(Y1F) + "  Y2F: " + AnsiString(Y2F));
 }
-//---------------------------------------------------------------------------
-
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::CBCCD_A_Change(TObject *Sender)
+//------------------------------------------------------------------------------
 {
 
     EFilaInicioA->Text = CCDs[CBCCD_A->ItemIndex].FilaInicio;// / Binin;
@@ -3945,10 +3972,9 @@ void __fastcall TForm1::CBCCD_A_Change(TObject *Sender)
     CCDs[CBCCD_A->ItemIndex].ColumnaFin =  EColumnaFinA->Text.ToInt();
     TForm1::CBSelCamaraChange(NULL);
 }
-//---------------------------------------------------------------------------
-
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::CBCCD_B_Change(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     EFilaInicioB->Text = CCDsB[CBCCD_B->ItemIndex].FilaInicio;// / Binin;
     EFilaFinB->Text = CCDsB[CBCCD_B->ItemIndex].FilaFin;// / Binin;
@@ -3962,10 +3988,9 @@ void __fastcall TForm1::CBCCD_B_Change(TObject *Sender)
 
     TForm1::CBSelCamaraChange(NULL);
 }
-//---------------------------------------------------------------------------
-
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::CBGuardarClick(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     if (((TCheckBox*)Sender)->State == cbChecked)
     {
@@ -3976,9 +4001,9 @@ void __fastcall TForm1::CBGuardarClick(TObject *Sender)
         // ENombreFichero->Enabled = false;
     }
 }
-//---------------------------------------------------------------------------
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::EFilaFinAChange(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     /*
       if(EFU->Text.ToInt() > CCDs[CBCCD_A->ItemIndex].FilasFisicas)
@@ -3998,11 +4023,10 @@ void __fastcall TForm1::EFilaFinAChange(TObject *Sender)
     */
 }
 //---------------------------------------------------------------------------
-
-
-
 //--------------Envia orden de moverse al motor de enfoque ------------------
+//==============================================================================
 void MueveEnfoque()
+//==============================================================================
 {
     char pasos[10];
     char periodox[4];
@@ -4030,10 +4054,9 @@ void MueveEnfoque()
         strcpy(Buf_Cfs[indice_cfs],  A.c_str());
     }
 }
-//---------------------------------------------------------------------------
-
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::subirClick(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     if (FinX == 1)
     {
@@ -4042,9 +4065,9 @@ void __fastcall TForm1::subirClick(TObject *Sender)
         MueveEnfoque();
     }
 }
-//---------------------------------------------------------------------------
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::bajarClick(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     if (FinX == 1)
     {
@@ -4053,32 +4076,27 @@ void __fastcall TForm1::bajarClick(TObject *Sender)
         MueveEnfoque();
     }
 }
-//---------------------------------------------------------------------------
-
-
-//---------------------------------------------------------------------------
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::BResetFocoClick(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     indice_cfs++;
     strcpy(Buf_Cfs[indice_cfs],  "<tf>");    // primero xo es LIFO
     //  errorcfs = 0; //desbloquea recepcion cfs
     FinX = 1;
 }
-//---------------------------------------------------------------------------
-
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::Button1Click(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     indice_cfs++;
     strcpy(Buf_Cfs[indice_cfs],  "<xf>"); // primero xo es LIFO
 
     FinX = 1;
 }
-//---------------------------------------------------------------------------
-
-
+//==============================================================================
 void Lupa(int X, int Y, cFoto *Foto, bool actualizar)
+//==============================================================================
 {
     float auxf;
     char aux[300];
@@ -4141,17 +4159,15 @@ void Lupa(int X, int Y, cFoto *Foto, bool actualizar)
         }
     }
 }
-//---------------------------------------------------------------------------
-
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::PB1Click(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     FActivo = NULL;
 }
-//---------------------------------------------------------------------------
-
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::BFlipxClick(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     if (FActivo != NULL)
     {
@@ -4165,18 +4181,16 @@ void __fastcall TForm1::BFlipxClick(TObject *Sender)
         RellenarBitmap(0, 0, NumeroColumnas, NumeroFilas);
     }
 }
-//---------------------------------------------------------------------------
-
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::DG2DrawCell(TObject *Sender, int ACol, int ARow,
                                     TRect &Rect, TGridDrawState State)
+//------------------------------------------------------------------------------
 {
     Lupa(celdaX, celdaY, FotoPrincipal, true);
 }
-//---------------------------------------------------------------------------
-
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::BFlipyClick(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     if (FActivo != NULL)
     {
@@ -4189,17 +4203,15 @@ void __fastcall TForm1::BFlipyClick(TObject *Sender)
         RellenarBitmap(0, 0, NumeroColumnas, NumeroFilas);
     }
 }
-//---------------------------------------------------------------------------
-
-
 /********    Actualiza la barra de horas ********/
+//==============================================================================
 void barra_horas(void)
+//==============================================================================
 {
 }
-//---------------------------------------------------------------------------
-
-
+//==============================================================================
 fitsfile * AbrirFoto(char *nombre)
+//==============================================================================
 {
     TForm2 *Form2;
     long primer_elemento = 1;
@@ -4318,12 +4330,11 @@ fitsfile * AbrirFoto(char *nombre)
     }
     return fptr;
 }
-//---------------------------------------------------------------------------
-
-
 /* Funcioncilla auxiliar para reconvertir coordenadas
 AR para que las lea Astrometrica de la cabecera FITS */
+//==============================================================================
 AnsiString ReconvShortAR(AnsiString arin)
+//==============================================================================
 {
     /*
     sprintf(aux.c_str(), " %02dh %02dm %02d.%02ds", RAHor, RAMin, RASec, RACse);
@@ -4343,12 +4354,11 @@ AnsiString ReconvShortAR(AnsiString arin)
     sprintf(buf, "%02d:%02d:%02d", myhh, myintmin, mysec);
     return (AnsiString(buf));
 }
-//---------------------------------------------------------------------------
-
-
 /* Funcioncilla auxiliar para reconvertir coordenadas
 DEC para que las lea Astrometrica de la cabecera FITS */
+//==============================================================================
 AnsiString ReconvShortDEC(AnsiString decin)
+//==============================================================================
 {
 
     //sprintf(aux, "%c%02dº %02d' %02d.%02d\"", cSign, DECGra, DECMin, DECSec, DECCse);
@@ -4373,8 +4383,6 @@ AnsiString ReconvShortDEC(AnsiString decin)
     sprintf(buf, "%c%02d:%02d:%02d", cSign, DECGra, DECMin, DECSec);
     return (AnsiString(buf));
 }
-//---------------------------------------------------------------------------
-
 
 /* FUNCION MODIFICADA POR RAFA (17/10/2004) */
 /* La metainformación se graba como FITS keywords siguiendo el "Amateur
@@ -4385,7 +4393,9 @@ en la cabecera  BZERO y BSCALE, la grabación de los datos de la imagen se realiz
 con un reescalado previo. En nuestro caso BSCALE=1.0 y BZERO=0.0, esto es una
 absoluta perdida de tiempo. Por ello no se incluyen en la cabecera y en este
 sentido no siguen el Amateur FITS Standard */
+//==============================================================================
 void GuardarFoto(char* nombre)
+//==============================================================================
 {
     fitsfile *fptr;       /* pointer to the FITS file, defined in fitsio.h */
     int status;
@@ -4618,12 +4628,13 @@ void GuardarFoto(char* nombre)
     delete datos;
     return;
 }
-//---------------------------------------------------------------------------
-
+//------------------------------------------------------------------------------
 
 /****************FUNCIONES LX200 *******************/
 
+//------------------------------------------------------------------------------
 void __fastcall TForm1::BstopClick(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     char aux[300];
 
@@ -4638,19 +4649,20 @@ void __fastcall TForm1::BstopClick(TObject *Sender)
     S1->Escribir(aux, strlen("#:Q#") + 2, S1->IPRabbit);
 
 }
-//---------------------------------------------------------------------------
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::BOClick(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     if (((TSpeedButton*)Sender)->Down == true)
         ((TSpeedButton*)Sender)->Down = false;
     else
         ((TSpeedButton*)Sender)->Down = true;
 }
-//---------------------------------------------------------------------------
 
 // Bufer de salida al Telescopio para LX200
+//==============================================================================
 void EnviaLX(char *orden)
+//==============================================================================
 {
     // WriteHistory("EnviaLX: " + AnsiString(orden));
 
@@ -4665,7 +4677,9 @@ void EnviaLX(char *orden)
 }
 
 // Bufer de salida al Telescopio para CGEM
+//==============================================================================
 void EnviaLX(char *orden, int long_orden)
+//==============================================================================
 {
     AnsiString buffer;
     AnsiString bufConta;
@@ -4694,9 +4708,10 @@ void EnviaLX(char *orden, int long_orden)
 
     cont_mensLX++;
 }
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::BSMouseDown(TObject *Sender, TMouseButton Button,
                                     TShiftState Shift, int X, int Y)
+//------------------------------------------------------------------------------
 {
     //int slewRate = 7;
     int arcsecBySec = 3600; // 1º/s
@@ -4839,11 +4854,10 @@ void __fastcall TForm1::BSMouseDown(TObject *Sender, TMouseButton Button,
             EnviaLX("#:Q#");
     }
 }
-//---------------------------------------------------------------------------
-
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::BNOMouseUp(TObject *Sender, TMouseButton Button,
                                    TShiftState Shift, int X, int Y)
+//------------------------------------------------------------------------------
 {
     char stopTrk[] = {'T', 0};  // Set tracking mode to 0 (Off)
     char starTrk[] = {'T', 2};  // Set tracking mode to 2 (EQ North)
@@ -4896,18 +4910,18 @@ void __fastcall TForm1::BNOMouseUp(TObject *Sender, TMouseButton Button,
             EnviaLX("#:Qn##:Qe#");
     }
 }
-//---------------------------------------------------------------------------
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::stSignClick(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     if (stSign->Caption == "+")
         stSign->Caption = "-" ;
     else
         stSign->Caption = "+";
 }
-//---------------------------------------------------------------------------
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::bbGoClick(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     char DecSgn = '+';
     DecSgn = (char)stSign->Caption.c_str()[0];
@@ -4975,18 +4989,18 @@ void __fastcall TForm1::bbGoClick(TObject *Sender)
         S1->Escribir(aux, strlen(&aux[2]) + 2, S1->IPRabbit);
     }
 }
-//---------------------------------------------------------------------------
-
+//==============================================================================
 void WriteHistory (AnsiString cadena)
+//==============================================================================
 {
     if (Form1->CBver_envio_lx->Checked == true)
     {
         Historico->Mhistory->Lines->Add(cadena);
     }
 }
-//---------------------------------------------------------------------------
-
+//==============================================================================
 void GetRaDe_F(double *Ra, double *De)
+//==============================================================================
 {
     /*
       char aux[300];
@@ -4999,9 +5013,9 @@ void GetRaDe_F(double *Ra, double *De)
     *Ra = tRa;    //son los valores recibidos en ProcesarLX200
     *De = tDe;
 }
-//---------------------------------------------------------------------------
-
+//==============================================================================
 void Slew_F(char *comando)
+//==============================================================================
 {
     int HoraSlew;				   	// RA, hours
     double dRAMin;				   	// RA, minutes
@@ -5037,11 +5051,11 @@ void Slew_F(char *comando)
     // S1->Escribir(aux, strlen(&aux[2])+2, S1->IPRabbit);
     EnviaLX(aux);
 }
-//---------------------------------------------------------------------------
-
 
 // -- recibe AR en horas decimales y DEC en grados decimales, envia cadena tipo LX200
+//==============================================================================
 void Slew_F(double dRA, double dDec)
+//==============================================================================
 {
     //char *ptr;
     //char aux[300];
@@ -5269,12 +5283,12 @@ void Slew_F(double dRA, double dDec)
     //S1->Escribir(aux, strlen(&aux[2])+2, S1->IPRabbit);
     EnviaLX(aux.c_str());
 }
-//---------------------------------------------------------------------------
-
+//------------------------------------------------------------------------------
 
 //            Sincronizar telescopio con ELBRUS
-//---------------------------------------------------------------------
+//------------------------------------------------------------------------------
 void __fastcall TForm1::BElbrusClick(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     FILE *in;
     char aqui[1000], cad[60];
@@ -5319,12 +5333,11 @@ void __fastcall TForm1::BElbrusClick(TObject *Sender)
         Application->MessageBox(aa.c_str(), " No se encuentra el fichero elbrus.aqi  ", MB_OKCANCEL	);
     }
 }
-//---------------------------------------------------------------------------
-
 
 //   Ver deriva con la foto anterior
-//---------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 void __fastcall TForm1::BDerivaAquiClick(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     FILE *in;
     char aqui[1000], cad[60], cad1[5], cad2[5];
@@ -5376,10 +5389,11 @@ void __fastcall TForm1::BDerivaAquiClick(TObject *Sender)
         TiempoGuiaAR = 0;
     }
 }
-//---------------------------------------------------------------------------
 
 //--- pruebas de guiado -----
+//------------------------------------------------------------------------------
 void __fastcall TForm1::BrecentrarARClick(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     char cad1[5], cad2[5];
 
@@ -5449,11 +5463,9 @@ void __fastcall TForm1::BrecentrarARClick(TObject *Sender)
         EnviaLX("#:RG#:Me#");
     }
 }
-//---------------------------------------------------------------------------
-
-
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::BrecentrarDECClick(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     char cad1[5], cad2[5];
 
@@ -5488,49 +5500,41 @@ void __fastcall TForm1::BrecentrarDECClick(TObject *Sender)
         EnviaLX("#:RG#:Ms#");
     }
 }
-//---------------------------------------------------------------------------
-
-
-
-
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::BGraficasClick(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     FGraficas->ShowModal();
 }
-//---------------------------------------------------------------------------
-
-
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::ServerSocket1Accept(TObject *Sender,
         TCustomWinSocket *Socket)
+//------------------------------------------------------------------------------
 {
     Socket1 = Socket;
 
 }
-//---------------------------------------------------------------------------
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::ServerSocket1ClientDisconnect(TObject *Sender,
         TCustomWinSocket *Socket)
+//------------------------------------------------------------------------------
 {
     Socket1 = NULL;
 
 }
-//---------------------------------------------------------------------------
-
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::ServerSocket1ClientError(TObject *Sender,
         TCustomWinSocket *Socket, TErrorEvent ErrorEvent, int &ErrorCode)
+//------------------------------------------------------------------------------
 {
     Socket1 = NULL;
 
 }
-//---------------------------------------------------------------------------
-
-
 // Lo que viene por el PUERTO SERIE VIRTUAL es enviado al telescopio
+//------------------------------------------------------------------------------
 void __fastcall TForm1::ServerSocket1ClientRead(TObject *Sender,
         TCustomWinSocket *Socket)
+//------------------------------------------------------------------------------
 {
     char aux[300];
     AnsiString A;
@@ -5543,16 +5547,15 @@ void __fastcall TForm1::ServerSocket1ClientRead(TObject *Sender,
     strcpy(&aux[2], A.c_str());
     S1->Escribir(aux, strlen(&aux[2]) + 2, S1->IPRabbit);
 }
-//---------------------------------------------------------------------------
-
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::BcambiaIPClick(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     S1->IniciarRabbit();
 }
-//---------------------------------------------------------------------------
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::BGuardaConfigClick(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     FILE *out;
 
@@ -5606,10 +5609,9 @@ void __fastcall TForm1::BGuardaConfigClick(TObject *Sender)
 
     fclose(out); /* close file */
 }
-//---------------------------------------------------------------------------
-
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::EColumnaFinAChange(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     /*
       if(ECU->Text.ToInt() > CCDs[CBCCD_A->ItemIndex].ColumnasFisicas)
@@ -5628,10 +5630,10 @@ void __fastcall TForm1::EColumnaFinAChange(TObject *Sender)
       }
     */
 }
-//---------------------------------------------------------------------------
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::UpDown1ChangingEx(TObject *Sender,
         bool &AllowChange, short NewValue, TUpDownDirection Direction)
+//------------------------------------------------------------------------------
 {
     if (Direction  == updUp)
     {
@@ -5648,10 +5650,9 @@ void __fastcall TForm1::UpDown1ChangingEx(TObject *Sender,
             UpDown1->Increment = 1;
     }
 }
-//---------------------------------------------------------------------------
-
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::CBimagenChange(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     CBGuardar->Checked = true;
 
@@ -5678,17 +5679,13 @@ void __fastcall TForm1::CBimagenChange(TObject *Sender)
        }
     */
 }
-//---------------------------------------------------------------------------
-
-
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::DirectoryListBox1Change(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     mPath =  DirectoryListBox1->Directory;
 }
 //---------------------------------------------------------------------------
-
-
 
 /*
 void Estadistica()  //calcula la media y el histograma
@@ -5732,7 +5729,6 @@ void Estadistica()  //calcula la media y el histograma
 }
  */
 
-
 /** FUNCION ADAPTADORA *
  *
  * Esta funciona adaptadora hace que tanto la region de fondo de cielo
@@ -5744,17 +5740,19 @@ void Estadistica()  //calcula la media y el histograma
  * Asume que la imagen es un buffer todo seguido de pixeles
  */
 
+//==============================================================================
 void ACOR_SetImage(pixel_t* img, int width, int height)
+//==============================================================================
 {
     AF_SetImage(img, width, height);
     AF_SetSkyRegion(0, 0, width - 1, height - 1);
     AF_SetCentroidRegion(0, 0, width - 1, height - 1);
 }
 
-
-//--------------------------------------------------------------------------------
 // Terminada una foto de enfoque, se procede a su analisis
+//==============================================================================
 void Enfoque()
+//==============================================================================
 {
     int width, height;
     long npixel;// - 1;
@@ -5845,28 +5843,26 @@ void Enfoque()
     Historico->Mhistory->Lines->Add("-> Pos: " + AnsiString(contador_pasos) + "  X: " + AnsiString(xc) + "  Y: " + AnsiString(yc) + "  hfd "  + AnsiString(hf));//+ " act " + AnsiString(FotoActual));
     //  Historico->Mhistory->Lines->Add(" X: " + AnsiString(xc) + " Y: " + AnsiString(yc) + "  hfd " + AnsiString(hf));
 }
-//---------------------------------------------------------------------------
-
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::BIniCalClick(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     AF_InitCalibration();
     AF_SetImage((short*)FotoPrincipal->Pixeles, FotoPrincipal->BM->Width, FotoPrincipal->BM->Height);
     Memo1->Lines->Add("Width =" + AnsiString(FotoPrincipal->BM->Width) + "  Height =" + AnsiString(FotoPrincipal->BM->Height));
 
 }
-//---------------------------------------------------------------------------
-
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::BFotoEnfocarClick(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     nfotos = FotoActual;   //lanza una toma
     // AF_SetImage(imagen, width, height);
 }
-
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::IFotoMouseDown(TObject *Sender,
                                        TMouseButton Button, TShiftState Shift, int X, int Y)
+//------------------------------------------------------------------------------
 {
     char *ptr;
     char aux[300];
@@ -5938,10 +5934,9 @@ void __fastcall TForm1::IFotoMouseDown(TObject *Sender,
         }
     }
 }
-//---------------------------------------------------------------------------
-
-
+//==============================================================================
 void QuitaRectangulo(void)
+//==============================================================================
 {
     /*   points[0] = Point(X1F,Y1F);
        points[1] = Point(X2F,Y1F);
@@ -5977,11 +5972,10 @@ void QuitaRectangulo(void)
     Form1->PY2->Caption = Y2T;
     //  PRecuadro->Caption = AnsiString(X2T-X1T) + " x " + AnsiString(Y2T-Y1T);
 }
-//---------------------------------------------------------------------------
-
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::PB1MouseDown(TObject *Sender, TMouseButton Button,
                                      TShiftState Shift, int X, int Y)
+//------------------------------------------------------------------------------
 {
     TPoint p, p2;
 
@@ -6049,10 +6043,10 @@ void __fastcall TForm1::PB1MouseDown(TObject *Sender, TMouseButton Button,
         }//fin boton izquierdo
     }
 }
-//---------------------------------------------------------------------------
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::PB1MouseMove(TObject *Sender, TShiftState Shift,
                                      int X, int Y)
+//------------------------------------------------------------------------------
 {
     if ((X >= FotoPrincipal->BM->Width) || (Y >= FotoPrincipal->BM->Height) || (X < 0) || (Y < 0))
     {
@@ -6098,10 +6092,10 @@ void __fastcall TForm1::PB1MouseMove(TObject *Sender, TShiftState Shift,
         //PRecuadro->Caption = AnsiString(X2T-X1T) + " x " + AnsiString(Y2T-Y1T);
     }
 }
-//---------------------------------------------------------------------------
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::PB1MouseUp(TObject *Sender, TMouseButton Button,
                                    TShiftState Shift, int X, int Y)
+//------------------------------------------------------------------------------
 {
     if ( CBRectangulo->State == cbChecked)
     {
@@ -6130,10 +6124,9 @@ void __fastcall TForm1::PB1MouseUp(TObject *Sender, TMouseButton Button,
         }
     }
 }
-//---------------------------------------------------------------------------
-
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::BPeltierAClick(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     char aux[20], aux2[20];
 
@@ -6150,11 +6143,9 @@ void __fastcall TForm1::BPeltierAClick(TObject *Sender)
     strcpy(Buf_Cfs[indice_cfs],  aux);
     VccdA = Form1->EVpelt_manA->Text.ToInt();
 }
-//---------------------------------------------------------------------------
-
-
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::BPeltierBClick(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     char aux[20], aux2[20];
 
@@ -6170,10 +6161,9 @@ void __fastcall TForm1::BPeltierBClick(TObject *Sender)
     indice_cfs++;
     strcpy(Buf_Cfs[indice_cfs],  aux);
 }
-//---------------------------------------------------------------------------
-
-
+//==============================================================================
 void RegularTccdA(void)
+//==============================================================================
 {
     char aux[60], aux2[60];
     AnsiString A;
@@ -6205,10 +6195,9 @@ void RegularTccdA(void)
         strcpy(Buf_Cfs[indice_cfs],  aux);
     }
 }
-//---------------------------------------------------------------------------
-
-
+//==============================================================================
 void RegularTccdB(void)
+//==============================================================================
 {
     char aux[60], aux2[60];
     static int TccdB_Adj;
@@ -6238,22 +6227,18 @@ void RegularTccdB(void)
         strcpy(Buf_Cfs[indice_cfs],  aux);
     }
 }
-//---------------------------------------------------------------------------
-
-
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::Button2Click(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     indice_cfs++;
     strcpy(Buf_Cfs[indice_cfs],  Form1->EEnviar_cfs->Text.c_str());
 
     //   errorcfs = 0;  //desbloquea recepcion cfs.
 }
-//---------------------------------------------------------------------------
-
-
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::BCalibrarMeteoClick(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     fp = new TFConfigMeteo(NULL);  //para que la ventana se cree cada vez que se abra
 
@@ -6261,34 +6246,28 @@ void __fastcall TForm1::BCalibrarMeteoClick(TObject *Sender)
     delete fp;
     fp = NULL;
 }
-//---------------------------------------------------------------------------
-
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::BHistoriaClick(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     Historico->Visible = true;
 }
-//---------------------------------------------------------------------------
-
-
-
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::Button3Click(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     Filtro->mover_rueda(3);   //prueba de mover_rueda
 }
-//---------------------------------------------------------------------------
-
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::BVergrafClick(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     //Form4->Series1->Clear();
     Form4->Visible = true;
 }
-//---------------------------------------------------------------------------
-
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::BGetBFPClick(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     //  int retornoBFP;
     char aux2[12];
@@ -6365,10 +6344,9 @@ void __fastcall TForm1::BGetBFPClick(TObject *Sender)
         Form4->PDatosV->Caption =  " DATOS INVALIDOS ";
     }
 }
-//---------------------------------------------------------------------------
-
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::BInitCalibrationClick(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     if (Application->MessageBox("¿Confirma autoenfoque SEMIAUTOMATICO?", "ATENCION", MB_OKCANCEL ) == IDCANCEL )
     {
@@ -6388,10 +6366,9 @@ void __fastcall TForm1::BInitCalibrationClick(TObject *Sender)
 
     Form1->BGetBFP->Enabled = true;
 }
-//---------------------------------------------------------------------------
-
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::BAutoEnfoqueClick(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     indice_cfs++;
     strcpy(Buf_Cfs[indice_cfs],  "<xp>");    // por si las moscas
@@ -6430,12 +6407,10 @@ void __fastcall TForm1::BAutoEnfoqueClick(TObject *Sender)
         Y1F = Y2F - 80;
     }
 }
-//---------------------------------------------------------------------------
-
-
 //-------------  Timer de 1sg para gestion del autoenfoque   -----------------
-//---------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 void __fastcall TForm1::Timer6Timer(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     char aux2[12];
     char aux3[12];
@@ -6521,12 +6496,9 @@ void __fastcall TForm1::Timer6Timer(TObject *Sender)
         strcpy(Buf_Cfs[indice_cfs],  "<xp>");  //
     }
 }
-//---------------------------------------------------------------------------
-
-
-
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::EPasosEnfoqueChange(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     if ( Form1->EPasosEnfoque->Text.Trim() == "")
     {
@@ -6546,9 +6518,9 @@ void __fastcall TForm1::EPasosEnfoqueChange(TObject *Sender)
         Form1->EPasosEnfoque->Text = pasos_x;
     }
 }
-//---------------------------------------------------------------------------
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::EVelocidadEnfoqueChange(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     if ( Form1->EVelocidadEnfoque->Text.Trim() == "")
     {
@@ -6568,27 +6540,24 @@ void __fastcall TForm1::EVelocidadEnfoqueChange(TObject *Sender)
         Form1->EVelocidadEnfoque->Text = periodo_x;
     }
 }
-//---------------------------------------------------------------------------
-
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::BrtmlClick(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     Fprog->Visible = true;
 }
-//---------------------------------------------------------------------------
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::BSendLXClick(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     pedidaRaDe = false;
 
     EnviaLX(Form1->ELXsend->Text.c_str());
     //EnviaLX(":GT#");
 }
-//---------------------------------------------------------------------------
-
-
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::BBAbrirObsClick(TObject *Sender)
+//------------------------------------------------------------------------------
 {
 
     if (Lemav2->Visible)
@@ -6631,9 +6600,9 @@ void __fastcall TForm1::BBAbrirObsClick(TObject *Sender)
         }
     }
 }
-//---------------------------------------------------------------------------
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::CBCGEMClick(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     if (CBCGEM->Checked == true)
     {
@@ -6650,9 +6619,9 @@ void __fastcall TForm1::CBCGEMClick(TObject *Sender)
         cbPrecision->Visible = false;
     }
 }
-//---------------------------------------------------------------------------
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::MaskEditChange(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     int valor = 0;
     if (TryStrToInt(((TMaskEdit*)(Sender))->Text, valor));
@@ -6660,9 +6629,9 @@ void __fastcall TForm1::MaskEditChange(TObject *Sender)
     if (valor > 59)
         ((TMaskEdit*)(Sender))->Text = "59";
 }
-//---------------------------------------------------------------------------
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::EHraChange(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     int valor = 0;
     if (TryStrToInt(((TMaskEdit*)(Sender))->Text, valor));
@@ -6670,9 +6639,9 @@ void __fastcall TForm1::EHraChange(TObject *Sender)
     if (valor > 23)
         ((TMaskEdit*)(Sender))->Text = "23";
 }
-//---------------------------------------------------------------------------
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::EDdecChange(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     int valor = 0;
     if (TryStrToInt(((TMaskEdit*)(Sender))->Text, valor));
@@ -6680,11 +6649,10 @@ void __fastcall TForm1::EDdecChange(TObject *Sender)
     if (valor > 90)
         ((TMaskEdit*)(Sender))->Text = "90";
 }
-//---------------------------------------------------------------------------
-
+//------------------------------------------------------------------------------
 void __fastcall TForm1::CBSincronizarClick(TObject *Sender)
+//------------------------------------------------------------------------------
 {
     Sincronizando = ((TCheckBox*)Sender)->State;
 }
-//---------------------------------------------------------------------------
-
+//------------------------------------------------------------------------------
