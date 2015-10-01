@@ -6668,6 +6668,9 @@ void __fastcall TForm1::BSendLXClick(TObject *Sender)
     char pos[9] = {'W', telPos.degLatA, telPos.minLatB, telPos.secLatC, telPos.nosLatD,
                         telPos.degLonE, telPos.minLonF, telPos.secLonG, telPos.eowLonH};
 
+    SYSTEMTIME SysTime;
+    GetSystemTime(&SysTime);
+
     EnviaLX(pos, 9);
 
     TimeRxLX200 = Now();
@@ -6788,4 +6791,88 @@ void __fastcall TForm1::CBSincronizarClick(TObject *Sender)
 {
     Sincronizando = ((TCheckBox*)Sender)->State;
 }
+
 //------------------------------------------------------------------------------
+void __fastcall TForm1::tsCGEMShow(TObject *Sender)
+//------------------------------------------------------------------------------
+{
+    pedidaRaDe = false;
+
+    char timeUTC[9];
+    char timeLOC[9];
+
+    SYSTEMTIME SysTime;
+    GetSystemTime(&SysTime);
+
+    TimeRxLX200 = Now();
+    unsigned short msc;
+    TimeRxLX200.DecodeTime(&telDat.horQ, &telDat.minR, &telDat.secS, &msc);
+    TimeRxLX200.DecodeDate(&telDat.yerV, &telDat.monT, &telDat.dayU);
+
+    sprintf(timeUTC, "%02d:%02d:%02d", SysTime.wHour, SysTime.wMinute, SysTime.wSecond);
+    sprintf(timeLOC, "%02d:%02d:%02d", telDat.horQ, telDat.minR, telDat.secS);
+
+    Form1->eUTC->Text = timeUTC;
+    Form1->eLocal->Text = timeLOC;
+}
+
+//------------------------------------------------------------------------------
+void __fastcall TForm1::bUTCClick(TObject *Sender)
+//------------------------------------------------------------------------------
+{
+    pedidaRaDe = false;
+
+    unsigned short off, dst;
+
+    off = 0;
+    dst = Form1->cbDST->Checked;
+
+    SYSTEMTIME SysTime;
+    GetSystemTime(&SysTime);
+
+    char tim[10] = {'H', SysTime.wHour, SysTime.wMinute, SysTime.wSecond, SysTime.wMonth,
+                         SysTime.wDay, SysTime.wYear - 2000, off, dst};
+
+    EnviaLX(tim, 9);
+
+    sprintf(tim, "%02d:%02d:%02d", SysTime.wHour, SysTime.wMinute, SysTime.wSecond);
+
+    Form1->eUTC->Text = tim;
+}
+
+//------------------------------------------------------------------------------
+void __fastcall TForm1::bLocalClick(TObject *Sender)
+//------------------------------------------------------------------------------
+{
+    pedidaRaDe = false;
+
+    TimeRxLX200 = Now();
+    unsigned short msc;
+    TimeRxLX200.DecodeTime(&telDat.horQ, &telDat.minR, &telDat.secS, &msc);
+    TimeRxLX200.DecodeDate(&telDat.yerV, &telDat.monT, &telDat.dayU);
+
+    telDat.yerV = telDat.yerV - 2000;
+
+    telDat.offW = Form1->eOffset->Text.ToInt();
+    telDat.dstX = Form1->cbDST->Checked;
+
+    char tim[10] = {'H', telDat.horQ, telDat.minR, telDat.secS, telDat.monT,
+                         telDat.dayU, telDat.yerV, telDat.offW, telDat.dstX};
+    EnviaLX(tim, 9);
+
+    sprintf(tim, "%02d:%02d:%02d", telDat.horQ, telDat.minR, telDat.secS);
+
+    Form1->eLocal->Text = tim;
+}
+
+//------------------------------------------------------------------------------
+void __fastcall TForm1::bPosClick(TObject *Sender)
+//------------------------------------------------------------------------------
+{
+    pedidaRaDe = false;
+    char pos[10] = {'W', telPos.degLatA, telPos.minLatB, telPos.secLatC, telPos.nosLatD,
+                         telPos.degLonE, telPos.minLonF, telPos.secLonG, telPos.eowLonH};
+
+    EnviaLX(pos, 9);
+}
+

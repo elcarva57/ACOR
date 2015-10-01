@@ -86,9 +86,9 @@ LeftCol=1
 
 [View1]
 Module=D:\Cpp\RocPcServidorAsp\Principal.cpp
-CursorX=31
-CursorY=6673
-TopLine=6663
+CursorX=18
+CursorY=6865
+TopLine=6843
 LeftCol=1
 
 [View2]
@@ -328,8 +328,8 @@ LRDockWidth=274
 Dockable=1
 SplitPos=144
 ArrangeBy=Name
-SelectedItem=Caption
-ExpandedItems=DepthAxis.Axis,EdgeBorders,Font,LeftAxis,VisibleButtons
+SelectedItem=OnClick
+ExpandedItems=Anchors,DepthAxis.Axis,EdgeBorders,Font,Images,LeftAxis,VisibleButtons
 HiddenCategories=Legacy
 
 [BreakpointWindow]

@@ -2,7 +2,7 @@ object Form1: TForm1
   Left = 216
   Top = 76
   Width = 1024
-  Height = 710
+  Height = 800
   BorderIcons = [biMinimize, biMaximize]
   Caption = '   Control Observatorio Remoto'
   Color = clBtnFace
@@ -41,12 +41,720 @@ object Form1: TForm1
   OnDestroy = FormDestroy
   PixelsPerInch = 96
   TextHeight = 16
+  object Panel7: TPanel
+    Left = 250
+    Top = 0
+    Width = 758
+    Height = 765
+    Align = alClient
+    Caption = 'Panel7'
+    TabOrder = 0
+    object Label61: TLabel
+      Left = 1
+      Top = 648
+      Width = 756
+      Height = 17
+      Align = alBottom
+      Caption = 'Cabecera fit:'
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -15
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+    end
+    object PFotoO: TScrollBox
+      Left = 1
+      Top = 23
+      Width = 756
+      Height = 625
+      Align = alClient
+      BevelInner = bvNone
+      BevelOuter = bvRaised
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -10
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 0
+      object PB1: TPaintBox
+        Left = 5
+        Top = 2
+        Width = 630
+        Height = 423
+        Cursor = crArrow
+        Color = clBlack
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -10
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+        ParentShowHint = False
+        ShowHint = False
+        OnClick = PB1Click
+        OnMouseDown = PB1MouseDown
+        OnMouseMove = PB1MouseMove
+        OnMouseUp = PB1MouseUp
+        OnPaint = PB1Paint
+      end
+    end
+    object Panel56: TPanel
+      Left = 1
+      Top = 720
+      Width = 756
+      Height = 44
+      Align = alBottom
+      TabOrder = 1
+      object LHoraSideral: TLabel
+        Left = 437
+        Top = 3
+        Width = 51
+        Height = 16
+        Caption = 'Hsideral'
+      end
+      object Panel49: TPanel
+        Left = 209
+        Top = 3
+        Width = 208
+        Height = 39
+        Align = alCustom
+        TabOrder = 0
+        object Label1: TLabel
+          Left = 13
+          Top = 7
+          Width = 10
+          Height = 12
+          Caption = 'X:'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -10
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label44: TLabel
+          Left = 37
+          Top = 23
+          Width = 28
+          Height = 12
+          Caption = 'Valor:'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -10
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label45: TLabel
+          Left = 73
+          Top = 7
+          Width = 9
+          Height = 12
+          Caption = 'Y:'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -10
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label14: TLabel
+          Left = 132
+          Top = 22
+          Width = 24
+          Height = 12
+          Caption = 'Max:'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -10
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label15: TLabel
+          Left = 132
+          Top = 6
+          Width = 21
+          Height = 12
+          Caption = 'Min:'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -10
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object PP: TPanel
+          Left = 71
+          Top = 21
+          Width = 37
+          Height = 15
+          Alignment = taRightJustify
+          BevelOuter = bvLowered
+          Caption = '0'
+          Color = clSilver
+          Enabled = False
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -10
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 0
+        end
+        object PY: TPanel
+          Left = 85
+          Top = 5
+          Width = 36
+          Height = 15
+          Alignment = taRightJustify
+          BevelOuter = bvLowered
+          Caption = '0'
+          Color = clSilver
+          Enabled = False
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -10
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 1
+        end
+        object PX: TPanel
+          Left = 25
+          Top = 4
+          Width = 37
+          Height = 15
+          Alignment = taRightJustify
+          BevelOuter = bvLowered
+          Caption = '0'
+          Color = clSilver
+          Enabled = False
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -10
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 2
+        end
+        object PMax: TPanel
+          Left = 157
+          Top = 20
+          Width = 37
+          Height = 15
+          Hint = 'max'
+          Alignment = taRightJustify
+          BevelOuter = bvLowered
+          Caption = '0'
+          Color = clSilver
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -10
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 3
+        end
+        object PMin: TPanel
+          Left = 158
+          Top = 4
+          Width = 37
+          Height = 15
+          Hint = 'min'
+          Alignment = taRightJustify
+          BevelOuter = bvLowered
+          Caption = '0'
+          Color = clSilver
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -10
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 4
+        end
+      end
+      object Panel59: TPanel
+        Left = 4
+        Top = 3
+        Width = 203
+        Height = 38
+        TabOrder = 1
+        object Label4: TLabel
+          Left = 68
+          Top = 4
+          Width = 16
+          Height = 12
+          Caption = 'X1:'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -10
+          Font.Name = 'Arial'
+          Font.Pitch = fpFixed
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label6: TLabel
+          Left = 135
+          Top = 5
+          Width = 16
+          Height = 12
+          Caption = 'X2:'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -10
+          Font.Name = 'Arial'
+          Font.Pitch = fpFixed
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label5: TLabel
+          Left = 69
+          Top = 20
+          Width = 16
+          Height = 12
+          Caption = 'Y1:'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -10
+          Font.Name = 'Arial'
+          Font.Pitch = fpFixed
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label7: TLabel
+          Left = 135
+          Top = 20
+          Width = 16
+          Height = 12
+          Caption = 'Y2:'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -10
+          Font.Name = 'Arial'
+          Font.Pitch = fpFixed
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label57: TLabel
+          Left = 4
+          Top = 4
+          Width = 59
+          Height = 16
+          Caption = 'Recuadro:'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Pitch = fpFixed
+          Font.Style = []
+          ParentFont = False
+        end
+        object PX1: TPanel
+          Left = 90
+          Top = 4
+          Width = 37
+          Height = 15
+          Alignment = taRightJustify
+          BevelOuter = bvLowered
+          Caption = '0'
+          Color = clSilver
+          Enabled = False
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -10
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 0
+        end
+        object PX2: TPanel
+          Left = 154
+          Top = 4
+          Width = 36
+          Height = 15
+          Alignment = taRightJustify
+          BevelOuter = bvLowered
+          Caption = '768'
+          Color = clSilver
+          Enabled = False
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -10
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 1
+        end
+        object PY1: TPanel
+          Left = 90
+          Top = 20
+          Width = 37
+          Height = 15
+          Alignment = taRightJustify
+          BevelOuter = bvLowered
+          Caption = '0'
+          Color = clSilver
+          Enabled = False
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -10
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 2
+        end
+        object PY2: TPanel
+          Left = 154
+          Top = 20
+          Width = 37
+          Height = 15
+          Alignment = taRightJustify
+          BevelOuter = bvLowered
+          Caption = '512'
+          Color = clSilver
+          Enabled = False
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -10
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 3
+        end
+        object PRecuadro: TPanel
+          Left = 8
+          Top = 20
+          Width = 57
+          Height = 15
+          Alignment = taRightJustify
+          BevelOuter = bvLowered
+          Caption = '0'
+          Color = clSilver
+          Enabled = False
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -10
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 4
+        end
+      end
+      object Panel27: TPanel
+        Left = 523
+        Top = 4
+        Width = 94
+        Height = 37
+        TabOrder = 2
+        object Label59: TLabel
+          Left = 5
+          Top = 19
+          Width = 54
+          Height = 14
+          Caption = 'Fallos UDP:'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object Label58: TLabel
+          Left = 3
+          Top = 1
+          Width = 58
+          Height = 16
+          Caption = 'Conexion:'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object SC: TShape
+          Left = 68
+          Top = 5
+          Width = 12
+          Height = 13
+          Brush.Color = clRed
+          Shape = stCircle
+        end
+        object PPerdidos: TPanel
+          Left = 62
+          Top = 19
+          Width = 26
+          Height = 14
+          BevelOuter = bvLowered
+          Caption = '0'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clRed
+          Font.Height = -10
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 0
+        end
+      end
+      object BHistoria: TButton
+        Left = 434
+        Top = 21
+        Width = 71
+        Height = 20
+        Caption = 'Mensajes'
+        TabOrder = 3
+        OnClick = BHistoriaClick
+      end
+      object Button3: TButton
+        Left = 660
+        Top = 3
+        Width = 28
+        Height = 24
+        Caption = 'F 3'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 4
+        OnClick = Button3Click
+      end
+      object PStatus: TPanel
+        Left = 667
+        Top = 28
+        Width = 17
+        Height = 13
+        TabOrder = 5
+      end
+    end
+    object Memo1: TMemo
+      Left = 1
+      Top = 665
+      Width = 756
+      Height = 55
+      Align = alBottom
+      Color = clSilver
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -10
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+      ScrollBars = ssVertical
+      TabOrder = 2
+    end
+    object Panel6: TPanel
+      Left = 1
+      Top = 1
+      Width = 756
+      Height = 22
+      Align = alTop
+      TabOrder = 3
+      object Label12: TLabel
+        Left = 5
+        Top = 4
+        Width = 37
+        Height = 15
+        Caption = 'Negro:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label13: TLabel
+        Left = 210
+        Top = 4
+        Width = 41
+        Height = 15
+        Caption = 'Blanco:'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+      end
+      object TLabel
+        Left = 570
+        Top = 2
+        Width = 26
+        Height = 16
+        Caption = 'f c +'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+      end
+      object TLabel
+        Left = 504
+        Top = 2
+        Width = 22
+        Height = 16
+        Caption = 'f c -'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Ex0: TEdit
+        Left = 45
+        Top = 3
+        Width = 42
+        Height = 15
+        AutoSize = False
+        BevelInner = bvNone
+        BevelKind = bkSoft
+        BorderStyle = bsNone
+        Color = clCream
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = 'Arial'
+        Font.Style = []
+        MaxLength = 4
+        ParentFont = False
+        ReadOnly = True
+        TabOrder = 0
+        Text = '0'
+      end
+      object Ey0: TEdit
+        Left = 253
+        Top = 3
+        Width = 42
+        Height = 15
+        AutoSize = False
+        BevelInner = bvNone
+        BevelKind = bkSoft
+        BorderStyle = bsNone
+        Color = clCream
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = 'Arial'
+        Font.Style = []
+        MaxLength = 4
+        ParentFont = False
+        ReadOnly = True
+        TabOrder = 1
+        Text = '32767'
+      end
+      object TBy0: TTrackBar
+        Left = 295
+        Top = 4
+        Width = 115
+        Height = 17
+        LineSize = 10
+        Max = 32767
+        Min = 1
+        Orientation = trHorizontal
+        PageSize = 50
+        Frequency = 25
+        Position = 32767
+        SelEnd = 0
+        SelStart = 0
+        TabOrder = 2
+        ThumbLength = 10
+        TickMarks = tmBoth
+        TickStyle = tsNone
+        OnChange = TBx0Change
+      end
+      object TBx0: TTrackBar
+        Left = 91
+        Top = 5
+        Width = 115
+        Height = 16
+        LineSize = 10
+        Max = 32767
+        Orientation = trHorizontal
+        PageSize = 50
+        Frequency = 25
+        Position = 0
+        SelEnd = 0
+        SelStart = 0
+        TabOrder = 3
+        ThumbLength = 10
+        TickMarks = tmBoth
+        TickStyle = tsNone
+        OnChange = TBx0Change
+      end
+      object estirar_alto: TEdit
+        Left = 597
+        Top = 3
+        Width = 38
+        Height = 16
+        AutoSize = False
+        BevelInner = bvNone
+        BevelKind = bkSoft
+        BorderStyle = bsNone
+        Color = clCream
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 4
+        Text = '400'
+      end
+      object CBautostrech: TCheckBox
+        Left = 416
+        Top = 4
+        Width = 83
+        Height = 17
+        Caption = 'Visu. Auto'
+        Checked = True
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+        State = cbChecked
+        TabOrder = 5
+      end
+      object estirar_bajo: TEdit
+        Left = 527
+        Top = 2
+        Width = 38
+        Height = 16
+        AutoSize = False
+        BevelInner = bvNone
+        BevelKind = bkSoft
+        BorderStyle = bsNone
+        Color = clCream
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 6
+        Text = '100'
+      end
+    end
+  end
   object PageControl1: TPageControl
     Left = 0
     Top = 0
-    Width = 225
-    Height = 675
-    ActivePage = TELESCOPIO
+    Width = 250
+    Height = 765
+    ActivePage = tsCGEM
     Align = alLeft
     Constraints.MinWidth = 225
     Font.Charset = ANSI_CHARSET
@@ -58,22 +766,22 @@ object Form1: TForm1
     MultiLine = True
     ParentFont = False
     TabHeight = 17
-    TabIndex = 1
-    TabOrder = 0
+    TabIndex = 7
+    TabOrder = 1
     TabPosition = tpLeft
     object CAMARA: TTabSheet
       Caption = 'ADQUISICION'
       object Panel11: TPanel
         Left = 0
         Top = 308
-        Width = 200
-        Height = 359
+        Width = 225
+        Height = 449
         Align = alClient
         TabOrder = 0
         object Label62: TLabel
           Left = 1
           Top = 17
-          Width = 110
+          Width = 223
           Height = 14
           Align = alTop
           Alignment = taCenter
@@ -101,7 +809,7 @@ object Form1: TForm1
         object Label43: TLabel
           Left = 1
           Top = 1
-          Width = 26
+          Width = 223
           Height = 16
           Align = alTop
           Alignment = taCenter
@@ -444,7 +1152,7 @@ object Form1: TForm1
       object Panel63: TPanel
         Left = 0
         Top = 0
-        Width = 200
+        Width = 225
         Height = 308
         Align = alTop
         BevelWidth = 2
@@ -1923,7 +2631,7 @@ object Form1: TForm1
       object Panel12: TPanel
         Left = 0
         Top = 0
-        Width = 196
+        Width = 204
         Height = 222
         Align = alTop
         BevelInner = bvRaised
@@ -2347,7 +3055,7 @@ object Form1: TForm1
       object Panel21: TPanel
         Left = 0
         Top = 222
-        Width = 196
+        Width = 204
         Height = 171
         Align = alTop
         BevelInner = bvRaised
@@ -3025,7 +3733,7 @@ object Form1: TForm1
       object Panel53: TPanel
         Left = 0
         Top = 81
-        Width = 200
+        Width = 225
         Height = 582
         Align = alTop
         BevelWidth = 2
@@ -3033,7 +3741,7 @@ object Form1: TForm1
         object DG2: TDrawGrid
           Left = 2
           Top = 59
-          Width = 196
+          Width = 221
           Height = 196
           TabStop = False
           Align = alTop
@@ -3060,7 +3768,7 @@ object Form1: TForm1
         object DG1: TDrawGrid
           Left = 2
           Top = 255
-          Width = 196
+          Width = 221
           Height = 124
           TabStop = False
           Align = alTop
@@ -3086,14 +3794,14 @@ object Form1: TForm1
         object Panel55: TPanel
           Left = 2
           Top = 2
-          Width = 196
+          Width = 221
           Height = 57
           Align = alTop
           TabOrder = 2
           object Label9: TLabel
             Left = 1
             Top = 1
-            Width = 32
+            Width = 219
             Height = 16
             Align = alTop
             Alignment = taCenter
@@ -3190,7 +3898,7 @@ object Form1: TForm1
       object Panel54: TPanel
         Left = 0
         Top = 0
-        Width = 200
+        Width = 225
         Height = 81
         Align = alTop
         BevelWidth = 2
@@ -3198,7 +3906,7 @@ object Form1: TForm1
         object Label55: TLabel
           Left = 2
           Top = 2
-          Width = 63
+          Width = 221
           Height = 16
           Align = alTop
           Alignment = taCenter
@@ -3243,7 +3951,7 @@ object Form1: TForm1
         object PFicheroAbierto: TPanel
           Left = 2
           Top = 58
-          Width = 196
+          Width = 221
           Height = 21
           Align = alBottom
           Alignment = taRightJustify
@@ -3264,12 +3972,12 @@ object Form1: TForm1
       object Panel60: TPanel
         Left = 0
         Top = 113
-        Width = 200
+        Width = 225
         Height = 75
         Align = alTop
         TabOrder = 0
         DesignSize = (
-          200
+          225
           75)
         object Label52: TLabel
           Left = 14
@@ -3298,7 +4006,7 @@ object Form1: TForm1
           ParentFont = False
         end
         object ELimpiado: TEdit
-          Left = 173
+          Left = 181
           Top = 12
           Width = 18
           Height = 16
@@ -3356,7 +4064,7 @@ object Form1: TForm1
       object Panel62: TPanel
         Left = 0
         Top = 0
-        Width = 200
+        Width = 225
         Height = 113
         Align = alTop
         BevelInner = bvRaised
@@ -3364,7 +4072,7 @@ object Form1: TForm1
         object Panel57: TPanel
           Left = 2
           Top = 2
-          Width = 196
+          Width = 221
           Height = 110
           Align = alTop
           TabOrder = 0
@@ -3591,7 +4299,7 @@ object Form1: TForm1
             Font.Height = -10
             Font.Name = 'Arial'
             Font.Style = []
-            ItemHeight = 0
+            ItemHeight = 13
             ParentFont = False
             TabOrder = 4
             OnChange = CBCCD_A_Change
@@ -3609,7 +4317,7 @@ object Form1: TForm1
             Font.Height = -10
             Font.Name = 'Arial'
             Font.Style = []
-            ItemHeight = 0
+            ItemHeight = 13
             ParentFont = False
             TabOrder = 5
             OnChange = CBCCD_B_Change
@@ -3691,7 +4399,7 @@ object Form1: TForm1
       object Panel52: TPanel
         Left = 0
         Top = 188
-        Width = 200
+        Width = 225
         Height = 339
         Align = alTop
         TabOrder = 2
@@ -3724,7 +4432,7 @@ object Form1: TForm1
         object Label76: TLabel
           Left = 1
           Top = 1
-          Width = 48
+          Width = 223
           Height = 16
           Align = alTop
           Alignment = taCenter
@@ -4246,7 +4954,7 @@ object Form1: TForm1
       object Panel3: TPanel
         Left = 0
         Top = 0
-        Width = 200
+        Width = 208
         Height = 625
         Align = alTop
         BevelInner = bvRaised
@@ -4784,7 +5492,7 @@ object Form1: TForm1
         end
       end
     end
-    object TabSheet1: TTabSheet
+    object tsElbrus: TTabSheet
       Caption = 'ELBRUS'
       ImageIndex = 6
       object Panel28: TPanel
@@ -4955,712 +5663,104 @@ object Form1: TForm1
         TabOrder = 1
       end
     end
-  end
-  object Panel7: TPanel
-    Left = 225
-    Top = 0
-    Width = 783
-    Height = 675
-    Align = alClient
-    Caption = 'Panel7'
-    TabOrder = 1
-    object Label61: TLabel
-      Left = 1
-      Top = 558
-      Width = 781
-      Height = 17
-      Align = alBottom
-      Caption = 'Cabecera fit:'
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -15
-      Font.Name = 'Arial'
-      Font.Style = []
-      ParentFont = False
-    end
-    object PFotoO: TScrollBox
-      Left = 1
-      Top = 23
-      Width = 781
-      Height = 535
-      Align = alClient
-      BevelInner = bvNone
-      BevelOuter = bvRaised
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -10
-      Font.Name = 'Arial'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 0
-      object PB1: TPaintBox
-        Left = 5
-        Top = 2
-        Width = 630
-        Height = 423
-        Cursor = crArrow
-        Color = clBlack
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -10
-        Font.Name = 'Arial'
-        Font.Style = [fsBold]
-        ParentColor = False
-        ParentFont = False
-        ParentShowHint = False
-        ShowHint = False
-        OnClick = PB1Click
-        OnMouseDown = PB1MouseDown
-        OnMouseMove = PB1MouseMove
-        OnMouseUp = PB1MouseUp
-        OnPaint = PB1Paint
-      end
-    end
-    object Panel56: TPanel
-      Left = 1
-      Top = 630
-      Width = 781
-      Height = 44
-      Align = alBottom
-      TabOrder = 1
-      object LHoraSideral: TLabel
-        Left = 437
-        Top = 3
-        Width = 51
-        Height = 16
-        Caption = 'Hsideral'
-      end
-      object Panel49: TPanel
-        Left = 209
-        Top = 3
-        Width = 208
-        Height = 39
-        Align = alCustom
+    object tsCGEM: TTabSheet
+      Caption = 'CGEM'
+      ImageIndex = 2
+      OnShow = tsCGEMShow
+      object pCGEM: TPanel
+        Left = 0
+        Top = 0
+        Width = 225
+        Height = 321
+        Align = alTop
         TabOrder = 0
-        object Label1: TLabel
-          Left = 13
-          Top = 7
-          Width = 10
-          Height = 12
-          Caption = 'X:'
+        object eUTC: TEdit
+          Left = 0
+          Top = 24
+          Width = 90
+          Height = 26
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -10
-          Font.Name = 'Arial'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object Label44: TLabel
-          Left = 37
-          Top = 23
-          Width = 28
-          Height = 12
-          Caption = 'Valor:'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -10
-          Font.Name = 'Arial'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object Label45: TLabel
-          Left = 73
-          Top = 7
-          Width = 9
-          Height = 12
-          Caption = 'Y:'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -10
-          Font.Name = 'Arial'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object Label14: TLabel
-          Left = 132
-          Top = 22
-          Width = 24
-          Height = 12
-          Caption = 'Max:'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -10
-          Font.Name = 'Arial'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object Label15: TLabel
-          Left = 132
-          Top = 6
-          Width = 21
-          Height = 12
-          Caption = 'Min:'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -10
-          Font.Name = 'Arial'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object PP: TPanel
-          Left = 71
-          Top = 21
-          Width = 37
-          Height = 15
-          Alignment = taRightJustify
-          BevelOuter = bvLowered
-          Caption = '0'
-          Color = clSilver
-          Enabled = False
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -10
-          Font.Name = 'Arial'
-          Font.Style = [fsBold]
+          Font.Height = -16
+          Font.Name = 'Courier New'
+          Font.Style = []
           ParentFont = False
           TabOrder = 0
         end
-        object PY: TPanel
-          Left = 85
-          Top = 5
-          Width = 36
-          Height = 15
-          Alignment = taRightJustify
-          BevelOuter = bvLowered
-          Caption = '0'
-          Color = clSilver
-          Enabled = False
+        object eLocal: TEdit
+          Left = 0
+          Top = 50
+          Width = 90
+          Height = 26
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -10
-          Font.Name = 'Arial'
-          Font.Style = [fsBold]
+          Font.Height = -16
+          Font.Name = 'Courier New'
+          Font.Style = []
           ParentFont = False
           TabOrder = 1
         end
-        object PX: TPanel
-          Left = 25
-          Top = 4
-          Width = 37
-          Height = 15
-          Alignment = taRightJustify
-          BevelOuter = bvLowered
-          Caption = '0'
-          Color = clSilver
-          Enabled = False
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -10
-          Font.Name = 'Arial'
-          Font.Style = [fsBold]
-          ParentFont = False
+        object bUTC: TButton
+          Left = 144
+          Top = 24
+          Width = 75
+          Height = 25
+          Caption = 'Send UTC'
           TabOrder = 2
+          OnClick = bUTCClick
         end
-        object PMax: TPanel
-          Left = 157
-          Top = 20
-          Width = 37
-          Height = 15
-          Hint = 'max'
-          Alignment = taRightJustify
-          BevelOuter = bvLowered
-          Caption = '0'
-          Color = clSilver
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -10
-          Font.Name = 'Arial'
-          Font.Style = [fsBold]
-          ParentFont = False
-          ParentShowHint = False
-          ShowHint = True
+        object bLocal: TButton
+          Left = 144
+          Top = 50
+          Width = 75
+          Height = 25
+          Caption = 'Send Local'
           TabOrder = 3
+          OnClick = bLocalClick
         end
-        object PMin: TPanel
-          Left = 158
-          Top = 4
-          Width = 37
-          Height = 15
-          Hint = 'min'
-          Alignment = taRightJustify
-          BevelOuter = bvLowered
-          Caption = '0'
-          Color = clSilver
+        object eOffset: TEdit
+          Left = 96
+          Top = 50
+          Width = 25
+          Height = 26
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
-          Font.Height = -10
-          Font.Name = 'Arial'
-          Font.Style = [fsBold]
-          ParentFont = False
-          ParentShowHint = False
-          ShowHint = True
-          TabOrder = 4
-        end
-      end
-      object Panel59: TPanel
-        Left = 4
-        Top = 3
-        Width = 203
-        Height = 38
-        TabOrder = 1
-        object Label4: TLabel
-          Left = 68
-          Top = 4
-          Width = 16
-          Height = 12
-          Caption = 'X1:'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -10
-          Font.Name = 'Arial'
-          Font.Pitch = fpFixed
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object Label6: TLabel
-          Left = 135
-          Top = 5
-          Width = 16
-          Height = 12
-          Caption = 'X2:'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -10
-          Font.Name = 'Arial'
-          Font.Pitch = fpFixed
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object Label5: TLabel
-          Left = 69
-          Top = 20
-          Width = 16
-          Height = 12
-          Caption = 'Y1:'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -10
-          Font.Name = 'Arial'
-          Font.Pitch = fpFixed
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object Label7: TLabel
-          Left = 135
-          Top = 20
-          Width = 16
-          Height = 12
-          Caption = 'Y2:'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -10
-          Font.Name = 'Arial'
-          Font.Pitch = fpFixed
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object Label57: TLabel
-          Left = 4
-          Top = 4
-          Width = 59
-          Height = 16
-          Caption = 'Recuadro:'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -13
-          Font.Name = 'Arial'
-          Font.Pitch = fpFixed
+          Font.Height = -16
+          Font.Name = 'Courier New'
           Font.Style = []
-          ParentFont = False
-        end
-        object PX1: TPanel
-          Left = 90
-          Top = 4
-          Width = 37
-          Height = 15
-          Alignment = taRightJustify
-          BevelOuter = bvLowered
-          Caption = '0'
-          Color = clSilver
-          Enabled = False
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -10
-          Font.Name = 'Arial'
-          Font.Style = [fsBold]
-          ParentFont = False
-          TabOrder = 0
-        end
-        object PX2: TPanel
-          Left = 154
-          Top = 4
-          Width = 36
-          Height = 15
-          Alignment = taRightJustify
-          BevelOuter = bvLowered
-          Caption = '768'
-          Color = clSilver
-          Enabled = False
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -10
-          Font.Name = 'Arial'
-          Font.Style = [fsBold]
-          ParentFont = False
-          TabOrder = 1
-        end
-        object PY1: TPanel
-          Left = 90
-          Top = 20
-          Width = 37
-          Height = 15
-          Alignment = taRightJustify
-          BevelOuter = bvLowered
-          Caption = '0'
-          Color = clSilver
-          Enabled = False
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -10
-          Font.Name = 'Arial'
-          Font.Style = [fsBold]
-          ParentFont = False
-          TabOrder = 2
-        end
-        object PY2: TPanel
-          Left = 154
-          Top = 20
-          Width = 37
-          Height = 15
-          Alignment = taRightJustify
-          BevelOuter = bvLowered
-          Caption = '512'
-          Color = clSilver
-          Enabled = False
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -10
-          Font.Name = 'Arial'
-          Font.Style = [fsBold]
-          ParentFont = False
-          TabOrder = 3
-        end
-        object PRecuadro: TPanel
-          Left = 8
-          Top = 20
-          Width = 57
-          Height = 15
-          Alignment = taRightJustify
-          BevelOuter = bvLowered
-          Caption = '0'
-          Color = clSilver
-          Enabled = False
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -10
-          Font.Name = 'Arial'
-          Font.Style = [fsBold]
           ParentFont = False
           TabOrder = 4
+          Text = '1'
         end
-      end
-      object Panel27: TPanel
-        Left = 523
-        Top = 4
-        Width = 94
-        Height = 37
-        TabOrder = 2
-        object Label59: TLabel
-          Left = 5
-          Top = 19
-          Width = 54
-          Height = 14
-          Caption = 'Fallos UDP:'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -11
-          Font.Name = 'Arial'
-          Font.Style = []
-          ParentFont = False
+        object upOffset: TUpDown
+          Left = 121
+          Top = 50
+          Width = 16
+          Height = 25
+          Associate = eOffset
+          Min = -12
+          Max = 12
+          Position = 1
+          TabOrder = 5
+          Wrap = False
         end
-        object Label58: TLabel
-          Left = 3
-          Top = 1
-          Width = 58
-          Height = 16
-          Caption = 'Conexion:'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -13
-          Font.Name = 'Arial'
-          Font.Style = []
-          ParentFont = False
+        object cbDST: TCheckBox
+          Left = 0
+          Top = 88
+          Width = 137
+          Height = 17
+          Caption = 'Daylight Saving Time'
+          TabOrder = 6
         end
-        object SC: TShape
-          Left = 68
-          Top = 5
-          Width = 12
-          Height = 13
-          Brush.Color = clRed
-          Shape = stCircle
+        object bPos: TButton
+          Left = 147
+          Top = 114
+          Width = 75
+          Height = 25
+          Caption = 'Send Position'
+          TabOrder = 7
+          OnClick = bPosClick
         end
-        object PPerdidos: TPanel
-          Left = 62
-          Top = 19
-          Width = 26
-          Height = 14
-          BevelOuter = bvLowered
-          Caption = '0'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clRed
-          Font.Height = -10
-          Font.Name = 'MS Sans Serif'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 0
-        end
-      end
-      object BHistoria: TButton
-        Left = 434
-        Top = 21
-        Width = 71
-        Height = 20
-        Caption = 'Mensajes'
-        TabOrder = 3
-        OnClick = BHistoriaClick
-      end
-      object Button3: TButton
-        Left = 660
-        Top = 3
-        Width = 28
-        Height = 24
-        Caption = 'F 3'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -11
-        Font.Name = 'MS Sans Serif'
-        Font.Style = []
-        ParentFont = False
-        TabOrder = 4
-        OnClick = Button3Click
-      end
-      object PStatus: TPanel
-        Left = 667
-        Top = 28
-        Width = 17
-        Height = 13
-        TabOrder = 5
-      end
-    end
-    object Memo1: TMemo
-      Left = 1
-      Top = 575
-      Width = 781
-      Height = 55
-      Align = alBottom
-      Color = clSilver
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -10
-      Font.Name = 'Arial'
-      Font.Style = []
-      ParentFont = False
-      ScrollBars = ssVertical
-      TabOrder = 2
-    end
-    object Panel6: TPanel
-      Left = 1
-      Top = 1
-      Width = 781
-      Height = 22
-      Align = alTop
-      TabOrder = 3
-      object Label12: TLabel
-        Left = 5
-        Top = 4
-        Width = 37
-        Height = 15
-        Caption = 'Negro:'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -12
-        Font.Name = 'Arial'
-        Font.Style = []
-        ParentFont = False
-      end
-      object Label13: TLabel
-        Left = 210
-        Top = 4
-        Width = 41
-        Height = 15
-        Caption = 'Blanco:'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -12
-        Font.Name = 'Arial'
-        Font.Style = []
-        ParentFont = False
-      end
-      object TLabel
-        Left = 570
-        Top = 2
-        Width = 26
-        Height = 16
-        Caption = 'f c +'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -13
-        Font.Name = 'Arial'
-        Font.Style = []
-        ParentFont = False
-      end
-      object TLabel
-        Left = 504
-        Top = 2
-        Width = 22
-        Height = 16
-        Caption = 'f c -'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -13
-        Font.Name = 'Arial'
-        Font.Style = []
-        ParentFont = False
-      end
-      object Ex0: TEdit
-        Left = 45
-        Top = 3
-        Width = 42
-        Height = 15
-        AutoSize = False
-        BevelInner = bvNone
-        BevelKind = bkSoft
-        BorderStyle = bsNone
-        Color = clCream
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -12
-        Font.Name = 'Arial'
-        Font.Style = []
-        MaxLength = 4
-        ParentFont = False
-        ReadOnly = True
-        TabOrder = 0
-        Text = '0'
-      end
-      object Ey0: TEdit
-        Left = 253
-        Top = 3
-        Width = 42
-        Height = 15
-        AutoSize = False
-        BevelInner = bvNone
-        BevelKind = bkSoft
-        BorderStyle = bsNone
-        Color = clCream
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -12
-        Font.Name = 'Arial'
-        Font.Style = []
-        MaxLength = 4
-        ParentFont = False
-        ReadOnly = True
-        TabOrder = 1
-        Text = '32767'
-      end
-      object TBy0: TTrackBar
-        Left = 295
-        Top = 4
-        Width = 115
-        Height = 17
-        LineSize = 10
-        Max = 32767
-        Min = 1
-        Orientation = trHorizontal
-        PageSize = 50
-        Frequency = 25
-        Position = 32767
-        SelEnd = 0
-        SelStart = 0
-        TabOrder = 2
-        ThumbLength = 10
-        TickMarks = tmBoth
-        TickStyle = tsNone
-        OnChange = TBx0Change
-      end
-      object TBx0: TTrackBar
-        Left = 91
-        Top = 5
-        Width = 115
-        Height = 16
-        LineSize = 10
-        Max = 32767
-        Orientation = trHorizontal
-        PageSize = 50
-        Frequency = 25
-        Position = 0
-        SelEnd = 0
-        SelStart = 0
-        TabOrder = 3
-        ThumbLength = 10
-        TickMarks = tmBoth
-        TickStyle = tsNone
-        OnChange = TBx0Change
-      end
-      object estirar_alto: TEdit
-        Left = 597
-        Top = 3
-        Width = 38
-        Height = 16
-        AutoSize = False
-        BevelInner = bvNone
-        BevelKind = bkSoft
-        BorderStyle = bsNone
-        Color = clCream
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -12
-        Font.Name = 'Arial'
-        Font.Style = []
-        ParentFont = False
-        TabOrder = 4
-        Text = '400'
-      end
-      object CBautostrech: TCheckBox
-        Left = 416
-        Top = 4
-        Width = 83
-        Height = 17
-        Caption = 'Visu. Auto'
-        Checked = True
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -13
-        Font.Name = 'Arial'
-        Font.Style = []
-        ParentFont = False
-        State = cbChecked
-        TabOrder = 5
-      end
-      object estirar_bajo: TEdit
-        Left = 527
-        Top = 2
-        Width = 38
-        Height = 16
-        AutoSize = False
-        BevelInner = bvNone
-        BevelKind = bkSoft
-        BorderStyle = bsNone
-        Color = clCream
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -12
-        Font.Name = 'Arial'
-        Font.Style = []
-        ParentFont = False
-        TabOrder = 6
-        Text = '100'
       end
     end
   end
