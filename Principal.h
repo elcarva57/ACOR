@@ -473,6 +473,8 @@ __published:	// IDE-managed Components
     TUpDown *upOffset;
     TCheckBox *cbDST;
     TButton *bPos;
+    TPanel *pTracking;
+    TRadioGroup *rgTracking;
     void __fastcall Timer1Timer(TObject *Sender);
     void __fastcall FormDestroy(TObject *Sender);
     void __fastcall BEnviarClick(TObject *Sender);
@@ -575,6 +577,7 @@ __published:	// IDE-managed Components
     void __fastcall bUTCClick(TObject *Sender);
     void __fastcall bLocalClick(TObject *Sender);
     void __fastcall bPosClick(TObject *Sender);
+    void __fastcall rgTrackingClick(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
     __fastcall TForm1(TComponent* Owner);

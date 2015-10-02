@@ -781,7 +781,7 @@ object Form1: TForm1
         object Label62: TLabel
           Left = 1
           Top = 17
-          Width = 223
+          Width = 110
           Height = 14
           Align = alTop
           Alignment = taCenter
@@ -809,7 +809,7 @@ object Form1: TForm1
         object Label43: TLabel
           Left = 1
           Top = 1
-          Width = 223
+          Width = 26
           Height = 16
           Align = alTop
           Alignment = taCenter
@@ -3801,7 +3801,7 @@ object Form1: TForm1
           object Label9: TLabel
             Left = 1
             Top = 1
-            Width = 219
+            Width = 32
             Height = 16
             Align = alTop
             Alignment = taCenter
@@ -3906,7 +3906,7 @@ object Form1: TForm1
         object Label55: TLabel
           Left = 2
           Top = 2
-          Width = 221
+          Width = 63
           Height = 16
           Align = alTop
           Alignment = taCenter
@@ -4432,7 +4432,7 @@ object Form1: TForm1
         object Label76: TLabel
           Left = 1
           Top = 1
-          Width = 223
+          Width = 48
           Height = 16
           Align = alTop
           Alignment = taCenter
@@ -5671,7 +5671,7 @@ object Form1: TForm1
         Left = 0
         Top = 0
         Width = 225
-        Height = 321
+        Height = 177
         Align = alTop
         TabOrder = 0
         object eUTC: TEdit
@@ -5736,7 +5736,7 @@ object Form1: TForm1
           Left = 121
           Top = 50
           Width = 16
-          Height = 25
+          Height = 26
           Associate = eOffset
           Min = -12
           Max = 12
@@ -5760,6 +5760,28 @@ object Form1: TForm1
           Caption = 'Send Position'
           TabOrder = 7
           OnClick = bPosClick
+        end
+      end
+      object pTracking: TPanel
+        Left = 0
+        Top = 177
+        Width = 225
+        Height = 176
+        Align = alTop
+        TabOrder = 1
+        object rgTracking: TRadioGroup
+          Left = 8
+          Top = 8
+          Width = 121
+          Height = 97
+          Caption = 'Tracking'
+          Items.Strings = (
+            '0 = Off'
+            '1 = Alt/Az'
+            '2 = EQ North'
+            '3 = EQ South')
+          TabOrder = 0
+          OnClick = rgTrackingClick
         end
       end
     end

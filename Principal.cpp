@@ -2109,7 +2109,8 @@ void ProcesarCGEM()
 
         //   Historico->Mhistory->Lines->Add("AR:" + AnsiString(ar_f) + "     Dec:"  + AnsiString(dec_f));
 
-        tRa = 15.0 * ( nRAHour + dRAMin / 60.0);
+        // Eduardo discovered bug
+        // tRa = 15.0 * ( nRAHour + dRAMin / 60.0);
 
         nRAHour = (int)are_f;  //Hora RA
         dRAMin  = (int)((are_f - nRAHour) * 100 * 0.6);
@@ -2149,7 +2150,8 @@ void ProcesarCGEM()
 
         //   Historico->Mhistory->Lines->Add("AR:" + AnsiString(ar_f) + "     Dec:"  + AnsiString(dec_f));
 
-        tRa = 15.0 * ( nRAHour + dRAMin / 60.0);
+        // Eduardo discovered bug
+        // tRa = 15.0 * ( nRAHour + dRAMin / 60.0);
 
         nRAHour = (int)are_f;  //Hora RA
         dRAMin  = (int)((are_f - nRAHour) * 100 * 0.6);
@@ -6664,30 +6666,6 @@ Response: "#"
 void __fastcall TForm1::BSendLXClick(TObject *Sender)
 //------------------------------------------------------------------------------
 {
-    pedidaRaDe = false;
-    char pos[9] = {'W', telPos.degLatA, telPos.minLatB, telPos.secLatC, telPos.nosLatD,
-                        telPos.degLonE, telPos.minLonF, telPos.secLonG, telPos.eowLonH};
-
-    SYSTEMTIME SysTime;
-    GetSystemTime(&SysTime);
-
-    EnviaLX(pos, 9);
-
-    TimeRxLX200 = Now();
-    unsigned short msc;
-    TimeRxLX200.DecodeTime(&telDat.horQ, &telDat.minR, &telDat.secS, &msc);
-    TimeRxLX200.DecodeDate(&telDat.yerV, &telDat.monT, &telDat.dayU);
-
-    telDat.yerV = telDat.yerV - 2000;
-
-    telDat.offW = 1; // UTC+1 (Madrid)
-    telDat.dstX = 1; // DST=1 (Madrid) Daylight Savings Time enabled
-
-    char tim[9] = {'H', telDat.horQ, telDat.minR, telDat.secS, telDat.monT,
-                        telDat.dayU, telDat.yerV, telDat.offW, telDat.dstX};
-
-    EnviaLX(tim, 9);
-
     EnviaLX(Form1->ELXsend->Text.c_str());
     //EnviaLX(":GT#");
 }
@@ -6874,5 +6852,27 @@ void __fastcall TForm1::bPosClick(TObject *Sender)
                          telPos.degLonE, telPos.minLonF, telPos.secLonG, telPos.eowLonH};
 
     EnviaLX(pos, 9);
+}
+
+//------------------------------------------------------------------------------
+void __fastcall TForm1::rgTrackingClick(TObject *Sender)
+//------------------------------------------------------------------------------
+{
+    int option = Form1->rgTracking->ItemIndex;
+    char track[3]= {'T', 0};
+
+    track[1] = option;
+/*
+    switch (option)
+    {
+      case 0:
+        track[1] = 0;
+      break;
+      case 1:
+        char track[3] = {'H', 2};
+      break;
+    }
+*/
+    EnviaLX(track, 2);
 }
 
