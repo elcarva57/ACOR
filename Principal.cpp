@@ -112,6 +112,19 @@ int fallos_hfd;
 
 AnsiString HoraSideral_hms;
 
+enum Commands {GetRAS_DEC, GetPreRAS_DEC, GetAZM_ALT, GetPreAZM_ALT,
+               GotoRAS_DEC, GotoPreRAS_DEC, GotoAZM_ALT, GotoPreAZM_ALT,
+               SyncRAS_DEC, SyncPreRAS_DEC,
+               GetTrackMode, SetTrackMode,
+               VarRASPos, VarRASNeg, VarDECPos, VarDECNeg,
+               FixRASPos, FixRASNeg, FixDECPos, FixDECNeg,
+               GetLoc, SetLoc, GetTime, SetTime,
+               GetVer, GetDevVer, GetModel, Echo, AlignComplete,
+               GotoProg, GotoCancel,
+               None
+              };
+
+Commands command = None;
 
 typedef struct    // almacena lecturas promediadas de un minuto
 {
@@ -170,7 +183,7 @@ typedef struct     //Posición del telescopio
 
 // Posición telescopio El Cerro:
 //                  40º25'5"N 3h33m11sW
-SCOPE_POS telPos = {40,25,5,0,3,33,11,1};
+SCOPE_POS telPos = {40, 25, 5, 0, 3, 33, 11, 1};
 
 typedef struct     //Fecha y hora del telescopio
 {
@@ -430,7 +443,7 @@ void EnviaLX(char *orden, int long_orden);
 
 //------------------------------------------------------------------------------
 __fastcall TForm1::TForm1(TComponent* Owner) : TForm(Owner)
-//------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------
 {
     char *ptr;
     char aux[100];
@@ -2067,6 +2080,113 @@ void ProcesarCGEM()
     //Long = 18;
     /*************************/
 
+    int buff0 = BuffLX[0];
+    AnsiString name = "";
+    char tim[10] = {0};
+    char loc[10] = {0};
+    char off = BuffLX[6];
+    char dst = BuffLX[7];
+    char nos = 'N';
+    char eow = 'E';
+
+    switch (command)
+    {
+        case GetVer:
+            Form1->eDeviceVer->Text = AnsiString(int(BuffLX[0]) + "." + int(BuffLX[1]));
+            break;
+        case GetDevVer:
+            Form1->eDeviceVer->Text = AnsiString(int(BuffLX[0]) + "." + int(BuffLX[1]));
+            break;
+        case GetModel:
+
+            switch (buff0)
+            {
+                case 1:
+                    name = "GPS Series" ;
+                    break;
+                case 3:
+                    name = "i-Series";
+                    break;
+                case 4:
+                    name = "i-Series SE";
+                    break;
+                case 5:
+                    name = "CGE";
+                    break;
+                case 6:
+                    name = "Advanced GT";
+                    break;
+                case 7:
+                    name = "SLT";
+                    break;
+                case 9:
+                    name = "CPC";
+                    break;
+                case 10:
+                    name = "GT";
+                    break;
+                case 11:
+                    name = "4/5 SE";
+                    break;
+                case 12:
+                    name = "6/8 SE";
+                    break;
+                default:
+                    name = "Unknown";
+                    break;
+            }
+
+            Form1->eModel->Text = name;
+            break;
+        case Echo:
+            Form1->eEcho->Text = AnsiString(buff0);
+            break;
+        case GetTrackMode:
+            Form1->rgTracking->ItemIndex = buff0;
+            break;
+        case AlignComplete:
+            Form1->cbAligned->Checked = (buff0 == 1);
+            break;
+        case GotoProg:
+            Form1->cbGotoProg->Checked = (buff0 == '1');
+            break;
+        case GotoCancel:
+            if (buff0 == '#')
+            {
+                Form1->eCancelGoto->Text = "Cancelled";
+            }
+            break;
+        case GetLoc:
+            telPos.degLatA =  BuffLX[0];
+            telPos.minLatB =  BuffLX[1];
+            telPos.secLatC =  BuffLX[2];
+            telPos.nosLatD =  BuffLX[3];
+            telPos.degLonE =  BuffLX[4];
+            telPos.minLonF =  BuffLX[5];
+            telPos.secLonG =  BuffLX[6];
+            telPos.eowLonH =  BuffLX[7];
+
+            if (telPos.nosLatD == 1) nos = 'S';
+            if (telPos.eowLonH == 1) eow = 'W';
+
+            sprintf(loc, "%02dh %02dm %02ds %c %02dº %02d' %02d\" %c",
+                telPos.degLonE, telPos.minLonF, telPos.secLonG, eow,
+                telPos.degLatA, telPos.minLatB, telPos.secLatC, nos);
+
+            Form1->eGetPosition->Text = loc;
+            break;
+        case GetTime:
+            sprintf(tim, "%04d-%02d-%02d %02d:%02d:%02d (%01d)", BuffLX[5] + 2000,
+                BuffLX[3], BuffLX[4], BuffLX[0], BuffLX[1], BuffLX[2], off);
+
+            Form1->eGetTime->Text = tim;
+            Form1->cbDST->Checked = (dst == '1');
+            break;
+        default:
+            break;
+    }
+
+
     if (Long > 3)
     {
         if ( Form1->CBver_envio_lx->Checked == true)
@@ -2166,9 +2286,9 @@ void ProcesarCGEM()
         if (cmd == "h")
         {
             sprintf(aux, " %02d:%02d:%02d  %04d-%02d-%02d %d Off %dDST %c",
-            BuffLX[0], BuffLX[1], BuffLX[2],
-            BuffLX[5] + 2000, BuffLX[3], BuffLX[4],
-            BuffLX[6], BuffLX[7], BuffLX[8]);
+                    BuffLX[0], BuffLX[1], BuffLX[2],
+                    BuffLX[5] + 2000, BuffLX[3], BuffLX[4],
+                    BuffLX[6], BuffLX[7], BuffLX[8]);
         }
         else if (cmd == "w")
         {
@@ -2177,7 +2297,7 @@ void ProcesarCGEM()
             if (BuffLX[7] == 1) Lon = "W";
 
             sprintf(aux, " %02dº %02d' %02d\" %s %02dh %02dm %02ds %s %c",
-            BuffLX[0], BuffLX[1], BuffLX[2], Lat, BuffLX[4], BuffLX[5], BuffLX[6], Lon, BuffLX[8]);
+                    BuffLX[0], BuffLX[1], BuffLX[2], Lat, BuffLX[4], BuffLX[5], BuffLX[6], Lon, BuffLX[8]);
         }
         TimeRxLX200 = Fecha.CurrentTime();
         Historico->Mhistory->Lines->Add( AnsiString(TimeRxLX200) + "->" + AnsiString(aux) );
@@ -3442,10 +3562,12 @@ void __fastcall TForm1::Timer4Timer(TObject *Sender)
             {
                 if (HPREC)
                 {
+                    command = GetPreRAS_DEC;
                     EnviaLX("e");
                 }
                 else
                 {
+                    command = GetRAS_DEC;
                     EnviaLX("E");
                 }
             }
@@ -4779,10 +4901,13 @@ void __fastcall TForm1::BSMouseDown(TObject *Sender, TMouseButton Button,
 
     // Var=3
     // Fix=2
+
     // RAS=16
     // DEC=17
+
     // Pos=6 (Var)
     // Neg=7 (Var)
+
     // Pos=36 (Fix)
     // Neg=37 (Fix)
 
@@ -6809,7 +6934,8 @@ void __fastcall TForm1::bUTCClick(TObject *Sender)
     GetSystemTime(&SysTime);
 
     char tim[10] = {'H', SysTime.wHour, SysTime.wMinute, SysTime.wSecond, SysTime.wMonth,
-                         SysTime.wDay, SysTime.wYear - 2000, off, dst};
+                    SysTime.wDay, SysTime.wYear - 2000, off, dst
+                   };
 
     EnviaLX(tim, 9);
 
@@ -6835,7 +6961,8 @@ void __fastcall TForm1::bLocalClick(TObject *Sender)
     telDat.dstX = Form1->cbDST->Checked;
 
     char tim[10] = {'H', telDat.horQ, telDat.minR, telDat.secS, telDat.monT,
-                         telDat.dayU, telDat.yerV, telDat.offW, telDat.dstX};
+                    telDat.dayU, telDat.yerV, telDat.offW, telDat.dstX
+                   };
     EnviaLX(tim, 9);
 
     sprintf(tim, "%02d:%02d:%02d", telDat.horQ, telDat.minR, telDat.secS);
@@ -6849,7 +6976,8 @@ void __fastcall TForm1::bPosClick(TObject *Sender)
 {
     pedidaRaDe = false;
     char pos[10] = {'W', telPos.degLatA, telPos.minLatB, telPos.secLatC, telPos.nosLatD,
-                         telPos.degLonE, telPos.minLonF, telPos.secLonG, telPos.eowLonH};
+                    telPos.degLonE, telPos.minLonF, telPos.secLonG, telPos.eowLonH
+                   };
 
     EnviaLX(pos, 9);
 }
@@ -6859,20 +6987,119 @@ void __fastcall TForm1::rgTrackingClick(TObject *Sender)
 //------------------------------------------------------------------------------
 {
     int option = Form1->rgTracking->ItemIndex;
-    char track[3]= {'T', 0};
+    char track[3] = {'T', 0};
 
     track[1] = option;
-/*
-    switch (option)
-    {
-      case 0:
-        track[1] = 0;
-      break;
-      case 1:
-        char track[3] = {'H', 2};
-      break;
-    }
-*/
+    /*
+        switch (option)
+        {
+          case 0:
+            track[1] = 0;
+          break;
+          case 1:
+            char track[3] = {'H', 2};
+          break;
+        }
+    */
     EnviaLX(track, 2);
+}
+
+//------------------------------------------------------------------------------
+void __fastcall TForm1::bGetDeviceVerClick(TObject *Sender)
+//------------------------------------------------------------------------------
+{
+    int device = Form1->rgDevice->ItemIndex;
+    char dvCode = 0;
+    char cmdV[2] = {'V'};
+
+    switch (device)
+    {
+        case 0:
+            dvCode = 0;
+            command = GetVer;
+            EnviaLX(cmdV, 1);
+            break;
+        case 1:
+            dvCode = 16;
+            break;
+        case 2:
+            dvCode = 17;
+            break;
+        case 3:
+            dvCode = 176;
+            break;
+        case 4:
+            dvCode = 178;
+            break;
+    }
+
+    if (dvCode > 0)
+    {
+        char cmd[9] = {'P', 1, dvCode, 254, 0, 0, 0, 2};
+        command = GetDevVer;
+        EnviaLX(cmd, 8);
+    }
+}
+
+//------------------------------------------------------------------------------
+void __fastcall TForm1::bGetTrackClick(TObject *Sender)
+//------------------------------------------------------------------------------
+{
+    char cmd[2] = {'t'};
+    command = GetTrackMode;
+    EnviaLX(cmd, 1);
+}
+
+//------------------------------------------------------------------------------
+void __fastcall TForm1::rgDeviceClick(TObject *Sender)
+//------------------------------------------------------------------------------
+{
+    eDeviceVer->Text = "";
+}
+//---------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
+void __fastcall TForm1::bAlignClick(TObject *Sender)
+//------------------------------------------------------------------------------
+{
+    char cmd[2] = {'J'};
+    command = AlignComplete;
+    EnviaLX(cmd, 1);
+}
+
+//------------------------------------------------------------------------------
+void __fastcall TForm1::bGotoProgClick(TObject *Sender)
+//------------------------------------------------------------------------------
+{
+    char cmd[2] = {'L'};
+    command = GotoProg;
+    EnviaLX(cmd, 1);
+}
+
+//------------------------------------------------------------------------------
+void __fastcall TForm1::bCancelGotoClick(TObject *Sender)
+//------------------------------------------------------------------------------
+{
+    char cmd[2] = {'M'};
+    command = GotoCancel;
+    EnviaLX(cmd, 1);
+}
+
+//------------------------------------------------------------------------------
+void __fastcall TForm1::bGetPositionClick(TObject *Sender)
+//------------------------------------------------------------------------------
+{
+    char cmd[2] = {'w'};
+    command = GetLoc;
+    EnviaLX(cmd, 1);
+}
+
+//------------------------------------------------------------------------------
+void __fastcall TForm1::bGetTimeClick(TObject *Sender)
+//------------------------------------------------------------------------------
+{
+    char cmd[2] = {'h'};
+    command = GetTime;
+    EnviaLX(cmd, 1);
 }
 

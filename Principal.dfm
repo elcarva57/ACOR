@@ -5667,12 +5667,13 @@ object Form1: TForm1
       Caption = 'CGEM'
       ImageIndex = 2
       OnShow = tsCGEMShow
-      object pCGEM: TPanel
+      object gbTimePos: TGroupBox
         Left = 0
         Top = 0
         Width = 225
-        Height = 177
+        Height = 192
         Align = alTop
+        Caption = 'Time/Location Commands'
         TabOrder = 0
         object eUTC: TEdit
           Left = 0
@@ -5700,23 +5701,13 @@ object Form1: TForm1
           ParentFont = False
           TabOrder = 1
         end
-        object bUTC: TButton
-          Left = 144
-          Top = 24
-          Width = 75
-          Height = 25
-          Caption = 'Send UTC'
+        object cbDST: TCheckBox
+          Left = 0
+          Top = 88
+          Width = 137
+          Height = 17
+          Caption = 'Daylight Saving Time'
           TabOrder = 2
-          OnClick = bUTCClick
-        end
-        object bLocal: TButton
-          Left = 144
-          Top = 50
-          Width = 75
-          Height = 25
-          Caption = 'Send Local'
-          TabOrder = 3
-          OnClick = bLocalClick
         end
         object eOffset: TEdit
           Left = 96
@@ -5729,49 +5720,103 @@ object Form1: TForm1
           Font.Name = 'Courier New'
           Font.Style = []
           ParentFont = False
-          TabOrder = 4
+          TabOrder = 3
           Text = '1'
+        end
+        object bLocal: TButton
+          Left = 144
+          Top = 50
+          Width = 75
+          Height = 25
+          Caption = 'Send Local'
+          TabOrder = 4
+          OnClick = bLocalClick
+        end
+        object bUTC: TButton
+          Left = 144
+          Top = 24
+          Width = 75
+          Height = 25
+          Caption = 'Send UTC'
+          TabOrder = 5
+          OnClick = bUTCClick
+        end
+        object bPos: TButton
+          Left = 143
+          Top = 80
+          Width = 75
+          Height = 25
+          Caption = 'Send Position'
+          TabOrder = 6
+          OnClick = bPosClick
         end
         object upOffset: TUpDown
           Left = 121
           Top = 50
-          Width = 16
+          Width = 17
           Height = 26
-          Associate = eOffset
           Min = -12
           Max = 12
           Position = 1
-          TabOrder = 5
+          TabOrder = 7
           Wrap = False
         end
-        object cbDST: TCheckBox
-          Left = 0
-          Top = 88
-          Width = 137
-          Height = 17
-          Caption = 'Daylight Saving Time'
-          TabOrder = 6
-        end
-        object bPos: TButton
-          Left = 147
-          Top = 114
+        object bGetPosition: TButton
+          Left = 6
+          Top = 128
           Width = 75
           Height = 25
-          Caption = 'Send Position'
-          TabOrder = 7
-          OnClick = bPosClick
+          Caption = 'Get Position'
+          TabOrder = 8
+          OnClick = bGetPositionClick
+        end
+        object eGetPosition: TEdit
+          Left = 88
+          Top = 128
+          Width = 90
+          Height = 26
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = 'Courier New'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 9
+        end
+        object bGetTime: TButton
+          Left = 6
+          Top = 158
+          Width = 75
+          Height = 25
+          Caption = 'Get Time'
+          TabOrder = 10
+          OnClick = bGetTimeClick
+        end
+        object eGetTime: TEdit
+          Left = 88
+          Top = 156
+          Width = 90
+          Height = 26
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = 'Courier New'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 11
         end
       end
-      object pTracking: TPanel
+      object gbTracking: TGroupBox
         Left = 0
-        Top = 177
+        Top = 192
         Width = 225
-        Height = 176
+        Height = 121
         Align = alTop
+        Caption = 'Tracking commands'
         TabOrder = 1
         object rgTracking: TRadioGroup
           Left = 8
-          Top = 8
+          Top = 18
           Width = 121
           Height = 97
           Caption = 'Tracking'
@@ -5782,6 +5827,139 @@ object Form1: TForm1
             '3 = EQ South')
           TabOrder = 0
           OnClick = rgTrackingClick
+        end
+        object bGetTrack: TButton
+          Left = 136
+          Top = 56
+          Width = 75
+          Height = 25
+          Caption = 'Get Tracking'
+          TabOrder = 1
+          OnClick = bGetTrackClick
+        end
+      end
+      object gbMisc: TGroupBox
+        Left = 0
+        Top = 313
+        Width = 225
+        Height = 432
+        Align = alTop
+        Caption = 'Miscellaneous Commands'
+        TabOrder = 2
+        object rgDevice: TRadioGroup
+          Left = 8
+          Top = 18
+          Width = 145
+          Height = 111
+          Caption = 'Get Device Version'
+          ItemIndex = 0
+          Items.Strings = (
+            '0 = CGEM'
+            '16 = AZM/RA Motor'
+            '17 = ALT/DEC Motor'
+            '176 = GPS Unit'
+            '178 = RTC (CGE only)')
+          TabOrder = 0
+          OnClick = rgDeviceClick
+        end
+        object Button4: TButton
+          Left = 8
+          Top = 200
+          Width = 110
+          Height = 25
+          Caption = 'Echo'
+          TabOrder = 1
+        end
+        object eEcho: TEdit
+          Left = 120
+          Top = 203
+          Width = 100
+          Height = 21
+          TabOrder = 2
+          Text = 'Echo'
+        end
+        object bAlign: TButton
+          Left = 8
+          Top = 232
+          Width = 110
+          Height = 25
+          Caption = 'Alignment?'
+          TabOrder = 3
+          OnClick = bAlignClick
+        end
+        object bGotoProg: TButton
+          Left = 8
+          Top = 264
+          Width = 110
+          Height = 25
+          Caption = 'GOTO in Progress?'
+          TabOrder = 4
+          OnClick = bGotoProgClick
+        end
+        object bCancelGoto: TButton
+          Left = 8
+          Top = 296
+          Width = 110
+          Height = 25
+          Caption = 'Cancel GOTO'
+          TabOrder = 5
+          OnClick = bCancelGotoClick
+        end
+        object Button9: TButton
+          Left = 8
+          Top = 168
+          Width = 110
+          Height = 25
+          Caption = 'Get Model'
+          TabOrder = 6
+        end
+        object eModel: TEdit
+          Left = 120
+          Top = 171
+          Width = 100
+          Height = 21
+          TabOrder = 7
+          Text = 'Model'
+        end
+        object bGetDeviceVer: TButton
+          Left = 8
+          Top = 136
+          Width = 110
+          Height = 25
+          Caption = 'Get Device Versiion'
+          TabOrder = 8
+          OnClick = bGetDeviceVerClick
+        end
+        object eDeviceVer: TEdit
+          Left = 120
+          Top = 139
+          Width = 100
+          Height = 21
+          TabOrder = 9
+          Text = 'Device Ver'
+        end
+        object cbAligned: TCheckBox
+          Left = 120
+          Top = 235
+          Width = 100
+          Height = 17
+          Caption = 'Aligned'
+          TabOrder = 10
+        end
+        object cbGotoProg: TCheckBox
+          Left = 120
+          Top = 267
+          Width = 100
+          Height = 17
+          Caption = 'Goto in progress'
+          TabOrder = 11
+        end
+        object eCancelGoto: TEdit
+          Left = 120
+          Top = 299
+          Width = 100
+          Height = 21
+          TabOrder = 12
         end
       end
     end

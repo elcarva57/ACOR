@@ -9,10 +9,10 @@ File_5=SourceModule,'D:\C++\RocPcServidorAsp\cRocPcServidorImpl.cpp',0,1,87,31,1
 [Modules]
 Module0=D:\Cpp\RocPcServidorAsp\Principal.cpp
 Module1=D:\Cpp\RocPcServidorAsp\CCD1Impl.cpp
-Module2=D:\Cpp\RocPcServidorAsp\cRocPcServidorImpl.cpp
-Module3=D:\Cpp\RocPcServidorAsp\RocPcServidor.tlb
-Module4=D:\Cpp\RocPcServidorAsp\FocuserImpl.cpp
-Module5=D:\Cpp\RocPcServidorAsp\Programacion.cpp
+Module2=D:\Cpp\RocPcServidorAsp\FocuserImpl.cpp
+Module3=D:\Cpp\RocPcServidorAsp\Programacion.cpp
+Module4=D:\Cpp\RocPcServidorAsp\cRocPcServidorImpl.cpp
+Module5=D:\Cpp\RocPcServidorAsp\RocPcServidor.tlb
 Module6=D:\Cpp\RocPcServidorAsp\Acor.bpr
 Count=7
 EditWindowCount=1
@@ -28,16 +28,6 @@ ModuleType=SourceModule
 FormState=0
 FormOnTop=0
 
-[D:\Cpp\RocPcServidorAsp\cRocPcServidorImpl.cpp]
-ModuleType=SourceModule
-FormState=0
-FormOnTop=0
-
-[D:\Cpp\RocPcServidorAsp\RocPcServidor.tlb]
-ModuleType=TypeLibModule
-FormState=0
-FormOnTop=0
-
 [D:\Cpp\RocPcServidorAsp\FocuserImpl.cpp]
 ModuleType=SourceModule
 FormState=0
@@ -45,6 +35,16 @@ FormOnTop=0
 
 [D:\Cpp\RocPcServidorAsp\Programacion.cpp]
 ModuleType=SourceModule
+FormState=0
+FormOnTop=0
+
+[D:\Cpp\RocPcServidorAsp\cRocPcServidorImpl.cpp]
+ModuleType=SourceModule
+FormState=0
+FormOnTop=0
+
+[D:\Cpp\RocPcServidorAsp\RocPcServidor.tlb]
+ModuleType=TypeLibModule
 FormState=0
 FormOnTop=0
 
@@ -96,9 +96,9 @@ LeftCol=1
 
 [View1]
 Module=D:\Cpp\RocPcServidorAsp\Principal.cpp
-CursorX=6
-CursorY=2038
-TopLine=2055
+CursorX=46
+CursorY=2187
+TopLine=2384
 LeftCol=1
 
 [View2]
@@ -352,8 +352,8 @@ LRDockWidth=274
 Dockable=1
 SplitPos=144
 ArrangeBy=Name
-SelectedItem=Color
-ExpandedItems=Anchors,DepthAxis.Axis,EdgeBorders,Font,LeftAxis,VisibleButtons
+SelectedItem=Name
+ExpandedItems=DepthAxis.Axis,EdgeBorders,Font,LeftAxis,VisibleButtons
 HiddenCategories=Legacy
 
 [BreakpointWindow]
