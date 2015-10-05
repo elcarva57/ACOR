@@ -5768,7 +5768,7 @@ object Form1: TForm1
           Height = 25
           Caption = 'Get Position'
           TabOrder = 8
-          OnClick = bGetPositionClick
+          OnClick = bSendSingleCommandClick
         end
         object eGetPosition: TEdit
           Left = 88
@@ -5790,7 +5790,7 @@ object Form1: TForm1
           Height = 25
           Caption = 'Get Time'
           TabOrder = 10
-          OnClick = bGetTimeClick
+          OnClick = bSendSingleCommandClick
         end
         object eGetTime: TEdit
           Left = 88
@@ -5835,7 +5835,7 @@ object Form1: TForm1
           Height = 25
           Caption = 'Get Tracking'
           TabOrder = 1
-          OnClick = bGetTrackClick
+          OnClick = bSendSingleCommandClick
         end
       end
       object gbMisc: TGroupBox
@@ -5862,19 +5862,26 @@ object Form1: TForm1
           TabOrder = 0
           OnClick = rgDeviceClick
         end
-        object Button4: TButton
+        object bEcho: TButton
           Left = 8
           Top = 200
           Width = 110
           Height = 25
           Caption = 'Echo'
           TabOrder = 1
+          OnClick = bEchoClick
         end
         object eEcho: TEdit
           Left = 120
           Top = 203
           Width = 100
           Height = 21
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -10
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
           TabOrder = 2
           Text = 'Echo'
         end
@@ -5885,7 +5892,7 @@ object Form1: TForm1
           Height = 25
           Caption = 'Alignment?'
           TabOrder = 3
-          OnClick = bAlignClick
+          OnClick = bSendSingleCommandClick
         end
         object bGotoProg: TButton
           Left = 8
@@ -5894,7 +5901,7 @@ object Form1: TForm1
           Height = 25
           Caption = 'GOTO in Progress?'
           TabOrder = 4
-          OnClick = bGotoProgClick
+          OnClick = bSendSingleCommandClick
         end
         object bCancelGoto: TButton
           Left = 8
@@ -5903,15 +5910,16 @@ object Form1: TForm1
           Height = 25
           Caption = 'Cancel GOTO'
           TabOrder = 5
-          OnClick = bCancelGotoClick
+          OnClick = bSendSingleCommandClick
         end
-        object Button9: TButton
+        object bGetModel: TButton
           Left = 8
           Top = 168
           Width = 110
           Height = 25
           Caption = 'Get Model'
           TabOrder = 6
+          OnClick = bSendSingleCommandClick
         end
         object eModel: TEdit
           Left = 120

@@ -2139,7 +2139,7 @@ void ProcesarCGEM()
             Form1->eModel->Text = name;
             break;
         case Echo:
-            Form1->eEcho->Text = AnsiString(buff0);
+            Form1->eEcho->Text = AnsiString(buff0) + "<-";
             break;
         case GetTrackMode:
             Form1->rgTracking->ItemIndex = buff0;
@@ -4860,13 +4860,16 @@ void EnviaLX(char *orden, int long_orden)
     AnsiString bufConta;
     char aux[50];
     char temp[50];
+    short ordenByte;
 
     memcpy(buf_LX[ind_wrLX], orden, long_orden);
     len_buf_LX[ind_wrLX] = long_orden;
 
     for (int i = 0; i < long_orden; i++)
     {
-        sprintf(aux, "%02X ", orden[i]);
+        ordenByte = (orden[i] < 0)?(orden[i] + 256):orden[i];
+        //sprintf(aux, "%02X ", orden[i]);
+        sprintf(aux, "%02X ", ordenByte);
         buffer = buffer + aux;
     }
 
@@ -7009,7 +7012,7 @@ void __fastcall TForm1::bGetDeviceVerClick(TObject *Sender)
 //------------------------------------------------------------------------------
 {
     int device = Form1->rgDevice->ItemIndex;
-    char dvCode = 0;
+    short dvCode = 0;
     char cmdV[2] = {'V'};
 
     switch (device)
@@ -7036,17 +7039,54 @@ void __fastcall TForm1::bGetDeviceVerClick(TObject *Sender)
     if (dvCode > 0)
     {
         char cmd[9] = {'P', 1, dvCode, 254, 0, 0, 0, 2};
+        //short cmu[9] = {'P', 1, dvCode, 254, 0, 0, 0, 2};
         command = GetDevVer;
         EnviaLX(cmd, 8);
     }
 }
 
 //------------------------------------------------------------------------------
-void __fastcall TForm1::bGetTrackClick(TObject *Sender)
+void __fastcall TForm1::bSendSingleCommandClick(TObject *Sender)
 //------------------------------------------------------------------------------
 {
-    char cmd[2] = {'t'};
-    command = GetTrackMode;
+    char cmd[2] = {0};
+
+    if (Sender == bGetTrack)
+    {
+        cmd[0] = 't';
+        command = GetTrackMode;
+    }
+    else if (Sender == bAlign)
+    {
+        cmd[0] = 'J';
+        command = AlignComplete;
+    }
+    else if (Sender == bGotoProg)
+    {
+        cmd[0] = 'L';
+        command = GotoProg;
+    }
+    else if (Sender == bCancelGoto)
+    {
+        cmd[0] = 'M';
+        command = GotoCancel;
+    }
+    else if (Sender == bGetPosition)
+    {
+        cmd[0] = 'w';
+        command = GetLoc;
+    }
+    else if (Sender == bGetTime)
+    {
+        cmd[0] = 'h';
+        command = GetTime;
+    }
+    else if (Sender == bGetModel)
+    {
+        cmd[0] = 'm';
+        command = GetModel;
+    }
+
     EnviaLX(cmd, 1);
 }
 
@@ -7056,50 +7096,14 @@ void __fastcall TForm1::rgDeviceClick(TObject *Sender)
 {
     eDeviceVer->Text = "";
 }
-//---------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-void __fastcall TForm1::bAlignClick(TObject *Sender)
+void __fastcall TForm1::bEchoClick(TObject *Sender)
 //------------------------------------------------------------------------------
 {
-    char cmd[2] = {'J'};
-    command = AlignComplete;
-    EnviaLX(cmd, 1);
-}
+    char eco = Form1->eEcho->Text.c_str()[0];
+    char cmd[3] = {'K', eco};
 
-//------------------------------------------------------------------------------
-void __fastcall TForm1::bGotoProgClick(TObject *Sender)
-//------------------------------------------------------------------------------
-{
-    char cmd[2] = {'L'};
-    command = GotoProg;
-    EnviaLX(cmd, 1);
-}
-
-//------------------------------------------------------------------------------
-void __fastcall TForm1::bCancelGotoClick(TObject *Sender)
-//------------------------------------------------------------------------------
-{
-    char cmd[2] = {'M'};
-    command = GotoCancel;
-    EnviaLX(cmd, 1);
-}
-
-//------------------------------------------------------------------------------
-void __fastcall TForm1::bGetPositionClick(TObject *Sender)
-//------------------------------------------------------------------------------
-{
-    char cmd[2] = {'w'};
-    command = GetLoc;
-    EnviaLX(cmd, 1);
-}
-
-//------------------------------------------------------------------------------
-void __fastcall TForm1::bGetTimeClick(TObject *Sender)
-//------------------------------------------------------------------------------
-{
-    char cmd[2] = {'h'};
-    command = GetTime;
-    EnviaLX(cmd, 1);
+    EnviaLX(cmd, 2);
 }
 

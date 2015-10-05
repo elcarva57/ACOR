@@ -477,12 +477,12 @@ __published:	// IDE-managed Components
     TRadioGroup *rgTracking;
     TGroupBox *gbMisc;
     TRadioGroup *rgDevice;
-    TButton *Button4;
+    TButton *bEcho;
     TEdit *eEcho;
     TButton *bAlign;
     TButton *bGotoProg;
     TButton *bCancelGoto;
-    TButton *Button9;
+    TButton *bGetModel;
     TEdit *eModel;
     TButton *bGetDeviceVer;
     TEdit *eDeviceVer;
@@ -598,13 +598,9 @@ __published:	// IDE-managed Components
     void __fastcall bPosClick(TObject *Sender);
     void __fastcall rgTrackingClick(TObject *Sender);
     void __fastcall bGetDeviceVerClick(TObject *Sender);
-    void __fastcall bGetTrackClick(TObject *Sender);
+    void __fastcall bSendSingleCommandClick(TObject *Sender);
     void __fastcall rgDeviceClick(TObject *Sender);
-    void __fastcall bAlignClick(TObject *Sender);
-    void __fastcall bGotoProgClick(TObject *Sender);
-    void __fastcall bCancelGotoClick(TObject *Sender);
-    void __fastcall bGetPositionClick(TObject *Sender);
-    void __fastcall bGetTimeClick(TObject *Sender);
+    void __fastcall bEchoClick(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
     __fastcall TForm1(TComponent* Owner);
