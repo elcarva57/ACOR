@@ -6,31 +6,27 @@ File_3=SourceModule,'D:\C++\RocPcServidorAsp\FocuserImpl.cpp',0,1,1,1,1,0,0
 File_4=SourceModule,'D:\C++\RocPcServidorAsp\cRocPcServidorImpl.cpp',0,1,87,31,103,0,0
 
 [Modules]
-Module0=D:\Cpp\RocPcServidorAsp\Principal.cpp
-Module1=D:\Cpp\RocPcServidorAsp\Acor.bpr
-Module2=c:\program files (x86)\borland\cbuilder6\include\vcl\dstring.h
-Module3=D:\Cpp\RocPcServidorAsp\CCD1Impl.cpp
-Module4=D:\Cpp\RocPcServidorAsp\FocuserImpl.cpp
-Module5=D:\Cpp\RocPcServidorAsp\Programacion.cpp
-Module6=D:\Cpp\RocPcServidorAsp\cRocPcServidorImpl.cpp
-Module7=D:\Cpp\RocPcServidorAsp\RocPcServidor.tlb
-Count=8
+Module0=D:\Cpp\RocPcServidorAsp\Historia.cpp
+Module1=D:\Cpp\RocPcServidorAsp\Principal.cpp
+Module2=D:\Cpp\RocPcServidorAsp\CCD1Impl.cpp
+Module3=D:\Cpp\RocPcServidorAsp\FocuserImpl.cpp
+Module4=D:\Cpp\RocPcServidorAsp\Programacion.cpp
+Module5=D:\Cpp\RocPcServidorAsp\cRocPcServidorImpl.cpp
+Module6=D:\Cpp\RocPcServidorAsp\RocPcServidor.tlb
+Module7=c:\program files (x86)\borland\cbuilder6\include\vcl\dstring.h
+Module8=D:\Cpp\RocPcServidorAsp\Acor.bpr
+Count=9
 EditWindowCount=1
 TypeLibWindowCount=1
 
-[D:\Cpp\RocPcServidorAsp\Principal.cpp]
+[D:\Cpp\RocPcServidorAsp\Historia.cpp]
 ModuleType=SourceModule
 FormState=1
 FormOnTop=0
 
-[D:\Cpp\RocPcServidorAsp\Acor.bpr]
+[D:\Cpp\RocPcServidorAsp\Principal.cpp]
 ModuleType=SourceModule
-FormState=0
-FormOnTop=0
-
-[c:\program files (x86)\borland\cbuilder6\include\vcl\dstring.h]
-ModuleType=SourceModule
-FormState=0
+FormState=1
 FormOnTop=0
 
 [D:\Cpp\RocPcServidorAsp\CCD1Impl.cpp]
@@ -58,13 +54,23 @@ ModuleType=TypeLibModule
 FormState=0
 FormOnTop=0
 
+[c:\program files (x86)\borland\cbuilder6\include\vcl\dstring.h]
+ModuleType=SourceModule
+FormState=0
+FormOnTop=0
+
+[D:\Cpp\RocPcServidorAsp\Acor.bpr]
+ModuleType=SourceModule
+FormState=0
+FormOnTop=0
+
 [C:\Program Files (x86)\Borland\CBuilder6\Projects\ProjectGroup1.bpg]
 FormState=0
 FormOnTop=0
 
 [EditWindow0]
-ViewCount=8
-CurrentView=1
+ViewCount=9
+CurrentView=2
 View0=0
 View1=1
 View2=2
@@ -73,6 +79,7 @@ View4=4
 View5=5
 View6=6
 View7=7
+View8=8
 CodeExplorer=CodeExplorer@EditWindow0
 MessageView=MessageView@EditWindow0
 ClassHierarchy=ClassHierarchy@EditWindow0
@@ -102,47 +109,54 @@ LeftCol=1
 
 [View1]
 Module=D:\Cpp\RocPcServidorAsp\Principal.cpp
-CursorX=58
-CursorY=2142
-TopLine=2125
+CursorX=1
+CursorY=200
+TopLine=184
 LeftCol=1
 
 [View2]
+Module=D:\Cpp\RocPcServidorAsp\Historia.cpp
+CursorX=8
+CursorY=33
+TopLine=10
+LeftCol=1
+
+[View3]
 Module=c:\program files (x86)\borland\cbuilder6\include\vcl\dstring.h
 CursorX=1
 CursorY=150
 TopLine=132
 LeftCol=1
 
-[View3]
+[View4]
 Module=D:\Cpp\RocPcServidorAsp\RocPcServidor_TLB.cpp
 CursorX=1
 CursorY=1
 TopLine=1
 LeftCol=1
 
-[View4]
+[View5]
 Module=D:\Cpp\RocPcServidorAsp\cRocPcServidorImpl.cpp
 CursorX=3
 CursorY=134
 TopLine=118
 LeftCol=1
 
-[View5]
+[View6]
 Module=D:\Cpp\RocPcServidorAsp\Programacion.cpp
 CursorX=30
 CursorY=516
 TopLine=500
 LeftCol=1
 
-[View6]
+[View7]
 Module=D:\Cpp\RocPcServidorAsp\FocuserImpl.cpp
 CursorX=1
 CursorY=1
 TopLine=1
 LeftCol=1
 
-[View7]
+[View8]
 Module=D:\Cpp\RocPcServidorAsp\CCD1Impl.cpp
 CursorX=2
 CursorY=23
@@ -365,8 +379,8 @@ LRDockWidth=274
 Dockable=1
 SplitPos=144
 ArrangeBy=Name
-SelectedItem=Font.Style.fsStrikeOut
-ExpandedItems=DepthAxis.Axis,EdgeBorders,Font,Font.Style,LeftAxis,VisibleButtons
+SelectedItem=FileName
+ExpandedItems=DepthAxis.Axis,EdgeBorders,Font,LeftAxis,VisibleButtons
 HiddenCategories=Legacy
 
 [BreakpointWindow]

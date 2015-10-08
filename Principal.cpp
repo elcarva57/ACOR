@@ -2092,10 +2092,13 @@ void ProcesarCGEM()
     switch (command)
     {
         case GetVer:
-            Form1->eDeviceVer->Text = AnsiString(int(BuffLX[0]) + "." + int(BuffLX[1]));
+            // Form1->eDeviceVer->Text = AnsiString(int(BuffLX[0]) + "." + int(BuffLX[1]));
+            sprintf(Aux, "%d.%d", BuffLX[0] ,BuffLX[1]);
+            Form1->eDeviceVer->Text = AnsiString(Aux);
             break;
         case GetDevVer:
-            Form1->eDeviceVer->Text = AnsiString(int(BuffLX[0]) + "." + int(BuffLX[1]));
+            sprintf(Aux, "%d.%d", BuffLX[0] ,BuffLX[1]);
+            Form1->eDeviceVer->Text = AnsiString(Aux);
             break;
         case GetModel:
 
@@ -2130,6 +2133,9 @@ void ProcesarCGEM()
                     break;
                 case 12:
                     name = "6/8 SE";
+                    break;
+                case 14:
+                    name = "El nuestro";
                     break;
                 default:
                     name = "Unknown";
@@ -2169,9 +2175,9 @@ void ProcesarCGEM()
             if (telPos.nosLatD == 1) nos = 'S';
             if (telPos.eowLonH == 1) eow = 'W';
 
-            sprintf(loc, "%02dh %02dm %02ds %c %02dº %02d' %02d\" %c",
-                telPos.degLonE, telPos.minLonF, telPos.secLonG, eow,
-                telPos.degLatA, telPos.minLatB, telPos.secLatC, nos);
+            sprintf(loc, "%02dº%02d'%02d\" %c %02dh%02dm%02ds %c ",
+                telPos.degLatA, telPos.minLatB, telPos.secLatC, nos,
+                telPos.degLonE, telPos.minLonF, telPos.secLonG, eow);
 
             Form1->eGetPosition->Text = loc;
             break;
@@ -2221,7 +2227,7 @@ void ProcesarCGEM()
             dec_f = dec_f - 360;
         }
 
-        tRa = are_f;
+        tRa = are_f * 15;
         tDe = dec_f;
 
         coordARE = formatARE(are_f);
@@ -2262,7 +2268,7 @@ void ProcesarCGEM()
             dec_f = dec_f - 360;
         }
 
-        tRa = are_f;
+        tRa = are_f * 15;
         tDe = dec_f;
 
         coordARE = formatARE(are_f);
@@ -4892,7 +4898,7 @@ void __fastcall TForm1::BSMouseDown(TObject *Sender, TMouseButton Button,
 //------------------------------------------------------------------------------
 {
     //int slewRate = 7;
-    int arcsecBySec = 3600; // 1º/s
+    int arcsecBySec = 36000; // 1º/s
 
     int TrackRateAltHigh = (arcsecBySec * 4) / 256;
     int TrackRateAltLow = (arcsecBySec * 4) % 256;
@@ -4998,7 +5004,7 @@ void __fastcall TForm1::BSMouseDown(TObject *Sender, TMouseButton Button,
         //EnviaLX(slewCmdFixRASNeg, 8);
 
         // Set tracking mode to 2 (EQ North)
-        EnviaLX(starTrk, 2);
+        //EnviaLX(starTrk, 2);
 
         // Historico->Mhistory->Lines->Add("star");
         // Historico->Mhistory->Lines->Add(strlen(rate7));

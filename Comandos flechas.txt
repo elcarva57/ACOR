@@ -1,0 +1,110 @@
+16:31:19->893C5100,FC426400#
+
+// Pulso Norte
+EnviaLX: 54 00  cont_mensLX: 0 , ind_wrLX 111 
+EnviaLX: 50 02 10 25 00 00 00 00  cont_mensLX: 1 , ind_wrLX 112 
+EnviaLX: 50 03 11 07 32 80 00 00  cont_mensLX: 2 , ind_wrLX 113 
+EnviaLX: 54 02  cont_mensLX: 3 , ind_wrLX 114 
+->#
+->#
+->#
+->#
+16:31:22->893CAD00,FC501B00#
+16:31:24->893CAB00,FC501C00#
+16:31:26->893CAB00,FC501C00#
+
+// Suelto Norte
+EnviaLX: 54 00  cont_mensLX: 0 , ind_wrLX 118 
+EnviaLX: 50 02 10 25 00 00 00 00  cont_mensLX: 1 , ind_wrLX 119 
+EnviaLX: 50 02 11 25 00 00 00 00  cont_mensLX: 2 , ind_wrLX 120 
+EnviaLX: 54 02  cont_mensLX: 3 , ind_wrLX 121 
+->#
+->#
+->##
+16:31:28->893D0F00,FC501E00#
+16:31:30->893D1100,FC501E00#
+
+// Pulso Sur
+EnviaLX: 54 00  cont_mensLX: 0 , ind_wrLX 124 
+EnviaLX: 50 02 10 25 00 00 00 00  cont_mensLX: 1 , ind_wrLX 125 
+EnviaLX: 50 03 11 06 32 80 00 00  cont_mensLX: 2 , ind_wrLX 126 
+EnviaLX: 54 02  cont_mensLX: 3 , ind_wrLX 127 
+->#
+->#
+->#
+->#
+16:31:32->893D5600,FC4A8500#
+16:31:34->893D5A00,FC4A8500#
+16:31:36->893D5A00,FC4A8700#
+
+// Suelto Sur
+EnviaLX: 54 00  cont_mensLX: 0 , ind_wrLX 131 
+EnviaLX: 50 02 10 25 00 00 00 00  cont_mensLX: 1 , ind_wrLX 132 
+EnviaLX: 50 02 11 25 00 00 00 00  cont_mensLX: 2 , ind_wrLX 133 
+EnviaLX: 54 02  cont_mensLX: 3 , ind_wrLX 134 
+->#
+->#
+->#
+->#
+16:31:38->893DE200,FC4A8700#
+16:31:40->893DDD00,FC4A8700#
+16:31:42->893DE100,FC4A8800#
+
+// Pulso Este
+EnviaLX: 54 00  cont_mensLX: 0 , ind_wrLX 138 
+EnviaLX: 50 02 11 25 00 00 00 00  cont_mensLX: 1 , ind_wrLX 139 
+EnviaLX: 50 03 10 06 32 80 00 00  cont_mensLX: 2 , ind_wrLX 140 
+EnviaLX: 54 02  cont_mensLX: 3 , ind_wrLX 141 
+->#
+->#
+->#
+->#
+16:31:44->892A8200,FC4A8F00#
+16:31:46->892A8300,FC4A8F00#
+16:31:49->892A8100,FC4A9100#
+
+// Suelto Este
+EnviaLX: 54 00  cont_mensLX: 0 , ind_wrLX 145 
+EnviaLX: 50 02 10 25 00 00 00 00  cont_mensLX: 1 , ind_wrLX 146 
+EnviaLX: 50 02 11 25 00 00 00 00  cont_mensLX: 2 , ind_wrLX 147 
+EnviaLX: 54 02  cont_mensLX: 3 , ind_wrLX 148 
+->#
+->#
+->#
+->#
+16:31:51->892AEC00,FC4A9100#
+16:31:53->892AEE00,FC4A9100#
+16:31:55->892AEE00,FC4A9200#
+
+// Pulso Oeste
+EnviaLX: 54 00  cont_mensLX: 0 , ind_wrLX 152 
+EnviaLX: 50 02 11 25 00 00 00 00  cont_mensLX: 1 , ind_wrLX 153 
+EnviaLX: 50 03 10 07 32 80 00 00  cont_mensLX: 2 , ind_wrLX 154 
+EnviaLX: 54 02  cont_mensLX: 3 , ind_wrLX 155 
+->#
+->#
+->#
+->#
+16:31:57->89406000,FC4A8A00#
+16:31:59->89406400,FC4A8C00#
+16:32:01->89406300,FC4A8C00#
+
+// Suelto Oeste
+EnviaLX: 54 00  cont_mensLX: 0 , ind_wrLX 159 
+EnviaLX: 50 02 10 25 00 00 00 00  cont_mensLX: 1 , ind_wrLX 160 
+EnviaLX: 50 02 11 25 00 00 00 00  cont_mensLX: 2 , ind_wrLX 161 
+EnviaLX: 54 02  cont_mensLX: 3 , ind_wrLX 162 
+->#
+->#
+->#
+->#
+16:32:03->8940C000,FC4A8C00#
+16:32:05->8940BD00,FC4A8D00#
+16:32:07->8940BF00,FC4A8D00#
+
+=======================================
+
+Mandado a alpha ofiuco desde SkyMap, coordenadas 17h 35m 39.47s y +12º 33' 18.87"
+Se mantiene en                                   17h 35m 39.83s y +12º 33' 22.76"
+17:16:11                                         17h 35m 39.83s y +12º 33' 23.14"
+17:18:11                                         17h 35m 39.92s y +12º 33' 23.38"
