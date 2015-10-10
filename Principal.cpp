@@ -35,7 +35,6 @@
 #include "Enfoque.h"
 #pragma package(smart_init)
 
-
 #pragma link "ema_OCX"
 #include "ema_OCX.h"
 #pragma link "Test_OCX"
@@ -44,7 +43,6 @@
 #pragma resource "*.dfm"
 #include "ntofocus.h"
 #include "Historia.h"
-
 
 // defines
 #define min(a, b)  (((a) < (b)) ? (a) : (b))
@@ -4906,7 +4904,7 @@ void __fastcall TForm1::BSMouseDown(TObject *Sender, TMouseButton Button,
 
 
     char stopTrk[] = {'T', 0};  // Set tracking mode to 0 (Off)
-    char starTrk[] = {'T', 2};  // Set tracking mode to 2 (EQ North)
+    //char starTrk[] = {'T', 2};  // Set tracking mode to 2 (EQ North)
 
 
     // Var=3
@@ -5104,7 +5102,7 @@ void __fastcall TForm1::BNOMouseUp(TObject *Sender, TMouseButton Button,
                                    TShiftState Shift, int X, int Y)
 //------------------------------------------------------------------------------
 {
-    char stopTrk[] = {'T', 0};  // Set tracking mode to 0 (Off)
+    //char stopTrk[] = {'T', 0};  // Set tracking mode to 0 (Off)
     char starTrk[] = {'T', 2};  // Set tracking mode to 2 (EQ North)
 
     // Any of these two stop motor in Azm or RAS we'll use the negative one
