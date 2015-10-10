@@ -436,6 +436,7 @@ void WriteHistory (AnsiString cadena);
 void EnviaLX(char *orden);
 void EnviaLX(char *orden, int long_orden);
 
+AnsiString CmdToStr(Commands cmd);
 
 //==============================================================================
 //------------------------------------------------------------------------------
@@ -2093,11 +2094,11 @@ void ProcesarCGEM()
     {
         case GetVer:
             // Form1->eDeviceVer->Text = AnsiString(int(BuffLX[0]) + "." + int(BuffLX[1]));
-            sprintf(Aux, "%d.%d", BuffLX[0] ,BuffLX[1]);
+            sprintf(Aux, "%d.%d", BuffLX[0] , BuffLX[1]);
             Form1->eDeviceVer->Text = AnsiString(Aux);
             break;
         case GetDevVer:
-            sprintf(Aux, "%d.%d", BuffLX[0] ,BuffLX[1]);
+            sprintf(Aux, "%d.%d", BuffLX[0] , BuffLX[1]);
             Form1->eDeviceVer->Text = AnsiString(Aux);
             break;
         case GetModel:
@@ -2176,14 +2177,14 @@ void ProcesarCGEM()
             if (telPos.eowLonH == 1) eow = 'W';
 
             sprintf(loc, "%02dº%02d'%02d\" %c %02dh%02dm%02ds %c ",
-                telPos.degLatA, telPos.minLatB, telPos.secLatC, nos,
-                telPos.degLonE, telPos.minLonF, telPos.secLonG, eow);
+                    telPos.degLatA, telPos.minLatB, telPos.secLatC, nos,
+                    telPos.degLonE, telPos.minLonF, telPos.secLonG, eow);
 
             Form1->eGetPosition->Text = loc;
             break;
         case GetTime:
             sprintf(tim, "%04d-%02d-%02d %02d:%02d:%02d (%01d)", BuffLX[5] + 2000,
-                BuffLX[3], BuffLX[4], BuffLX[0], BuffLX[1], BuffLX[2], off);
+                    BuffLX[3], BuffLX[4], BuffLX[0], BuffLX[1], BuffLX[2], off);
 
             Form1->eGetTime->Text = tim;
             Form1->cbDST->Checked = (dst == '1');
@@ -4873,7 +4874,7 @@ void EnviaLX(char *orden, int long_orden)
 
     for (int i = 0; i < long_orden; i++)
     {
-        ordenByte = (orden[i] < 0)?(orden[i] + 256):orden[i];
+        ordenByte = (orden[i] < 0) ? (orden[i] + 256) : orden[i];
         //sprintf(aux, "%02X ", orden[i]);
         sprintf(aux, "%02X ", ordenByte);
         buffer = buffer + aux;
@@ -4884,7 +4885,7 @@ void EnviaLX(char *orden, int long_orden)
     sprintf(temp, ", ind_wrLX %d ", ind_wrLX);
     bufConta = bufConta + temp;
 
-    WriteHistory("EnviaLX: " + AnsiString(buffer) + " " + AnsiString(bufConta));
+    WriteHistory(CmdToStr(command) + " EnviaLX: " + AnsiString(buffer) + " " + AnsiString(bufConta));
 
     ind_wrLX++;
     if (ind_wrLX >= BUF_LX)
@@ -4939,55 +4940,112 @@ void __fastcall TForm1::BSMouseDown(TObject *Sender, TMouseButton Button,
 
     //  slewCmd[4] = slewRate;
 
+/*
+Lógica del programa de VB functions.bas que mueve el telescopio conectado por RS-232
+
+Stop Tracking. "T0" strScopeResponse = ScopeComm("T" & Chr(0), 1, 500)
+
+If slew RIGHT
+
+    Stop DEC motor. Fixed rate ALT (or DEC) slew in negative direction
+    strCoord = Chr(80) & Chr(2) & Chr(17) & Chr(37) & Chr(0) & Chr(0) & Chr(0) & Chr(0)
+    strScopeResponse = ScopeComm(strCoord, 1, 500)
+
+    Slew RA positive. Variable rate Azm (or RA) slew in positive direction
+    strCoord = Chr(80) & Chr(3) & Chr(16) & Chr(6) & Chr(TrackRateAzHigh) & Chr(TrackRateAzLow) & Chr(0) & Chr(0)
+    strScopeResponse = ScopeComm(strCoord, 1, 500)
+
+If slew UP
+
+    Stop RA motor. Fixed rate Azm (or RA) slew in negative direction
+    strCoord = Chr(80) & Chr(2) & Chr(16) & Chr(37) & Chr(0) & Chr(0) & Chr(0) & Chr(0)
+    strScopeResponse = ScopeComm(strCoord, 1, 500)
+
+    Slew DEC negative. Variable rate Alt (or Dec) slew in negative direction
+    strCoord = Chr(80) & Chr(3) & Chr(17) & Chr(7) & Chr(TrackRateAltHigh) & Chr(TrackRateAltLow) & Chr(0) & Chr(0)
+    strScopeResponse = ScopeComm(strCoord, 1, 500)
+
+If slew LEFT
+
+    Stop DEC motor. Fixed rate ALT (or DEC) slew in negative direction
+    strCoord = Chr(80) & Chr(2) & Chr(17) & Chr(37) & Chr(0) & Chr(0) & Chr(0) & Chr(0)
+    strScopeResponse = ScopeComm(strCoord, 1, 500)
+
+    Slew RA negative. Variable rate Azm (or RA) slew in negative direction
+    strCoord = Chr(80) & Chr(3) & Chr(16) & Chr(7) & Chr(TrackRateAzHigh) & Chr(TrackRateAzLow) & Chr(0) & Chr(0)
+    strScopeResponse = ScopeComm(strCoord, 1, 500)
+
+If slew DOWN
+
+    Stop RA motor. Fixed rate Azm (or RA) slew in negative direction
+	strCoord = Chr(80) & Chr(2) & Chr(16) & Chr(37) & Chr(0) & Chr(0) & Chr(0) & Chr(0)
+    strScopeResponse = ScopeComm(strCoord, 1, 500)
+
+    Slew DEC positive. Variable rate Alt (or Dec) slew in positive direction
+    strCoord = Chr(80) & Chr(3) & Chr(17) & Chr(6) & Chr(TrackRateAltHigh) & Chr(TrackRateAltLow) & Chr(0) & Chr(0)
+    strScopeResponse = ScopeComm(strCoord, 1, 500)
+
+
+*/
+
     if (CGEM)
     {
+        command = SetTrackMode;
         EnviaLX(stopTrk, 2);
         if (Sender == BN)   // slew up
         {
             // Stop (rate = 0) Fixed rate Azm (or RA) slew in negative direction
             // char slewCmdFixRASNeg[] = {80, 2, 16, 37, 0, 0, 0, 0};
+            command = FixRASNeg;
             EnviaLX(slewCmdFixRASNeg, 8);
 
             // Variable rate Alt (or Dec) slew in negative direction
             // char slewCmdVarDECNeg[] = {80, 3, 17,  7, trHig, trLow, 0, 0};
             slewCmdVarDECNeg[4] = TrackRateAltHigh;
             slewCmdVarDECNeg[5] = TrackRateAltLow;
+            command = VarDECNeg;
             EnviaLX(slewCmdVarDECNeg, 8);
         }
         else if (Sender == BO)   // slew Left
         {
             // Stop (rate = 0) Fixed rate ALT (or DEC) slew in negative direction
             // char slewCmdFixDECNeg[] = {80, 2, 17, 37, 0, 0, 0, 0};
+            command = FixDECNeg;
             EnviaLX(slewCmdFixDECNeg, 8);
 
             // Variable rate Azm (or RA) slew in negative direction
             // char slewCmdVarRASNeg[] = {80, 3, 16,  7, trHig, trLow, 0, 0};
             slewCmdVarRASNeg[4] = TrackRateAltHigh;
             slewCmdVarRASNeg[5] = TrackRateAltLow;
+            command = VarRASNeg;
             EnviaLX(slewCmdVarRASNeg, 8);
         }
         else if (Sender == BS)   // slew down
         {
             // Stop (rate = 0) Fixed rate Azm (or RA) slew in negative direction
             // char slewCmdFixRASNeg[] = {80, 2, 16, 37, 0, 0, 0, 0};
+            command = FixRASNeg;
             EnviaLX(slewCmdFixRASNeg, 8);
 
             // Variable rate Alt (or Dec) slew in positive direction
             // char slewCmdVarDECPos[] = {80, 3, 17,  6, trHig, trLow, 0, 0};
             slewCmdVarDECPos[4] = TrackRateAltHigh;
             slewCmdVarDECPos[5] = TrackRateAltLow;
+            command = VarDECPos;
             EnviaLX(slewCmdVarDECPos, 8);
         }
         else if (Sender == BE)  // slew Right
         {
             // Stop (rate = 0) Fixed rate ALT (or DEC) slew in negative direction
             // char slewCmdFixDECNeg[] = {80, 2, 17, 37, 0, 0, 0, 0};
+            command = FixDECNeg;
             EnviaLX(slewCmdFixDECNeg, 8);
 
             // Variable rate Azm (or RA) slew in positive direction
             // char slewCmdVarRASPos[] = {80, 3, 16,  6, trHig, trLow, 0, 0};
             slewCmdVarRASPos[4] = TrackRateAltHigh;
             slewCmdVarRASPos[5] = TrackRateAltLow;
+            command = VarRASPos;
             EnviaLX(slewCmdVarRASPos, 8);
         }
 
@@ -5064,9 +5122,15 @@ void __fastcall TForm1::BNOMouseUp(TObject *Sender, TMouseButton Button,
     //if (CBCGEM->Checked == false)   //es LX200
     if (CGEM) //es CGEM
     {
-        EnviaLX(stopTrk, 2);
+        // No hace falta parar el seguimiento, puesto que se ha parado
+        // en el evento BSMouseDown
+        //command = SetTrackMode;
+        //EnviaLX(stopTrk, 2);
+        command = FixRASNeg;
         EnviaLX(slewCmdFixRASNeg, 8);
+        command = FixDECNeg;
         EnviaLX(slewCmdFixDECNeg, 8);
+        command = SetTrackMode;
         EnviaLX(starTrk, 2);
         /*
         EnviaLX(rate7Stop);
@@ -6382,6 +6446,7 @@ void RegularTccdA(void)
         strcpy(Buf_Cfs[indice_cfs],  aux);
     }
 }
+
 //==============================================================================
 void RegularTccdB(void)
 //==============================================================================
@@ -6414,6 +6479,120 @@ void RegularTccdB(void)
         strcpy(Buf_Cfs[indice_cfs],  aux);
     }
 }
+
+//==============================================================================
+AnsiString CmdToStr(Commands cmd)
+//==============================================================================
+{
+    AnsiString str;
+
+    switch (cmd)
+    {
+        case GetRAS_DEC:
+            str = "GetRAS_DEC";
+            break;
+        case GetPreRAS_DEC:
+            str = "GetPreRAS_DEC";
+            break;
+        case GetAZM_ALT:
+            str = "GetAZM_ALT";
+            break;
+        case GetPreAZM_ALT:
+            str = "GetPreAZM_ALT";
+            break;
+        case GotoRAS_DEC:
+            str = "GotoRAS_DEC";
+            break;
+        case GotoPreRAS_DEC:
+            str = "GotoPreRAS_DEC";
+            break;
+        case GotoAZM_ALT:
+            str = "GotoAZM_ALT";
+            break;
+        case GotoPreAZM_ALT:
+            str = "GotoPreAZM_ALT";
+            break;
+        case SyncRAS_DEC:
+            str = "SyncRAS_DEC";
+            break;
+        case SyncPreRAS_DEC:
+            str = "SyncPreRAS_DEC";
+            break;
+        case GetTrackMode:
+            str = "GetTrackMode";
+            break;
+        case SetTrackMode:
+            str = "SetTrackMode";
+            break;
+        case VarRASPos:
+            str = "VarRASPos";
+            break;
+        case VarRASNeg:
+            str = "VarRASNeg";
+            break;
+        case VarDECPos:
+            str = "VarDECPos";
+            break;
+        case VarDECNeg:
+            str = "VarDECNeg";
+            break;
+        case FixRASPos:
+            str = "FixRASPos";
+            break;
+        case FixRASNeg:
+            str = "FixRASNeg";
+            break;
+        case FixDECPos:
+            str = "FixDECPos";
+            break;
+        case FixDECNeg:
+            str = "FixDECNeg";
+            break;
+        case GetLoc:
+            str = "GetLoc";
+            break;
+        case SetLoc:
+            str = "SetLoc";
+            break;
+        case GetTime:
+            str = "GetTime";
+            break;
+        case SetTime:
+            str = "SetTime";
+            break;
+        case GetVer:
+            str = "GetVer";
+            break;
+        case GetDevVer:
+            str = "GetDevVer";
+            break;
+        case GetModel:
+            str = "GetModel";
+            break;
+        case Echo:
+            str = "Echo";
+            break;
+        case AlignComplete:
+            str = "AlignComplete";
+            break;
+        case GotoProg:
+            str = "GotoProg";
+            break;
+        case GotoCancel:
+            str = "GotoCancel";
+            break;
+        case None:
+            str = "None";
+            break;
+        default:
+            str = "Unknown";
+            break;
+    }
+
+    return str;
+
+}
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::Button2Click(TObject *Sender)
 //------------------------------------------------------------------------------

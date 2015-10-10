@@ -30,8 +30,8 @@ void __fastcall THistorico::bGrabarHistoriaClick(TObject *Sender)
     TDateTime Fecha;
 
     Fecha = Now();
-    Fecha = TDateTime::CurrentDateTime();
-    Fecha.CurrentDateTime();
+    SaveDialog1->FileName = "Historia" + Fecha.FormatString("yyyy-MM-dd HH.mm");
+
     if (SaveDialog1->Execute())
         Historico->Mhistory->Lines->SaveToFile(SaveDialog1->FileName);
 }

@@ -6,8 +6,8 @@ File_3=SourceModule,'D:\C++\RocPcServidorAsp\FocuserImpl.cpp',0,1,1,1,1,0,0
 File_4=SourceModule,'D:\C++\RocPcServidorAsp\cRocPcServidorImpl.cpp',0,1,87,31,103,0,0
 
 [Modules]
-Module0=D:\Cpp\RocPcServidorAsp\Historia.cpp
-Module1=D:\Cpp\RocPcServidorAsp\Principal.cpp
+Module0=D:\Cpp\RocPcServidorAsp\Principal.cpp
+Module1=D:\Cpp\RocPcServidorAsp\Historia.cpp
 Module2=D:\Cpp\RocPcServidorAsp\CCD1Impl.cpp
 Module3=D:\Cpp\RocPcServidorAsp\FocuserImpl.cpp
 Module4=D:\Cpp\RocPcServidorAsp\Programacion.cpp
@@ -19,12 +19,12 @@ Count=9
 EditWindowCount=1
 TypeLibWindowCount=1
 
-[D:\Cpp\RocPcServidorAsp\Historia.cpp]
+[D:\Cpp\RocPcServidorAsp\Principal.cpp]
 ModuleType=SourceModule
 FormState=1
 FormOnTop=0
 
-[D:\Cpp\RocPcServidorAsp\Principal.cpp]
+[D:\Cpp\RocPcServidorAsp\Historia.cpp]
 ModuleType=SourceModule
 FormState=1
 FormOnTop=0
@@ -70,7 +70,7 @@ FormOnTop=0
 
 [EditWindow0]
 ViewCount=9
-CurrentView=2
+CurrentView=1
 View0=0
 View1=1
 View2=2
@@ -109,9 +109,9 @@ LeftCol=1
 
 [View1]
 Module=D:\Cpp\RocPcServidorAsp\Principal.cpp
-CursorX=1
-CursorY=200
-TopLine=184
+CursorX=33
+CursorY=4963
+TopLine=4935
 LeftCol=1
 
 [View2]
@@ -379,7 +379,7 @@ LRDockWidth=274
 Dockable=1
 SplitPos=144
 ArrangeBy=Name
-SelectedItem=FileName
+SelectedItem=OnMouseDown
 ExpandedItems=DepthAxis.Axis,EdgeBorders,Font,LeftAxis,VisibleButtons
 HiddenCategories=Legacy
 

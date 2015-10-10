@@ -45,15 +45,15 @@ object Form1: TForm1
   object Panel7: TPanel
     Left = 250
     Top = 0
-    Width = 766
-    Height = 746
+    Width = 758
+    Height = 745
     Align = alClient
     Caption = 'Panel7'
     TabOrder = 0
     object Label61: TLabel
       Left = 1
-      Top = 629
-      Width = 764
+      Top = 628
+      Width = 756
       Height = 17
       Align = alBottom
       Caption = 'Cabecera fit:'
@@ -67,8 +67,8 @@ object Form1: TForm1
     object PFotoO: TScrollBox
       Left = 1
       Top = 23
-      Width = 764
-      Height = 606
+      Width = 756
+      Height = 605
       Align = alClient
       BevelInner = bvNone
       BevelOuter = bvRaised
@@ -104,8 +104,8 @@ object Form1: TForm1
     end
     object Panel56: TPanel
       Left = 1
-      Top = 701
-      Width = 764
+      Top = 700
+      Width = 756
       Height = 44
       Align = alBottom
       TabOrder = 1
@@ -139,7 +139,7 @@ object Form1: TForm1
         object Label44: TLabel
           Left = 37
           Top = 23
-          Width = 29
+          Width = 28
           Height = 12
           Caption = 'Valor:'
           Font.Charset = ANSI_CHARSET
@@ -152,7 +152,7 @@ object Form1: TForm1
         object Label45: TLabel
           Left = 73
           Top = 7
-          Width = 10
+          Width = 9
           Height = 12
           Caption = 'Y:'
           Font.Charset = ANSI_CHARSET
@@ -540,8 +540,8 @@ object Form1: TForm1
     end
     object Memo1: TMemo
       Left = 1
-      Top = 646
-      Width = 764
+      Top = 645
+      Width = 756
       Height = 55
       Align = alBottom
       Color = clSilver
@@ -557,7 +557,7 @@ object Form1: TForm1
     object Panel6: TPanel
       Left = 1
       Top = 1
-      Width = 764
+      Width = 756
       Height = 22
       Align = alTop
       TabOrder = 3
@@ -754,8 +754,8 @@ object Form1: TForm1
     Left = 0
     Top = 0
     Width = 250
-    Height = 746
-    ActivePage = tsCGEM
+    Height = 745
+    ActivePage = TELESCOPIO
     Align = alLeft
     Constraints.MinWidth = 225
     Font.Charset = ANSI_CHARSET
@@ -767,7 +767,7 @@ object Form1: TForm1
     MultiLine = True
     ParentFont = False
     TabHeight = 17
-    TabIndex = 7
+    TabIndex = 1
     TabOrder = 1
     TabPosition = tpLeft
     object CAMARA: TTabSheet
@@ -776,13 +776,13 @@ object Form1: TForm1
         Left = 0
         Top = 308
         Width = 225
-        Height = 430
+        Height = 429
         Align = alClient
         TabOrder = 0
         object Label62: TLabel
           Left = 1
           Top = 17
-          Width = 112
+          Width = 110
           Height = 14
           Align = alTop
           Alignment = taCenter
@@ -966,7 +966,7 @@ object Form1: TForm1
           object Label36: TLabel
             Left = 89
             Top = 21
-            Width = 19
+            Width = 18
             Height = 13
             Caption = 'Vel.'
           end
@@ -1186,7 +1186,7 @@ object Form1: TForm1
           object Label3: TLabel
             Left = 122
             Top = 68
-            Width = 32
+            Width = 30
             Height = 15
             Caption = 'F. Act.'
             Font.Charset = ANSI_CHARSET
@@ -1803,7 +1803,7 @@ object Form1: TForm1
           object Label83: TLabel
             Left = 6
             Top = 51
-            Width = 50
+            Width = 48
             Height = 13
             Caption = 'Alt Az Tel:'
           end
@@ -1824,7 +1824,7 @@ object Form1: TForm1
           object Label106: TLabel
             Left = 6
             Top = 65
-            Width = 50
+            Width = 49
             Height = 13
             Caption = 'Alt Az Cal:'
           end
@@ -2017,14 +2017,14 @@ object Form1: TForm1
           object LTcieloTess: TLabel
             Left = 65
             Top = 41
-            Width = 30
+            Width = 29
             Height = 13
             Caption = 'Tcielo'
           end
           object LTambTess: TLabel
             Left = 127
             Top = 40
-            Width = 28
+            Width = 27
             Height = 13
             Caption = 'Tamb'
           end
@@ -2067,7 +2067,7 @@ object Form1: TForm1
         object Label105: TLabel
           Left = 165
           Top = 157
-          Width = 31
+          Width = 30
           Height = 13
           Caption = 'Ver Rx'
         end
@@ -2968,7 +2968,7 @@ object Form1: TForm1
           object Label65: TLabel
             Left = 1
             Top = 1
-            Width = 61
+            Width = 60
             Height = 15
             Align = alClient
             Alignment = taCenter
@@ -3112,7 +3112,7 @@ object Form1: TForm1
             object LSensor6: TLabel
               Left = 1
               Top = 1
-              Width = 83
+              Width = 82
               Height = 13
               Align = alClient
               Alignment = taCenter
@@ -3244,7 +3244,7 @@ object Form1: TForm1
             object LSensor2: TLabel
               Left = 1
               Top = 1
-              Width = 54
+              Width = 53
               Height = 13
               Align = alClient
               Alignment = taCenter
@@ -3302,7 +3302,7 @@ object Form1: TForm1
         object Label63: TLabel
           Left = 2
           Top = 2
-          Width = 152
+          Width = 151
           Height = 16
           Align = alTop
           Alignment = taCenter
@@ -3317,7 +3317,7 @@ object Form1: TForm1
         object Label96: TLabel
           Left = 23
           Top = 223
-          Width = 100
+          Width = 99
           Height = 15
           Caption = 'Periodo Ajuste sg:'
           Font.Charset = ANSI_CHARSET
@@ -3370,7 +3370,7 @@ object Form1: TForm1
           object Label81: TLabel
             Left = 9
             Top = 58
-            Width = 30
+            Width = 29
             Height = 15
             Caption = 'T Adj:'
             Font.Charset = ANSI_CHARSET
@@ -3396,7 +3396,7 @@ object Form1: TForm1
           object Label22: TLabel
             Left = 15
             Top = 6
-            Width = 58
+            Width = 56
             Height = 15
             Caption = 'CAMARA A'
             Font.Charset = ANSI_CHARSET
@@ -3531,7 +3531,7 @@ object Form1: TForm1
           object Label21: TLabel
             Left = 8
             Top = 60
-            Width = 30
+            Width = 29
             Height = 15
             Caption = 'T Adj:'
             Font.Charset = ANSI_CHARSET
@@ -3544,7 +3544,7 @@ object Form1: TForm1
           object Label23: TLabel
             Left = 15
             Top = 5
-            Width = 59
+            Width = 58
             Height = 15
             Caption = 'CAMARA B'
             Font.Charset = ANSI_CHARSET
@@ -4300,7 +4300,7 @@ object Form1: TForm1
             Font.Height = -10
             Font.Name = 'Arial'
             Font.Style = []
-            ItemHeight = 13
+            ItemHeight = 0
             ParentFont = False
             TabOrder = 4
             OnChange = CBCCD_A_Change
@@ -4318,7 +4318,7 @@ object Form1: TForm1
             Font.Height = -10
             Font.Name = 'Arial'
             Font.Style = []
-            ItemHeight = 13
+            ItemHeight = 0
             ParentFont = False
             TabOrder = 5
             OnChange = CBCCD_B_Change
@@ -4463,7 +4463,7 @@ object Form1: TForm1
         object TLabel
           Left = 7
           Top = 103
-          Width = 64
+          Width = 63
           Height = 15
           Caption = 'Telescopio:'
           Font.Charset = ANSI_CHARSET
@@ -4963,7 +4963,7 @@ object Form1: TForm1
         object Label26: TLabel
           Left = 23
           Top = 39
-          Width = 85
+          Width = 83
           Height = 15
           Caption = 'Temp. Amb. '#186'C:'
           Font.Charset = ANSI_CHARSET
@@ -5030,7 +5030,7 @@ object Form1: TForm1
         object Label31: TLabel
           Left = 27
           Top = 214
-          Width = 37
+          Width = 36
           Height = 15
           Caption = 'Veleta:'
           Font.Charset = ANSI_CHARSET
@@ -5069,7 +5069,7 @@ object Form1: TForm1
         object Label37: TLabel
           Left = 26
           Top = 395
-          Width = 97
+          Width = 96
           Height = 15
           Caption = 'Tension Fuente v:'
           Font.Charset = ANSI_CHARSET
@@ -5121,7 +5121,7 @@ object Form1: TForm1
         object Label95: TLabel
           Left = 25
           Top = 187
-          Width = 67
+          Width = 66
           Height = 15
           Caption = 'Anem.Term:'
           Font.Charset = ANSI_CHARSET
@@ -5147,7 +5147,7 @@ object Form1: TForm1
         object Label99: TLabel
           Left = 27
           Top = 266
-          Width = 73
+          Width = 72
           Height = 15
           Caption = 'Presion Abs.:'
           Font.Charset = ANSI_CHARSET
