@@ -1787,7 +1787,7 @@ object Form1: TForm1
             Caption = '--'
           end
           object LAlturaRx: TLabel
-            Left = 72
+            Left = 60
             Top = 51
             Width = 6
             Height = 13
@@ -2138,7 +2138,7 @@ object Form1: TForm1
             Top = 22
             Width = 21
             Height = 23
-            EditMask = '00;0;0'
+            EditMask = '!99;0;0'
             Font.Charset = ANSI_CHARSET
             Font.Color = clBlack
             Font.Height = -12
@@ -2154,7 +2154,7 @@ object Form1: TForm1
             Top = 22
             Width = 21
             Height = 23
-            EditMask = '00;0;0'
+            EditMask = '!99;0;0'
             Font.Charset = ANSI_CHARSET
             Font.Color = clBlack
             Font.Height = -12
@@ -2170,7 +2170,7 @@ object Form1: TForm1
             Top = 54
             Width = 21
             Height = 23
-            EditMask = '00;0;0'
+            EditMask = '!99;0;0'
             Font.Charset = ANSI_CHARSET
             Font.Color = clBlack
             Font.Height = -12
@@ -2186,7 +2186,7 @@ object Form1: TForm1
             Top = 54
             Width = 21
             Height = 23
-            EditMask = '00;0;0'
+            EditMask = '!99;0;0'
             Font.Charset = ANSI_CHARSET
             Font.Color = clBlack
             Font.Height = -12
@@ -2237,7 +2237,7 @@ object Form1: TForm1
             Top = 22
             Width = 21
             Height = 23
-            EditMask = '00;0;0'
+            EditMask = '!99;0;0'
             Font.Charset = ANSI_CHARSET
             Font.Color = clBlack
             Font.Height = -12
@@ -2252,7 +2252,7 @@ object Form1: TForm1
             Top = 54
             Width = 21
             Height = 23
-            EditMask = '00;1; '
+            EditMask = '!99;0;0'
             Font.Charset = ANSI_CHARSET
             Font.Color = clBlack
             Font.Height = -12
@@ -2261,7 +2261,6 @@ object Form1: TForm1
             MaxLength = 2
             ParentFont = False
             TabOrder = 6
-            Text = '00'
           end
         end
         object Panel68: TPanel
@@ -4300,7 +4299,7 @@ object Form1: TForm1
             Font.Height = -10
             Font.Name = 'Arial'
             Font.Style = []
-            ItemHeight = 0
+            ItemHeight = 13
             ParentFont = False
             TabOrder = 4
             OnChange = CBCCD_A_Change
@@ -4318,7 +4317,7 @@ object Form1: TForm1
             Font.Height = -10
             Font.Name = 'Arial'
             Font.Style = []
-            ItemHeight = 0
+            ItemHeight = 13
             ParentFont = False
             TabOrder = 5
             OnChange = CBCCD_B_Change
@@ -6345,15 +6344,15 @@ object Form1: TForm1
       0000000003C00000018000000180000000000000000000000000000000000000
       000000000000000000000000000000000000000000000000000000000000}
   end
-  object Timer1: TTimer
+  object Timer50: TTimer
     Interval = 50
-    OnTimer = Timer1Timer
+    OnTimer = Timer50Timer
     Left = 574
     Top = 43
   end
-  object Timer2: TTimer
+  object Timer60000: TTimer
     Interval = 60000
-    OnTimer = Timer2Timer
+    OnTimer = Timer60000Timer
     Left = 581
     Top = 395
   end
@@ -6368,26 +6367,26 @@ object Form1: TForm1
     Left = 417
     Top = 169
   end
-  object Timer3: TTimer
+  object Timer3000: TTimer
     Interval = 3000
-    OnTimer = Timer3Timer
+    OnTimer = Timer3000Timer
     Left = 581
     Top = 282
   end
-  object Timer4: TTimer
+  object Timer100: TTimer
     Interval = 100
-    OnTimer = Timer4Timer
+    OnTimer = Timer100Timer
     Left = 580
     Top = 125
   end
-  object Timer5: TTimer
+  object Timer5000: TTimer
     Interval = 5000
-    OnTimer = Timer5Timer
+    OnTimer = Timer5000Timer
     Left = 581
     Top = 337
   end
-  object Timer6: TTimer
-    OnTimer = Timer6Timer
+  object Timer1000: TTimer
+    OnTimer = Timer1000Timer
     Left = 576
     Top = 232
   end

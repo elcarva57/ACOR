@@ -1,4 +1,7 @@
-﻿ESTADO INICIAL
+﻿// Instrucciones de arranque de ACOR conectado al telescopio
+// 2015-10-17
+
+ESTADO INICIAL
 * Interruptor del telescopio en ON (telescopio apagado)
 * Interruptores de la fuente de alimentación en OFF (4)
 * Selector de la fuente de alimentación en AUTO1
@@ -11,11 +14,15 @@
 ARRANQUE
 * Encender el PC
 * Encender la regleta principal (inferior) de la montura
+* Arrancar ACOR, esto arrancará EMA y TESS
 * Arrancar SkyMap
-* Desde SkyMap conectarse al telescopio (TTelescope, Open connection), esto arrancará: ACOR, EMA y TESS
+* Desde SkyMap conectarse al telescopio (TTelescope, Open connection)
 * Desde ACOR, encender el telescopio: Desde la pestaña CONTROL, Panel Alimentaciones, pulsar sobre los botones 1 (CCD + CFS) y 2 (Telescopio), y a continuación pulsar sobre el botón Validar. Los LEDs 1 y 2 se deben encender en rojo y el telescopio se encenderá.
 * Desde el mando del telescopio pulsar ENTER cuando el display diga "Wake up. Press ENTER to wake from hibernate. UNDO to exit"
 * Cuando muestre y pida la hora pulsar ENTER, ENTER, ENTER ... hasta que aparezca el mensaje "CGEM Ready", ya que mandaremos la hora desde ACOR
 * Desde ACOR, enviar la hora UTC: Desde la pestaña CGEM, Panel Time/Location Commands, asegúrese de que el checkbox "Daylight Saving Time" esté desactivado y pulsar sobre el botón "Send UTC".
+
+PARADA
+
 
 SINCRONIZACIÓN

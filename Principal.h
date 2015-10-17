@@ -42,7 +42,7 @@ __published:	// IDE-managed Components
     TOpenDialog *OD1;
     TSaveDialog *SD1;
     TImageList *ImageList1;
-    TTimer *Timer1;
+    TTimer *Timer50;
     TPanel *Panel56;
     TPanel *Panel49;
     TLabel *Label1;
@@ -63,10 +63,10 @@ __published:	// IDE-managed Components
     TPanel *PY2;
     TLabel *Label61;
     TMemo *Memo1;
-    TTimer *Timer2;
+    TTimer *Timer60000;
     TServerSocket *ServerSocket1;
-    TTimer *Timer3;
-    TTimer *Timer4;
+    TTimer *Timer3000;
+    TTimer *Timer100;
     TPanel *Panel27;
     TPanel *PPerdidos;
     TLabel *Label59;
@@ -88,8 +88,8 @@ __published:	// IDE-managed Components
     TEdit *estirar_bajo;
     TButton *BHistoria;
     TButton *Button3;
-    TTimer *Timer5;
-    TTimer *Timer6;
+    TTimer *Timer5000;
+    TTimer *Timer1000;
     TWeather *Weather1;
     TLabel *LHoraSideral;
     TShape *SC;
@@ -494,7 +494,7 @@ __published:	// IDE-managed Components
     TEdit *eGetPosition;
     TButton *bGetTime;
     TEdit *eGetTime;
-    void __fastcall Timer1Timer(TObject *Sender);
+    void __fastcall Timer50Timer(TObject *Sender);
     void __fastcall FormDestroy(TObject *Sender);
     void __fastcall BEnviarClick(TObject *Sender);
     void __fastcall SpeedButton1Click(TObject *Sender);
@@ -530,7 +530,7 @@ __published:	// IDE-managed Components
     void __fastcall BFlipyClick(TObject *Sender);
     //  void __fastcall Button1Click(TObject *Sender);
     void __fastcall BResetFocoClick(TObject *Sender);
-    void __fastcall Timer2Timer(TObject *Sender);
+    void __fastcall Timer60000Timer(TObject *Sender);
     void __fastcall BGraficasClick(TObject *Sender);
     //       void __fastcall BPonerHcorClick(TObject *Sender);
     void __fastcall ServerSocket1Accept(TObject *Sender,
@@ -545,11 +545,11 @@ __published:	// IDE-managed Components
     void __fastcall BcambiaIPClick(TObject *Sender);
     void __fastcall BGuardaConfigClick(TObject *Sender);
     void __fastcall EColumnaFinAChange(TObject *Sender);
-    void __fastcall Timer3Timer(TObject *Sender);
+    void __fastcall Timer3000Timer(TObject *Sender);
     void __fastcall UpDown1ChangingEx(TObject *Sender,
                                       bool &AllowChange, short NewValue, TUpDownDirection Direction);
     void __fastcall CBimagenChange(TObject *Sender);
-    void __fastcall Timer4Timer(TObject *Sender);
+    void __fastcall Timer100Timer(TObject *Sender);
     void __fastcall DirectoryListBox1Change(TObject *Sender);
 
     void __fastcall BFotoEnfocarClick(TObject *Sender);
@@ -574,11 +574,11 @@ __published:	// IDE-managed Components
     void __fastcall BCalibrarMeteoClick(TObject *Sender);
     void __fastcall BHistoriaClick(TObject *Sender);
     void __fastcall Button3Click(TObject *Sender);
-    void __fastcall Timer5Timer(TObject *Sender);
+    void __fastcall Timer5000Timer(TObject *Sender);
     void __fastcall BVergrafClick(TObject *Sender);
     void __fastcall BGetBFPClick(TObject *Sender);
     void __fastcall BAutoEnfoqueClick(TObject *Sender);
-    void __fastcall Timer6Timer(TObject *Sender);
+    void __fastcall Timer1000Timer(TObject *Sender);
     void __fastcall BDerivaAquiClick(TObject *Sender);
     void __fastcall EPasosEnfoqueChange(TObject *Sender);
     void __fastcall EVelocidadEnfoqueChange(TObject *Sender);

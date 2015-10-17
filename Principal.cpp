@@ -83,8 +83,8 @@ double tAlt = 0, tAz = 0; //Altura y Azimut del mensaje del telescopio
 extern char carecta[100], cdeclinacion[100];
 double nRAHour = 0, dRAMin = 0, nDecDeg = 0, nDecMin = 0;
 bool negativo = false;
-AnsiString coordDEC;
-AnsiString coordARE;
+AnsiString coordARE, coordDEC;
+AnsiString coordAZM, coordALT;
 
 float CuentaGuiaAR, CuentaGuiaDec;
 float TiempoGuiaAR;   //tiempo antes de parar guiado AR
@@ -304,6 +304,8 @@ char buf_LX[BUF_LX][16];
 int len_buf_LX[BUF_LX];
 int ind_wrLX, ind_rdLX, cont_mensLX;
 
+bool arde = true; // Flag para pedir Ascensión Recta/Declinación o Azimut/Altura
+
 int Puerto = 1;
 int AutoEnfoque = 0;
 
@@ -408,8 +410,12 @@ void EMAv2COM();
 
 void ProcesarLX200();
 void ProcesarCGEM();
+void ProcesarGetPreRAS_DEC(AnsiString CadCgem);
+void ProcesarGetPreAZM_ALT(AnsiString CadCgem);
 AnsiString formatARE(double dARE);
 AnsiString formatDEC(double dDEC);
+AnsiString formatAZM(double dAZM);
+AnsiString formatALT(double dALT);
 AnsiString ArDecToOrden(long ARe_Hor, long ARe_Min, long ARe_Sec, long ARe_CSec,
                         long Dec_Gra, long Dec_Min, long Dec_Sec, long Dec_CSec, char Dec_Sgn);
 
@@ -442,7 +448,7 @@ AnsiString CmdToStr(Commands cmd);
 
 //------------------------------------------------------------------------------
 __fastcall TForm1::TForm1(TComponent* Owner) : TForm(Owner)
-    //------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 {
     char *ptr;
     char aux[100];
@@ -663,9 +669,8 @@ void AnalizarCFS(char c)
         Shuter->Analizar(c);
 }
 
-//---------------------------------------------------------------------------
-//-------Analiza cadena recibida---------------------------------------------
 //==============================================================================
+// Analiza cadena recibida
 void ProcesarTESs(void)
 //==============================================================================
 {
@@ -701,140 +706,139 @@ void ProcesarTESs(void)
         //     Historico->Mhistory->Lines->Add (ctes + Form1->LARtes->Caption);
 
         /*
-          //      Historico->Mhistory->Lines->Add (bufin);
-            if(longbuf == 15) { //Cadena solo con AR y DEC.
+        //      Historico->Mhistory->Lines->Add (bufin);
+        	if(longbuf == 15) { //Cadena solo con AR y DEC.
         //AR y Dec del telescopio en decimal
-                Aux[0] = bufin[0];
-                Aux[1] = bufin[1];
-                Aux[2] = 0;
-                hTes  = atof(Aux);  //Hora RA
-                Aux[0] = bufin[3];
-                Aux[1] = bufin[4];
-                Aux[2] = bufin[5];
-                Aux[3] = bufin[6];
-                Aux[4] = 0;
-                mTes  = atof(Aux);  //Minutos RA
-                RAtes = 15.0 * ( hTes + mTes / 60.0);
-            //    RAtes =  hTes + mTes / 60.0;
+        		Aux[0] = bufin[0];
+        		Aux[1] = bufin[1];
+        		Aux[2] = 0;
+        		hTes  = atof(Aux);  //Hora RA
+        		Aux[0] = bufin[3];
+        		Aux[1] = bufin[4];
+        		Aux[2] = bufin[5];
+        		Aux[3] = bufin[6];
+        		Aux[4] = 0;
+        		mTes  = atof(Aux);  //Minutos RA
+        		RAtes = 15.0 * ( hTes + mTes / 60.0);
+        	//    RAtes =  hTes + mTes / 60.0;
 
-                sprintf(cad,"%003.2f",RAtes);
-                Form1->LARtes->Caption = "RA " + AnsiString(cad) + "º";
+        		sprintf(cad,"%003.2f",RAtes);
+        		Form1->LARtes->Caption = "RA " + AnsiString(cad) + "º";
 
-                Aux[0] = bufin[8];
-                Aux[1] = bufin[9];
-                Aux[2] = bufin[10];
-                Aux[3] = 0;
-                gTes = atof(Aux);
-                Aux[0] = bufin[12];
-                Aux[1] = bufin[13];
-                Aux[2] = 0;
-                mgTes = atof(Aux);
-                if(bufin[8]=='+')
-                   DECtes = gTes + (mgTes / 60.0);
-                else {
-                   DECtes = gTes - (mgTes / 60.0);
-                }
-              //  CoordCal = cad;
-                sprintf(cad,"%003.2f",DECtes);
-                Form1->LDECtes->Caption = "DEC " + AnsiString(cad) + "º";   //sale -10.32 en vez de -11º41'
-             //   CoordCal = ";" + CoordCal +";" + (AnsiString)(cad);
+        		Aux[0] = bufin[8];
+        		Aux[1] = bufin[9];
+        		Aux[2] = bufin[10];
+        		Aux[3] = 0;
+        		gTes = atof(Aux);
+        		Aux[0] = bufin[12];
+        		Aux[1] = bufin[13];
+        		Aux[2] = 0;
+        		mgTes = atof(Aux);
+        		if(bufin[8]=='+')
+        		DECtes = gTes + (mgTes / 60.0);
+        		else {
+        		DECtes = gTes - (mgTes / 60.0);
+        		}
+        	//  CoordCal = cad;
+        		sprintf(cad,"%003.2f",DECtes);
+        		Form1->LDECtes->Caption = "DEC " + AnsiString(cad) + "º";   //sale -10.32 en vez de -11º41'
+        	//   CoordCal = ";" + CoordCal +";" + (AnsiString)(cad);
 
         //Altura y Azimut Calculada partir de AR y Dec del telescopio en decimal
-                AltTes = CalAltura(RAtes, DECtes); //(double ARec, double DEC)
-                sprintf(cad,"%003.2f",AltTes);
-                Form1->LAltTess->Caption = "Alt: " + AnsiString(cad) + "º";
-                CoordCal = CoordCal + ";"+ (AnsiString)(cad);
+        		AltTes = CalAltura(RAtes, DECtes); //(double ARec, double DEC)
+        		sprintf(cad,"%003.2f",AltTes);
+        		Form1->LAltTess->Caption = "Alt: " + AnsiString(cad) + "º";
+        		CoordCal = CoordCal + ";"+ (AnsiString)(cad);
 
-                AzTes = CalAzimut(AltTes, RAtes, DECtes); //(double ARec, double DEC)
-                sprintf(cad,"%003.2f",AzTes);
-                Form1->LAzTess->Caption = "Az: " + AnsiString(cad) + "º";
-                CoordCal = CoordCal + ";" + (AnsiString)(cad);
-              }
+        		AzTes = CalAzimut(AltTes, RAtes, DECtes); //(double ARec, double DEC)
+        		sprintf(cad,"%003.2f",AzTes);
+        		Form1->LAzTess->Caption = "Az: " + AnsiString(cad) + "º";
+        		CoordCal = CoordCal + ";" + (AnsiString)(cad);
+        	}
         */
     }
 }
-
 /*
 void ProcesarTESs()  //atiende datos puerto serie A TESs
 {
-  static int longbuf, pos, posTESs, inimens;
-  static char bufin[10000];
-  char aTess[100];
-  static bool primer_check;
+static int longbuf, pos, posTESs, inimens;
+static char bufin[10000];
+char aTess[100];
+static bool primer_check;
 
-  longbuf = min(S1->nDatosTESs, 200);   //como maximo se leen 200 caracteres
-  S1->LeerTESs(bufin, longbuf);
-  bufin[longbuf] = 0;
-  if (longbuf > 180){
-    Historico->Mhistory->Lines->Add ("Exceso datos de TESs: " + AnsiString(longbuf));
-    return;
-  }
+longbuf = min(S1->nDatosTESs, 200);   //como maximo se leen 200 caracteres
+S1->LeerTESs(bufin, longbuf);
+bufin[longbuf] = 0;
+if (longbuf > 180){
+	Historico->Mhistory->Lines->Add ("Exceso datos de TESs: " + AnsiString(longbuf));
+	return;
+}
 
-  for( pos = 0; pos < longbuf; pos++)
-  {
-       if ((bufin[pos] == '<') && (inimens == 0))
-       {
-          inimens = 1;
-          posTESs = 0;
-        //  Historico->Mhistory->Lines->Add (bufin[pos]);
-       }
-       if (inimens >= 1)
-       {
-          if ((bufin[pos]< ' ' )||(bufin[pos]>'{'))
-            BufTess[posTESs] = '_';//caracter " "  indicando fuera de lo esperado
-          else
-            BufTess[posTESs] = bufin[pos];
+for( pos = 0; pos < longbuf; pos++)
+{
+	if ((bufin[pos] == '<') && (inimens == 0))
+	{
+		inimens = 1;
+		posTESs = 0;
+		//  Historico->Mhistory->Lines->Add (bufin[pos]);
+	}
+	if (inimens >= 1)
+	{
+		if ((bufin[pos]< ' ' )||(bufin[pos]>'{'))
+			BufTess[posTESs] = '_';//caracter " "  indicando fuera de lo esperado
+		else
+			BufTess[posTESs] = bufin[pos];
 
-          if ( BufTess[posTESs]=='X') {
-            inimens = 2;
-            strcpy(BufTess, "<accX");
-            posTESs = 4;
-          }
-          else if ( BufTess[posTESs]=='Y')
-            inimens = 3;
+		if ( BufTess[posTESs]=='X') {
+			inimens = 2;
+			strcpy(BufTess, "<accX");
+			posTESs = 4;
+		}
+		else if ( BufTess[posTESs]=='Y')
+			inimens = 3;
 
-          else if ( BufTess[posTESs]=='Z'){
-             inimens = 4;
-          }
-          else if ((BufTess[posTESs] == '>') && (inimens == 4)) //cierre mensaje Z
-          {
-             BufTess[posTESs+1]= 0;
+		else if ( BufTess[posTESs]=='Z'){
+			inimens = 4;
+		}
+		else if ((BufTess[posTESs] == '>') && (inimens == 4)) //cierre mensaje Z
+		{
+			BufTess[posTESs+1]= 0;
 //             if(Form1->CBTess->Checked==true)
 //                Historico->Mhistory->Lines->Add (AnsiString(BufTess) + " Cal: " + Form1->LAltura->Caption + " "
 //                + Form1->LAzimut->Caption + " LX: " + Form1->LAlturaRx->Caption + " " + Form1->LAzimutRx->Caption + " "
 //                + Form1->LHoraSideral->Caption );
 
-             inimens = 0;
+			inimens = 0;
 
-             if(Form1->CBTess->Checked==true){
-                TimeRxLX200 = Fecha.CurrentTime();
-                for (int cc =0; cc < strlen(BufTess); cc++) //quita letras y pone ;
-                {
-                   if(((BufTess[cc]<0x30) || BufTess[cc]>0x39) && BufTess[cc]!= '>' && BufTess[cc]!= '-' && BufTess[cc]!= '+')
-                     BufTess[cc]= ' ';
-                   else if(BufTess[cc] == '>')
-                     BufTess[cc]= ';';
-                }
-                //Historico->Mhistory->Lines->Add (aTess);
+			if(Form1->CBTess->Checked==true){
+				TimeRxLX200 = Fecha.CurrentTime();
+				for (int cc =0; cc < strlen(BufTess); cc++) //quita letras y pone ;
+				{
+				if(((BufTess[cc]<0x30) || BufTess[cc]>0x39) && BufTess[cc]!= '>' && BufTess[cc]!= '-' && BufTess[cc]!= '+')
+					BufTess[cc]= ' ';
+				else if(BufTess[cc] == '>')
+					BufTess[cc]= ';';
+				}
+				//Historico->Mhistory->Lines->Add (aTess);
 
-                if (primer_check == TRUE) {
-                        Historico->Mhistory->Lines->Add(" HL; HS; lxRA; lxDec; lxAlt; lxAz; Alt; Az; X; Y; Z;");
-                        primer_check = FALSE;
-                }
-                else
-                  ;
-                Historico->Mhistory->Lines->Add((AnsiString)(TimeRxLX200)+ "; "+ HoraSideral_hms + CoordCal
-                      + "; " + AnsiString(BufTess));
-             }
-             else primer_check = TRUE;
+				if (primer_check == TRUE) {
+						Historico->Mhistory->Lines->Add(" HL; HS; lxRA; lxDec; lxAlt; lxAz; Alt; Az; X; Y; Z;");
+						primer_check = FALSE;
+				}
+				else
+				;
+				Historico->Mhistory->Lines->Add((AnsiString)(TimeRxLX200)+ "; "+ HoraSideral_hms + CoordCal
+					+ "; " + AnsiString(BufTess));
+			}
+			else primer_check = TRUE;
 
-             return;
-          }
-          posTESs++;
-          if (posTESs > 50)
-            posTESs = 0;
-       }
-  }
+			return;
+		}
+		posTESs++;
+		if (posTESs > 50)
+			posTESs = 0;
+	}
+}
 }
 */
 
@@ -964,27 +968,26 @@ void ProcesarCFS()
         }
     }
 }
-
 /*
-      -----------------------------------
-      		FUNCIONAMIENTO DE LA ESTACION
-             -----------------------------------
+		-----------------------------------
+			FUNCIONAMIENTO DE LA ESTACION
+		-----------------------------------
 Comunicacion serie a 9600 baudios.
 Los mensajes de control generados por el pc constan de un solo caracter.
 El mensaje generado por la estacion tiene longitud total fija de 75 caracteres,
- empieza por "(" y termina con ")".
-                  ----------------------
+empieza por "(" y termina con ")".
+				----------------------
 ----- Mensaje PC -> estacion: --------------------------------
 
-    R : peticion datos crudos, una vez por cada (R)
-    r : peticion datos calibrados, una vez por cada (r)
-    S : lecturas continuas, cada 5 seg
-    I : Pone a cero contador de anemometro movil.
-    K : pone a cero contador del pluviometro
-    H : reset software del sensor de humedad
+	R : peticion datos crudos, una vez por cada (R)
+	r : peticion datos calibrados, una vez por cada (r)
+	S : lecturas continuas, cada 5 seg
+	I : Pone a cero contador de anemometro movil.
+	K : pone a cero contador del pluviometro
+	H : reset software del sensor de humedad
 		Q : reset de la estacion
 
-        ---  PARA CERRAR/ABRIR/CALENTAR ---
+		---  PARA CERRAR/ABRIR/CALENTAR ---
 		N : nivel nublado para  cerrar 		 (N125), (N255) para desactivar
 		L : nivel lluvia para cerrar 		 (L001), (L255)  "      "
 		C : (Tamb - Trocio) para calentar, 0 para calentar forzado  (C005)
@@ -993,7 +996,7 @@ El mensaje generado por la estacion tiene longitud total fija de 75 caracteres,
 		T : tiempo sin lecturas para cerrar  (T020), bloques de 5sg, (T255) para desactivar
 		X : abrir 1 cerrar 0 abrir forzado 7 (X001)
 
-    	Las mismas letras pero en minuscula responden el valor actual configurado
+		Las mismas letras pero en minuscula responden el valor actual configurado
 
 
 		--- CALIBRACION ----
@@ -1020,21 +1023,21 @@ El mensaje generado por la estacion tiene longitud total fija de 75 caracteres,
 
 (0@0 010 020 112 040 112 088 101 078 113 138 112 112 -239 426 +074 1234567) <- ej. mensaje de la estacion
 pos.5^  9^ 13^ 17^ 21^ 25^ 29^ 33^ 37^ 41^ 45^ 49^ 53^  58^ 62^  67^        <- posiciones en la cadena
-  1   2   3   4   5   6   7   8   9   10  11  12  13   14  15   16   17     <- bloques
+1   2   3   4   5   6   7   8   9   10  11  12  13   14  15   16   17     <- bloques
 
 bloque 1 - tres caracteres independientes, TECHO, CALENTADOR y ALIMENTACION
-  pos.0 ( : empieza el mensaje
-  pos.1   Salida Apertura Observatorio
+pos.0 ( : empieza el mensaje
+pos.1   Salida Apertura Observatorio
 		C : observatorio cerrado
 		A : observatoro abrierto
 
-  pos.2   Salida Calentadores
-  		E : calentador encendido
+pos.2   Salida Calentadores
+		E : calentador encendido
 		A : calentador apagado
-        ! : error de lectura del Sensor de humedad
+		! : error de lectura del Sensor de humedad
 
-  pos.3 NIVEL ALIMENTACION: unidades de voltios, 0,1,2,3,4...
-  			0 <11v, 11v =< 1 <12v, 12 =< 2 < 13v, 13 =< 3 < 14v etc
+pos.3 NIVEL ALIMENTACION: unidades de voltios, 0,1,2,3,4...
+			0 <11v, 11v =< 1 <12v, 12 =< 2 < 13v, 13 =< 3 < 14v etc
 
 bloque 2 - indicador lluvia o rocio (ch0 del conversor AD)
 bloque 3 - indicador de nubes, (ch1 del conversor AD)
@@ -1056,7 +1059,7 @@ bloque 16:  "  -012 : punto de rocio ºC x10
 bloque 17:  " 1234567 : contador anemometro movil. Se pone a cero con "I"
 
 pos. 74: )   Fin de mensaje
-                ---------------------------
+				---------------------------
 */
 
 //==============================================================================
@@ -1321,7 +1324,7 @@ void ProcesarMeteo()
             Form1->PVFuente->Caption = IntToStr(VFuente) + " v";
             /*
             if (VFuente/9.13 < 9.6) Form1->PVFuente->Color = clRed; //9.13 ajusta la lectura
-              else Form1->PVFuente->Color = clBtnFace;
+            else Form1->PVFuente->Color = clBtnFace;
             Form1->PVFuente->Caption = FloatToStrF(VFuente/9.13, ffNumber, 3,1 ) + " v";
             */
 
@@ -1353,15 +1356,15 @@ void ProcesarMeteo()
             aux2[3] = 0;
             Presion_Kp = atoi(aux2) * 0.216 + 66.11;  //presion en Kpascales
             /* Calculo de la presion normalizada al nivel del mar:
-                      P = (P0) e^[-(g/(RT)) * (Z — Z0)
-                  P = pressure at an unknown altitude,
-                  P0 = pressure at a known altitude,
-                  e = a constant,
-                  g = gravitational constant 9.8 (m/s^2),
-                  R = dry air constant 287 J/(kg*K),
-                  T = temperature at unknown elevation in Kelvin,
-                  Z = unknown altitude in meters,
-                  Z0 = known altitude also in meters. */
+            		P = (P0) e^[-(g/(RT)) * (Z — Z0)
+            	P = pressure at an unknown altitude,
+            	P0 = pressure at a known altitude,
+            	e = a constant,
+            	g = gravitational constant 9.8 (m/s^2),
+            	R = dry air constant 287 J/(kg*K),
+            	T = temperature at unknown elevation in Kelvin,
+            	Z = unknown altitude in meters,
+            	Z0 = known altitude also in meters. */
             //          float KT = (9.8/(287*273)) * confEMA.bar_altura;
             float KTok = (9.8 / (287 * (273 + Temp_x10 / 10))) * confEMA.bar_altura;
 
@@ -1387,13 +1390,13 @@ void ProcesarMeteo()
 
             SAnemMecKmh += AnemMecKmh;
             /*          if (AnemTotal < AnemTotalPrevio)
-                         AnemTotalPrevio = 0;
-                      VelVientoRelativa = AnemTotal - AnemTotalPrevio;
-                      if (VelVientoRelativa > 1000)
-                         VelVientoRelativa =0;
-                      AnemTotalPrevio = AnemTotal;
-                      VelVientoRelativa =  VelVientoRelativa * (confEMA.kmecanico/1000.0); //0.2; // conversion a Km/h
-                      Form1->PVelViento->Caption = VelVientoRelativa;
+            			AnemTotalPrevio = 0;
+            		VelVientoRelativa = AnemTotal - AnemTotalPrevio;
+            		if (VelVientoRelativa > 1000)
+            			VelVientoRelativa =0;
+            		AnemTotalPrevio = AnemTotal;
+            		VelVientoRelativa =  VelVientoRelativa * (confEMA.kmecanico/1000.0); //0.2; // conversion a Km/h
+            		Form1->PVelViento->Caption = VelVientoRelativa;
             */
 
             //-----------------------------------------------------------------
@@ -1488,22 +1491,22 @@ void ProcesarMeteo()
                 Timer60sg = false;
                 //
                 /*             aux2[0]= Meteo[67];
-                             aux2[1]= Meteo[68];
-                             aux2[2]= Meteo[69];
-                             aux2[3]= Meteo[70];
-                             aux2[4]= Meteo[71];
-                             aux2[5]= Meteo[72];
-                             aux2[6]= Meteo[73];
-                             aux2[7]= 0;
-                             AnemTotal = atoi(aux2);
-                             if (AnemTotal < AnemTotalPrevio)
-                                AnemTotalPrevio = 0;
-                             VelVientoRelativa = AnemTotal - AnemTotalPrevio;
-                             if (VelVientoRelativa > 1000)
-                                VelVientoRelativa =0;
-                             AnemTotalPrevio = AnemTotal;
-                             VelVientoRelativa =  VelVientoRelativa * (confEMA.kmecanico/1000.0); //0.2; // conversion a Km/h
-                             Form1->PVelViento->Caption = VelVientoRelativa;
+                			aux2[1]= Meteo[68];
+                			aux2[2]= Meteo[69];
+                			aux2[3]= Meteo[70];
+                			aux2[4]= Meteo[71];
+                			aux2[5]= Meteo[72];
+                			aux2[6]= Meteo[73];
+                			aux2[7]= 0;
+                			AnemTotal = atoi(aux2);
+                			if (AnemTotal < AnemTotalPrevio)
+                				AnemTotalPrevio = 0;
+                			VelVientoRelativa = AnemTotal - AnemTotalPrevio;
+                			if (VelVientoRelativa > 1000)
+                				VelVientoRelativa =0;
+                			AnemTotalPrevio = AnemTotal;
+                			VelVientoRelativa =  VelVientoRelativa * (confEMA.kmecanico/1000.0); //0.2; // conversion a Km/h
+                			Form1->PVelViento->Caption = VelVientoRelativa;
                 */
                 if (CuentaMensMeteo > 0)
                 {
@@ -1588,8 +1591,8 @@ void ProcesarMeteo()
 //Se va guardando fichero mensual con los datos leidos de la estacion
 //-------------------------------------------------------------------
 
-//Leer datos EMAv2 via COM del programa EMA
 //==============================================================================
+// Leer datos EMAv2 via COM del programa EMA
 void EMAv2COM()
 //==============================================================================
 {
@@ -1667,9 +1670,8 @@ void EMAv2COM()
     //    Historico->Mhistory->Lines->Add(Form1->Weather1->BarometricPressure);
 }
 
-//------------------------------------------------------------------------------
-//Creacion fichero de datos EMA
 //==============================================================================
+// Creacion fichero de datos EMA
 void FicheroEma()
 //==============================================================================
 {
@@ -1806,11 +1808,8 @@ void FicheroEma()
     //  CopyFile(nombre, "mes_actual.txt",  NULL);
 }
 
-//---------------------------------------------------------------------------
-/*------------------------------------------------------------
-  Crea o actualiza las graficas meteorologicas
---------------------------------------------------------------*/
 //==============================================================================
+// Crea o actualiza las graficas meteorologicas
 void DibujaGraficas()
 //==============================================================================
 {
@@ -1859,7 +1858,6 @@ void DibujaGraficas()
         FGraficas->Series11->AddXY(kk, grafico24h[1439 - kk].LeturasBarometroAbs, grafico24h[1439 - kk].Hora, clBlue);
     }
 }
-
 /*
 EnvioLX #:Mn#  18:13:49
 EnvioLX #:Qn#  18:13:52
@@ -1868,11 +1866,11 @@ LXdice: 19:30.2#+01ß02#
 EnvioLX #:GR##:GD#  18:14:02
 LXdice: 19:30.2#+01ß02#
 EnvioLX #:GR##:GD#  18:14:07
-*/
 
-//---------------------------------------------------------------------------
 // pedir AR DEC     #:GR#:GD#
 // pedir Alt Azimut #:GZ#:GA#
+*/
+
 //==============================================================================
 void ProcesarLX200()
 //==============================================================================
@@ -2073,8 +2071,8 @@ void ProcesarCGEM()
     //Long = 10;
     //strcpy(BuffLX,"F25F,FB60#");         // RA=22 43m 20.24s DEC=-06º 30' 14.06"
     //Long = 10;
-    //strcpy(BuffLX,"34AB0500,12CE0500#"); // RA=04h 56m 15.47s DEC=+26º 26' 39.12"
-    //Long = 18;
+    strcpy(BuffLX, "34AB0500,12CE0500#"); // RA=04h 56m 15.47s DEC=+26º 26' 39.12"
+    Long = 18;
     //strcpy(BuffLX,"F25F2F00,FB605B00#"); // RA=22h 43m 20.49s DEC=-06º 30' 07.03"
     //Long = 18;
     /*************************/
@@ -2090,6 +2088,54 @@ void ProcesarCGEM()
 
     switch (command)
     {
+        case GetPreRAS_DEC:
+            ProcesarGetPreRAS_DEC(BuffLX);
+
+            /*
+            		are_s = "0x" + CadCgem.SubString( 1, 8);
+            		dec_s = "0x" + CadCgem.SubString(10, 8);
+            		are_l = strtoul(are_s.c_str(), &pEnd, 16);
+            		dec_l = strtoul(dec_s.c_str(), &pEnd, 16);
+            		*/
+            /*
+            		if ( TryStrToInt(ar_s, ar_i) )
+            			;//     Historico->Mhistory->Lines->Add( ar_i );
+            		if ( TryStrToInt(dec_s, dec_i) )
+            			;//    Historico->Mhistory->Lines->Add( dec_i );
+            		*/
+            /*
+            		are_f = (((double)are_l / 4294967296.0) * 360) / 15.0; // grados AR para Skymap
+            		dec_f =  ((double)dec_l / 4294967296.0) * 360; // grados DEC para Skymap
+
+            		if (dec_f > 90)
+            		{
+            			dec_f = dec_f - 360;
+            		}
+
+            		tRa = are_f * 15;
+            		tDe = dec_f;
+
+            		coordARE = formatARE(are_f);
+            		coordDEC = formatDEC(dec_f);
+
+            		//   Historico->Mhistory->Lines->Add("AR:" + AnsiString(ar_f) + "     Dec:"  + AnsiString(dec_f));
+
+            		// Eduardo discovered bug
+            		// tRa = 15.0 * ( nRAHour + dRAMin / 60.0);
+
+            		// INIBLOQUE Se podría eliminar este bloque? ***********************
+            		nRAHour = (int)are_f;  //Hora RA
+            		dRAMin  = (int)((are_f - nRAHour) * 100 * 0.6);
+            		nDecDeg = (int)dec_f;
+            		nDecMin = (int)((dec_f - nDecDeg) * 100 * 0.6);
+            		// FINBLOQUE *******************************************************
+
+            		LXresponde = true;   //las fragmentadas por el momento no se usan
+            		*/
+            break;
+        case GetPreAZM_ALT:
+            ProcesarGetPreAZM_ALT(BuffLX);
+            break;
         case GetVer:
             // Form1->eDeviceVer->Text = AnsiString(int(BuffLX[0]) + "." + int(BuffLX[1]));
             sprintf(Aux, "%d.%d", BuffLX[0] , BuffLX[1]);
@@ -2213,9 +2259,9 @@ void ProcesarCGEM()
 
         /*
         if ( TryStrToInt(ar_s, ar_i) )
-            ;//     Historico->Mhistory->Lines->Add( ar_i );
+        	;//     Historico->Mhistory->Lines->Add( ar_i );
         if ( TryStrToInt(dec_s, dec_i) )
-            ;//    Historico->Mhistory->Lines->Add( dec_i );
+        	;//    Historico->Mhistory->Lines->Add( dec_i );
         */
 
         are_f = (((double)are_l / 65536.0) * 360) / 15.0; // grados AR para Skymap
@@ -2244,47 +2290,51 @@ void ProcesarCGEM()
 
         LXresponde = true;   //las fragmentadas por el momento no se usan
     }
+
+    /*
     if (Long == 18)  // Espera una cadena alta precisión  //34AB0500,12CE0500# -> AR,DEC
     {
-        CadCgem =  BuffLX;
-        are_s = "0x" + CadCgem.SubString( 1, 8);
-        dec_s = "0x" + CadCgem.SubString(10, 8);
-        are_l = strtoul(are_s.c_str(), &pEnd, 16);
-        dec_l = strtoul(dec_s.c_str(), &pEnd, 16);
+    	CadCgem =  BuffLX;
+    	are_s = "0x" + CadCgem.SubString( 1, 8);
+    	dec_s = "0x" + CadCgem.SubString(10, 8);
+    	are_l = strtoul(are_s.c_str(), &pEnd, 16);
+    	dec_l = strtoul(dec_s.c_str(), &pEnd, 16);
+    */
+    /*
+    if ( TryStrToInt(ar_s, ar_i) )
+    	;//     Historico->Mhistory->Lines->Add( ar_i );
+    if ( TryStrToInt(dec_s, dec_i) )
+    	;//    Historico->Mhistory->Lines->Add( dec_i );
+    */
+    /*
+    are_f = (((double)are_l / 4294967296.0) * 360) / 15.0; // grados AR para Skymap
+    dec_f =  ((double)dec_l / 4294967296.0) * 360; // grados DEC para Skymap
 
-        /*
-        if ( TryStrToInt(ar_s, ar_i) )
-            ;//     Historico->Mhistory->Lines->Add( ar_i );
-        if ( TryStrToInt(dec_s, dec_i) )
-            ;//    Historico->Mhistory->Lines->Add( dec_i );
-        */
-
-        are_f = (((double)are_l / 4294967296.0) * 360) / 15.0; // grados AR para Skymap
-        dec_f =  ((double)dec_l / 4294967296.0) * 360; // grados DEC para Skymap
-
-        if (dec_f > 90)
-        {
-            dec_f = dec_f - 360;
-        }
-
-        tRa = are_f * 15;
-        tDe = dec_f;
-
-        coordARE = formatARE(are_f);
-        coordDEC = formatDEC(dec_f);
-
-        //   Historico->Mhistory->Lines->Add("AR:" + AnsiString(ar_f) + "     Dec:"  + AnsiString(dec_f));
-
-        // Eduardo discovered bug
-        // tRa = 15.0 * ( nRAHour + dRAMin / 60.0);
-
-        nRAHour = (int)are_f;  //Hora RA
-        dRAMin  = (int)((are_f - nRAHour) * 100 * 0.6);
-        nDecDeg = (int)dec_f;
-        nDecMin = (int)((dec_f - nDecDeg) * 100 * 0.6);
-
-        LXresponde = true;   //las fragmentadas por el momento no se usan
+    if (dec_f > 90)
+    {
+    	dec_f = dec_f - 360;
     }
+
+    tRa = are_f * 15;
+    tDe = dec_f;
+
+    coordARE = formatARE(are_f);
+    coordDEC = formatDEC(dec_f);
+
+    //   Historico->Mhistory->Lines->Add("AR:" + AnsiString(ar_f) + "     Dec:"  + AnsiString(dec_f));
+
+    // Eduardo discovered bug
+    // tRa = 15.0 * ( nRAHour + dRAMin / 60.0);
+
+    nRAHour = (int)are_f;  //Hora RA
+    dRAMin  = (int)((are_f - nRAHour) * 100 * 0.6);
+    nDecDeg = (int)dec_f;
+    nDecMin = (int)((dec_f - nDecDeg) * 100 * 0.6);
+
+    LXresponde = true;   //las fragmentadas por el momento no se usan
+    }
+    */
+
     if (Long == 9)  // Prueba get time
     {
         AnsiString cmd = Form1->ELXsend->Text;
@@ -2307,6 +2357,86 @@ void ProcesarCGEM()
         TimeRxLX200 = Fecha.CurrentTime();
         Historico->Mhistory->Lines->Add( AnsiString(TimeRxLX200) + "->" + AnsiString(aux) );
     }
+}
+
+//==============================================================================
+void ProcesarGetPreRAS_DEC(AnsiString CadCgem)
+//==============================================================================
+{
+    char * pEnd;
+
+    AnsiString    are_s, dec_s;
+    unsigned long are_l, dec_l;
+    double        are_f, dec_f;
+
+    are_s = "0x" + CadCgem.SubString( 1, 8);
+    dec_s = "0x" + CadCgem.SubString(10, 8);
+    are_l = strtoul(are_s.c_str(), &pEnd, 16);
+    dec_l = strtoul(dec_s.c_str(), &pEnd, 16);
+
+    /*
+    if ( TryStrToInt(ar_s, ar_i) )
+    	;//     Historico->Mhistory->Lines->Add( ar_i );
+    if ( TryStrToInt(dec_s, dec_i) )
+    	;//    Historico->Mhistory->Lines->Add( dec_i );
+    */
+
+    are_f = (((double)are_l / 4294967296.0) * 360) / 15.0; // grados AR para Skymap
+    dec_f =  ((double)dec_l / 4294967296.0) * 360; // grados DEC para Skymap
+
+    if (dec_f > 90)
+    {
+        dec_f = dec_f - 360;
+    }
+
+    tRa = are_f * 15;
+    tDe = dec_f;
+
+    coordARE = formatARE(are_f);
+    coordDEC = formatDEC(dec_f);
+
+    //   Historico->Mhistory->Lines->Add("AR:" + AnsiString(ar_f) + "     Dec:"  + AnsiString(dec_f));
+
+    // Eduardo discovered bug
+    // tRa = 15.0 * ( nRAHour + dRAMin / 60.0);
+
+    // INIBLOQUE Se podría eliminar este bloque? ***********************
+    nRAHour = (int)are_f;  //Hora RA
+    dRAMin  = (int)((are_f - nRAHour) * 100 * 0.6);
+    nDecDeg = (int)dec_f;
+    nDecMin = (int)((dec_f - nDecDeg) * 100 * 0.6);
+    // FINBLOQUE *******************************************************
+
+    LXresponde = true;   //las fragmentadas por el momento no se usan
+}
+
+//==============================================================================
+void ProcesarGetPreAZM_ALT(AnsiString CadCgem)
+//==============================================================================
+{
+    char * pEnd;
+
+    AnsiString    azm_s, alt_s;
+    unsigned long azm_l, alt_l;
+    double        azm_f, alt_f;
+
+    azm_s = "0x" + CadCgem.SubString( 1, 8);
+    alt_s = "0x" + CadCgem.SubString(10, 8);
+    azm_l = strtoul(azm_s.c_str(), &pEnd, 16);
+    alt_l = strtoul(alt_s.c_str(), &pEnd, 16);
+
+    azm_f = (double)azm_l / 4294967296.0 * 360; // grados AZM
+    alt_f = (double)alt_l / 4294967296.0 * 360; // grados ALT
+
+    if (alt_f > 90)
+    {
+        alt_f = alt_f - 360;
+    }
+
+    coordAZM = formatAZM(azm_f);
+    coordALT = formatALT(alt_f);
+
+    LXresponde = true;
 }
 
 //==============================================================================
@@ -2382,6 +2512,81 @@ AnsiString formatDEC(double dDEC)
     if (DECCse > 99) DECCse = 99;
 
     sprintf(aux, "%c%02dº %02d' %02d.%02d\"", cSign, DECGra, DECMin, DECSec, DECCse);
+
+    return AnsiString(aux);
+}
+
+//==============================================================================
+AnsiString formatAZM(double dAZM)
+//==============================================================================
+{
+    char aux[300];
+
+    double dValue;			 			// temporary storage
+
+    long AZDeg;                         // Azimut, degrees
+    long AZMin;                         // Azimut, minutes
+    long AZSec;                         // Azimut, seconds
+    long AZCse;                         // Azimut, cents of second
+
+    dValue = dAZM;
+    AZDeg = dValue;
+
+    dValue = (dValue - AZDeg) * 60;
+    AZMin = dValue;
+
+    dValue = (dValue - AZMin) * 60;
+    AZSec = dValue;
+
+    dValue = (dValue - AZSec) * 100 + 0.5;
+    AZCse = dValue;
+
+    if (AZCse > 99) AZCse = 99;
+
+    sprintf(aux, " %02dº %02dm %02d.%02ds", AZDeg, AZMin, AZSec, AZCse);
+
+    return AnsiString(aux);
+}
+
+//==============================================================================
+AnsiString formatALT(double dALT)
+//==============================================================================
+{
+    char aux[300];
+
+    double dValue;			 			// temporary storage
+    char cSign;	                        // ALT sign
+
+    long ALTGra;                        // ALT, degrees
+    long ALTMin;                        // ALT, minutes
+    long ALTSec;                        // ALT, seconds
+    long ALTCse;                        // ALT, cents of second
+
+    if (dALT < 0.0)
+    {
+        dValue = -dALT;
+        cSign = '-';
+    }
+    else
+    {
+        dValue = dALT;
+        cSign = '+';
+    }
+
+    ALTGra = dValue;
+
+    dValue = (dValue - ALTGra) * 60;
+    ALTMin = dValue;
+
+    dValue = (dValue - ALTMin) * 60;
+    ALTSec = dValue;
+
+    dValue = (dValue - ALTSec) * 100 + 0.5;
+    ALTCse = dValue;
+
+    if (ALTCse > 99) ALTCse = 99;
+
+    sprintf(aux, "%c%02dº %02d' %02d.%02d\"", cSign, ALTGra, ALTMin, ALTSec, ALTCse);
 
     return AnsiString(aux);
 }
@@ -2648,9 +2853,9 @@ AnsiString OrdenToArDec(char* ptr_buffer_in)
     return DatosCoordEqchrDec;
 }
 
-//-------    Refresca informacion del panel de control ----------------------
-//-------- Es llamada desde el timer4 de 100ms  -----------------------------
 //==============================================================================
+// Refresca informacion del panel de control
+// Es llamada desde el timer100 de 100ms
 void actualizar_datos(void)
 //==============================================================================
 {
@@ -2711,52 +2916,52 @@ void actualizar_datos(void)
         else Form1->PVpeltierB->Caption = "---";
     }
     /*
-      float pp = Tccd;
-      pp *= 10.0/32767.0;
-      pp = (pp/0.01)-273;
+    float pp = Tccd;
+    pp *= 10.0/32767.0;
+    pp = (pp/0.01)-273;
 
-      if((pp<100)&(pp>-100))
-      {
-          if (Form1->CBSelCamara->ItemIndex == 0)
-            Form1->PTccdA->Caption = FloatToStrF(pp, ffFixed, 15, 1);
-          else
-            Form1->PTccdB->Caption = FloatToStrF(pp, ffFixed, 15, 1);
-      }
-      else
-      {
-          if (Form1->CBSelCamara->ItemIndex == 0)
-            Form1->PTccdA->Caption = "---";
-          else
-            Form1->PTccdB->Caption = "---";
-      }
+    if((pp<100)&(pp>-100))
+    {
+    	if (Form1->CBSelCamara->ItemIndex == 0)
+    		Form1->PTccdA->Caption = FloatToStrF(pp, ffFixed, 15, 1);
+    	else
+    		Form1->PTccdB->Caption = FloatToStrF(pp, ffFixed, 15, 1);
+    }
+    else
+    {
+    	if (Form1->CBSelCamara->ItemIndex == 0)
+    		Form1->PTccdA->Caption = "---";
+    	else
+    		Form1->PTccdB->Caption = "---";
+    }
 
-      pp = Tcaja;
-      pp *= 10.0/32767.0;
-      pp = (pp/0.01)-273;
-      if((pp<100)&(pp>-100))
-      {
-        if (Form1->CBSelCamara->ItemIndex == 0)
-          Form1->PTcajaA->Caption = FloatToStrF(pp, ffFixed, 15, 1);
-        else
-          Form1->PTcajaB->Caption = FloatToStrF(pp, ffFixed, 15, 1);
-      }
-      else
-      {
-          if (Form1->CBSelCamara->ItemIndex == 0)
-            Form1->PTcajaA->Caption = "---";
-          else
-            Form1->PTcajaB->Caption = "---";
-      }
+    pp = Tcaja;
+    pp *= 10.0/32767.0;
+    pp = (pp/0.01)-273;
+    if((pp<100)&(pp>-100))
+    {
+    	if (Form1->CBSelCamara->ItemIndex == 0)
+    	Form1->PTcajaA->Caption = FloatToStrF(pp, ffFixed, 15, 1);
+    	else
+    	Form1->PTcajaB->Caption = FloatToStrF(pp, ffFixed, 15, 1);
+    }
+    else
+    {
+    	if (Form1->CBSelCamara->ItemIndex == 0)
+    		Form1->PTcajaA->Caption = "---";
+    	else
+    		Form1->PTcajaB->Caption = "---";
+    }
 
-      pp = Vpeltier;
-      pp *= 10.0/32767.0;
-      pp = pp*2; //porque hay un divisor de tension
-      if((pp<15)&(pp>=0))
-      {
-        Form1->PVpeltier->Caption = FloatToStrF(pp, ffFixed, 15, 1);
-      }
-          else Form1->PVpeltier->Caption = "---";
-      */
+    pp = Vpeltier;
+    pp *= 10.0/32767.0;
+    pp = pp*2; //porque hay un divisor de tension
+    if((pp<15)&(pp>=0))
+    {
+    	Form1->PVpeltier->Caption = FloatToStrF(pp, ffFixed, 15, 1);
+    }
+    	else Form1->PVpeltier->Caption = "---";
+    */
     if (Salidas & 0x01)
         Form1->Panel11->Enabled = true; //permite mover motores
     else Form1->Panel11->Enabled = false;
@@ -2777,26 +2982,26 @@ void actualizar_datos(void)
     Form1->ss5->Brush->Color = col1[(Grupos[0] & 0x10) >> 4];
     Form1->ss6->Brush->Color = col1[(Grupos[0] & 0x20) >> 5];
     /*
-     ss7->Brush->Color = col1[Grupos[1] & 0x01];
-     ss8->Brush->Color = col1[(Grupos[1] & 0x02) >> 1];
-     ss9->Brush->Color = col1[(Grupos[1] & 0x04) >> 2];
-     ss10->Brush->Color = col1[(Grupos[1] & 0x08) >> 3];
-     ss11->Brush->Color = col1[(Grupos[1] & 0x10) >> 4];
-     ss12->Brush->Color = col1[(Grupos[1] & 0x20) >> 5];
+    ss7->Brush->Color = col1[Grupos[1] & 0x01];
+    ss8->Brush->Color = col1[(Grupos[1] & 0x02) >> 1];
+    ss9->Brush->Color = col1[(Grupos[1] & 0x04) >> 2];
+    ss10->Brush->Color = col1[(Grupos[1] & 0x08) >> 3];
+    ss11->Brush->Color = col1[(Grupos[1] & 0x10) >> 4];
+    ss12->Brush->Color = col1[(Grupos[1] & 0x20) >> 5];
 
-     ss13->Brush->Color = col1[Grupos[2] & 0x01];
-     ss14->Brush->Color = col1[(Grupos[2] & 0x02) >> 1];
-     ss15->Brush->Color = col1[(Grupos[2] & 0x04) >> 2];
-     ss16->Brush->Color = col1[(Grupos[2] & 0x08) >> 3];
-     ss17->Brush->Color = col1[(Grupos[2] & 0x10) >> 4];
-     ss18->Brush->Color = col1[(Grupos[2] & 0x20) >> 5];
+    ss13->Brush->Color = col1[Grupos[2] & 0x01];
+    ss14->Brush->Color = col1[(Grupos[2] & 0x02) >> 1];
+    ss15->Brush->Color = col1[(Grupos[2] & 0x04) >> 2];
+    ss16->Brush->Color = col1[(Grupos[2] & 0x08) >> 3];
+    ss17->Brush->Color = col1[(Grupos[2] & 0x10) >> 4];
+    ss18->Brush->Color = col1[(Grupos[2] & 0x20) >> 5];
 
-     ss19->Brush->Color = col1[Grupos[3] & 0x01];
-     ss20->Brush->Color = col1[(Grupos[3] & 0x02) >> 1];
-     ss21->Brush->Color = col1[(Grupos[3] & 0x04) >> 2];
-     ss22->Brush->Color = col1[(Grupos[3] & 0x08) >> 3];
-     ss23->Brush->Color = col1[(Grupos[3] & 0x10) >> 4];
-     ss24->Brush->Color = col1[(Grupos[3] & 0x20) >> 5];
+    ss19->Brush->Color = col1[Grupos[3] & 0x01];
+    ss20->Brush->Color = col1[(Grupos[3] & 0x02) >> 1];
+    ss21->Brush->Color = col1[(Grupos[3] & 0x04) >> 2];
+    ss22->Brush->Color = col1[(Grupos[3] & 0x08) >> 3];
+    ss23->Brush->Color = col1[(Grupos[3] & 0x10) >> 4];
+    ss24->Brush->Color = col1[(Grupos[3] & 0x20) >> 5];
     */
 
 
@@ -2806,18 +3011,14 @@ void actualizar_datos(void)
 void __fastcall TForm1::FormDestroy(TObject *Sender)
 //------------------------------------------------------------------------------
 {
-    Timer1->Enabled = false;
+    Timer50->Enabled = false;
     delete Filtro;
     delete Shuter;
     delete S1;
 }
-//---------------------------------------------------------------------------
 
-//---------------------------------------------------------------------------
-/*****************************************************/
-/* Print out cfitsio error messages and exit program */
-/*****************************************************/
 //------------------------------------------------------------------------------
+// Print out cfitsio error messages and exit program
 void __fastcall TForm1::printerror( int status)
 //------------------------------------------------------------------------------
 {
@@ -2854,13 +3055,14 @@ void __fastcall TForm1::BEnviarClick(TObject *Sender)
 /*
 void __fastcall TForm1::BPonerHcorClick(TObject *Sender)
 {
-  char aux[300];
+char aux[300];
 
-  aux[0] = 60;
-  strcpy(&aux[2], EPonerHcor->Text.c_str());
-  S1->Escribir(aux, CBEnviar->Text.Length() + 2, S1->IPRabbit);
+aux[0] = 60;
+strcpy(&aux[2], EPonerHcor->Text.c_str());
+S1->Escribir(aux, CBEnviar->Text.Length() + 2, S1->IPRabbit);
 }
 */
+
 //==============================================================================
 void RellenarBitmap(int x1, int y1, int x2, int y2)
 //==============================================================================
@@ -2883,17 +3085,12 @@ void RellenarBitmap(int x1, int y1, int x2, int y2)
     Form1->PMin->Caption = FotoPrincipal->minimo;
 }
 
-
 //------------ Timer gestion de conexion y peticion de coordenadas -------------
 //int c1 = 0, c2 = 0;
 
-
-
-//---------------------------------------------------------------
-//--------------------  Timer1 50ms Gestion Fotos  --------------------
-//---------------------------------------------------------------
 //------------------------------------------------------------------------------
-void __fastcall TForm1::Timer1Timer(TObject *Sender)
+// Timer1 50ms Gestion Fotos
+void __fastcall TForm1::Timer50Timer(TObject *Sender)
 //------------------------------------------------------------------------------
 {
     char aux[300];
@@ -3062,9 +3259,9 @@ void __fastcall TForm1::Timer1Timer(TObject *Sender)
         {
             if (abs(Y2F - Y1F) < 10 || abs(X2F - X1F) < 10)
             {
-                Timer1->Enabled = false;
+                Timer50->Enabled = false;
                 Application->MessageBox("Rectangulo demasiado pequeño", "Atención", MB_OK);
-                Timer1->Enabled = true;
+                Timer50->Enabled = true;
                 FotoActual = 1;
                 nfotos = 0;
                 LeyendoFoto = false;
@@ -3156,16 +3353,12 @@ void __fastcall TForm1::Timer1Timer(TObject *Sender)
         PB1->Enabled = true; //permite redimensionar los rectangulos.
     }
 }
-//----------------- Termina Funcion del Timer 1 -------------------------
+//-------------------- Termina Funcion del Timer 1 -----------------------------
 
-
-
-//-----------------------------------------------------------------------
+//------------------------------------------------------------------------------
 // timer 2 de 60sg para la gestion de los graficos meteorologicos
 // Interval de T2 debe ser divisible por T3
-//-----------------------------------------------------------------------
-//------------------------------------------------------------------------------
-void __fastcall TForm1::Timer2Timer(TObject *Sender)
+void __fastcall TForm1::Timer60000Timer(TObject *Sender)
 //------------------------------------------------------------------------------
 {
     char aux[300];
@@ -3240,29 +3433,30 @@ void __fastcall TForm1::Timer2Timer(TObject *Sender)
     refres_jpg++;
 }
 
-//---------------------------------------------------------------------------
-// ****** Timer de 5 sg  ********
-//peticion de informacion de meteo cada 5 segundos
 //------------------------------------------------------------------------------
-void __fastcall TForm1::Timer5Timer(TObject *Sender)
+// Timer de 5 sg
+// Peticion de informacion de meteo cada 5 segundos
+void __fastcall TForm1::Timer5000Timer(TObject *Sender)
 //------------------------------------------------------------------------------
 {
+    /**************************
+    Simulación envío telescopio
+    **************************/
+    ProcesarCGEM();
+    /*************************/
+
     if ((PBF->Position == 0) && (Lemav2->Visible == false))
     {
         indice_meteo++;
         strcpy(Buf_Meteo[indice_meteo],  "(R)");
     }
 }
-//---------------------------------------------------------------------------
 
-
-//---------------------------------------------------------------------------
-// ****** Timer de 3 sg  ********
+//------------------------------------------------------------------------------
+// Timer de 3 sg
 // Abortar espera de foto
 // Regular temperatura.
-//---------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-void __fastcall TForm1::Timer3Timer(TObject *Sender)
+void __fastcall TForm1::Timer3000Timer(TObject *Sender)
 //------------------------------------------------------------------------------
 {
     // necesario que T2/T3 = entero
@@ -3308,14 +3502,12 @@ void __fastcall TForm1::Timer3Timer(TObject *Sender)
 
 }
 
-//---------------------------------------------------------------------------
-//                    Timer de 100ms
+//------------------------------------------------------------------------------
+// Timer de 100ms
 // Gestion mensajes de red con el cor.
 // Gestion mensajes CFS y Meteo
 // Coordenadas Telescopio
-//---------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-void __fastcall TForm1::Timer4Timer(TObject *Sender)
+void __fastcall TForm1::Timer100Timer(TObject *Sender)
 //------------------------------------------------------------------------------
 {
     char aux[3000];
@@ -3324,12 +3516,6 @@ void __fastcall TForm1::Timer4Timer(TObject *Sender)
 
     AnsiString buffer;
     char temp[50];
-
-    /**************************
-    Simulación envío telescopio
-    **************************/
-    //ProcesarCGEM();
-    /*************************/
 
     if (indice_cfs > 100)
     {
@@ -3365,56 +3551,56 @@ void __fastcall TForm1::Timer4Timer(TObject *Sender)
         }
 
         /*
-          if(cfs_resp && (EsperaCfs == 0))
-          {
-            EsperaCfs = 1;
-            cfs_resp = false;
-            aux[0] = 3;   //mensaje al CFS
-            aux[1] = 0;
-            strcpy(&aux[2], Buf_Cfs[indice_cfs]);
-            if(S1 != NULL)
-               S1->Escribir(aux, strlen(Buf_Cfs[indice_cfs]) + 2, S1->IPRabbit);
-          }
-          else if((EsperaCfs >= 1) && (EsperaCfs < 20)) {
-            EsperaCfs ++;
-            if (cfs_resp) {
-              indice_cfs--;
-              EsperaCfs = 0;
-            }
-            else if (EsperaCfs == 20){
+        if(cfs_resp && (EsperaCfs == 0))
+        {
+        	EsperaCfs = 1;
+        	cfs_resp = false;
+        	aux[0] = 3;   //mensaje al CFS
+        	aux[1] = 0;
+        	strcpy(&aux[2], Buf_Cfs[indice_cfs]);
+        	if(S1 != NULL)
+        	S1->Escribir(aux, strlen(Buf_Cfs[indice_cfs]) + 2, S1->IPRabbit);
+        }
+        else if((EsperaCfs >= 1) && (EsperaCfs < 20)) {
+        	EsperaCfs ++;
+        	if (cfs_resp) {
+        	indice_cfs--;
+        	EsperaCfs = 0;
+        	}
+        	else if (EsperaCfs == 20){
 
-              FalloCFS = Fecha.CurrentDateTime();
-              Historico->Mhistory->Lines->Add("CFS NO RESPONDE " + AnsiString(FalloCFS));
-              EsperaCfs = 21;
-              aux[0] = 3;   //mensaje al CFS
-              aux[1] = 0;
-              strcpy(&aux[2], "<rd>");
-              if(S1 != NULL)
-                 S1->Escribir(aux, 4 + 2, S1->IPRabbit);
-            }
-          }
-          else if ((EsperaCfs >= 21) && (EsperaCfs <50)){
-            if (cfs_resp) {
-              EsperaCfs = 0;
-              indice_cfs = 0;
-              FalloCFS = Fecha.CurrentDateTime();
-              Historico->Mhistory->Lines->Add("CFS OK " + AnsiString(FalloCFS));
-            }
-            else {
-              EsperaCfs++;
-              aux[0] = 3;   //mensaje al CFS
-              aux[1] = 0;
-              strcpy(&aux[2], "<rd>");
-              if(S1 != NULL)
-                 S1->Escribir(aux, 4 + 2, S1->IPRabbit);
-            }
-          }
+        	FalloCFS = Fecha.CurrentDateTime();
+        	Historico->Mhistory->Lines->Add("CFS NO RESPONDE " + AnsiString(FalloCFS));
+        	EsperaCfs = 21;
+        	aux[0] = 3;   //mensaje al CFS
+        	aux[1] = 0;
+        	strcpy(&aux[2], "<rd>");
+        	if(S1 != NULL)
+        		S1->Escribir(aux, 4 + 2, S1->IPRabbit);
+        	}
+        }
+        else if ((EsperaCfs >= 21) && (EsperaCfs <50)){
+        	if (cfs_resp) {
+        	EsperaCfs = 0;
+        	indice_cfs = 0;
+        	FalloCFS = Fecha.CurrentDateTime();
+        	Historico->Mhistory->Lines->Add("CFS OK " + AnsiString(FalloCFS));
+        	}
+        	else {
+        	EsperaCfs++;
+        	aux[0] = 3;   //mensaje al CFS
+        	aux[1] = 0;
+        	strcpy(&aux[2], "<rd>");
+        	if(S1 != NULL)
+        		S1->Escribir(aux, 4 + 2, S1->IPRabbit);
+        	}
+        }
 
-          else if (EsperaCfs == 50){
-            EsperaCfs = 21;
-          }
-          else EsperaCfs = 0;
-          */
+        else if (EsperaCfs == 50){
+        	EsperaCfs = 21;
+        }
+        else EsperaCfs = 0;
+        */
     }
 
     //Envio de mensajes Meteo
@@ -3567,14 +3753,31 @@ void __fastcall TForm1::Timer4Timer(TObject *Sender)
             {
                 if (HPREC)
                 {
-                    command = GetPreRAS_DEC;
-                    EnviaLX("e");
+                    if (arde)
+                    {
+                        command = GetPreRAS_DEC;
+                        EnviaLX("e");
+                    }
+                    else
+                    {
+                        command = GetPreAZM_ALT;
+                        EnviaLX("z");
+                    }
                 }
                 else
                 {
-                    command = GetRAS_DEC;
-                    EnviaLX("E");
+                    if (arde)
+                    {
+                        command = GetRAS_DEC;
+                        EnviaLX("E");
+                    }
+                    else
+                    {
+                        command = GetAZM_ALT;
+                        EnviaLX("Z");
+                    }
                 }
+                arde = !arde;
             }
             EsperaLX++;
         }
@@ -3597,19 +3800,21 @@ void __fastcall TForm1::Timer4Timer(TObject *Sender)
             Form1->STPerdido->Caption = "CONECTADO";
             // Form1->STRa->Caption = AnsiString(nRAHour) + AnsiString("h") + AnsiString(dRAMin) + AnsiString("m");
             Form1->STRa->Caption = coordARE;
+            Form1->LAzimutRx->Caption = coordAZM;
 
             /*
             if (tDe > 0)
-                Form1->STDe->Caption = AnsiString("+") + AnsiString(nDecDeg) + AnsiString("º") + AnsiString(nDecMin) + AnsiString("'") ;
+            	Form1->STDe->Caption = AnsiString("+") + AnsiString(nDecDeg) + AnsiString("º") + AnsiString(nDecMin) + AnsiString("'") ;
             else
             {
-                if (nDecDeg == 0)
-                    Form1->STDe->Caption = AnsiString("-") + AnsiString(nDecDeg) + AnsiString("º") + AnsiString(nDecMin) + AnsiString("'") ;
-                else
-                    Form1->STDe->Caption = AnsiString(nDecDeg) + AnsiString("º") + AnsiString(nDecMin) + AnsiString("'") ;
+            	if (nDecDeg == 0)
+            		Form1->STDe->Caption = AnsiString("-") + AnsiString(nDecDeg) + AnsiString("º") + AnsiString(nDecMin) + AnsiString("'") ;
+            	else
+            		Form1->STDe->Caption = AnsiString(nDecDeg) + AnsiString("º") + AnsiString(nDecMin) + AnsiString("'") ;
             }
             */
             Form1->STDe->Caption = coordDEC;
+            Form1->LAlturaRx->Caption = coordALT;
 
             Form1->arecta->Caption = carecta;
             Form1->declinacion->Caption = cdeclinacion;
@@ -3629,10 +3834,10 @@ void __fastcall TForm1::Timer4Timer(TObject *Sender)
             /*
             negativo = (nDecDeg < 0);
             if (negativo == 0)
-                Form1->STDe->Caption = AnsiString("+") + AnsiString(nDecDeg) + AnsiString("º") + AnsiString(nDecMin) + AnsiString("'") ;
+            	Form1->STDe->Caption = AnsiString("+") + AnsiString(nDecDeg) + AnsiString("º") + AnsiString(nDecMin) + AnsiString("'") ;
             else
-                //Form1->STDe->Caption = AnsiString("-") + AnsiString(nDecDeg) + AnsiString("º") + AnsiString(nDecMin) + AnsiString("'") ;
-                Form1->STDe->Caption = AnsiString(nDecDeg) + AnsiString("º") + AnsiString(nDecMin) + AnsiString("'") ;
+            	//Form1->STDe->Caption = AnsiString("-") + AnsiString(nDecDeg) + AnsiString("º") + AnsiString(nDecMin) + AnsiString("'") ;
+            	Form1->STDe->Caption = AnsiString(nDecDeg) + AnsiString("º") + AnsiString(nDecMin) + AnsiString("'") ;
             */
             Form1->STDe->Caption = coordDEC;
 
@@ -3721,6 +3926,7 @@ void __fastcall TForm1::Timer4Timer(TObject *Sender)
     SC->Brush->Color = ColorEstado;
 
 }
+
 //==============================================================================
 void HacerFoto( short x1, short y1, short x2, short y2, unsigned char binin,
                 short seg, short mseg, short NumCol, short NumFil,
@@ -3927,18 +4133,18 @@ void __fastcall TForm1::BAbrirClick(TObject *Sender)
     else
         return;
     /*
-      if(ffgipr(fptr,  2, &tipo, &ejes, ajes, &status))
-      {
-        return ;
-      }
-      ejex = ajes[0];
-      ejey = ajes[1];
-      Memo1->Lines->Add("------");
-      Memo1->Lines->Add("Tipo : " + AnsiString(tipo));
-      Memo1->Lines->Add("EJES : " + AnsiString(ejes));
-      Memo1->Lines->Add("AJES0: " + AnsiString(ajes[0]));
-      Memo1->Lines->Add("AJES1: " + AnsiString(ajes[1]));
-      Memo1->Lines->Add("HDU NUMBER: " + AnsiString(ii));
+    if(ffgipr(fptr,  2, &tipo, &ejes, ajes, &status))
+    {
+    	return ;
+    }
+    ejex = ajes[0];
+    ejey = ajes[1];
+    Memo1->Lines->Add("------");
+    Memo1->Lines->Add("Tipo : " + AnsiString(tipo));
+    Memo1->Lines->Add("EJES : " + AnsiString(ejes));
+    Memo1->Lines->Add("AJES0: " + AnsiString(ajes[0]));
+    Memo1->Lines->Add("AJES1: " + AnsiString(ajes[1]));
+    Memo1->Lines->Add("HDU NUMBER: " + AnsiString(ii));
     */
     // attempt to move to next HDU, until we get an EOF error
     fits_get_hdu_num(fptr, &ii); // get the current HDU number
@@ -4049,6 +4255,7 @@ void __fastcall TForm1::PCancelMouseDown(TObject *Sender,
 {
     ((TPanel*)Sender)->BevelOuter = bvLowered;
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::PCancelMouseUp(TObject *Sender,
                                        TMouseButton Button, TShiftState Shift, int X, int Y)
@@ -4078,28 +4285,31 @@ void __fastcall TForm1::PCancelMouseUp(TObject *Sender,
 
 
     /*
-        if (AutoEnfoque >1) {
-             AutoEnfoque = 0;
-             Form4->PDatosV->Caption =  " Curva Invalida. Retornando al Punto Inicial";
-             pasos_x = abs(contador_pasos) + pos_inicio;
-          sentido = '-';
-          MueveEnfoque();
-       }
+    	if (AutoEnfoque >1) {
+    		AutoEnfoque = 0;
+    		Form4->PDatosV->Caption =  " Curva Invalida. Retornando al Punto Inicial";
+    		pasos_x = abs(contador_pasos) + pos_inicio;
+    	sentido = '-';
+    	MueveEnfoque();
+    }
     */
 
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::PB1Paint(TObject *Sender)
 //------------------------------------------------------------------------------
 {
     RellenarBitmap(0, 0, FotoPrincipal->BM->Width, FotoPrincipal->BM->Height);
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::RBHClick(TObject *Sender)
 //------------------------------------------------------------------------------
 {
     Lupa(celdaX, celdaY, FotoPrincipal, true);
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::CBSelCamaraChange(TObject *Sender)
 //------------------------------------------------------------------------------
@@ -4135,6 +4345,7 @@ void __fastcall TForm1::CBSelCamaraChange(TObject *Sender)
     RellenarBitmap(0, 0, NumeroColumnas, NumeroFilas);
     //   Memo1->Lines->Add("change cam Y1F: " + AnsiString(Y1F) + "  Y2F: " + AnsiString(Y2F));
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::CBCCD_A_Change(TObject *Sender)
 //------------------------------------------------------------------------------
@@ -4152,6 +4363,7 @@ void __fastcall TForm1::CBCCD_A_Change(TObject *Sender)
     CCDs[CBCCD_A->ItemIndex].ColumnaFin =  EColumnaFinA->Text.ToInt();
     TForm1::CBSelCamaraChange(NULL);
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::CBCCD_B_Change(TObject *Sender)
 //------------------------------------------------------------------------------
@@ -4168,6 +4380,7 @@ void __fastcall TForm1::CBCCD_B_Change(TObject *Sender)
 
     TForm1::CBSelCamaraChange(NULL);
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::CBGuardarClick(TObject *Sender)
 //------------------------------------------------------------------------------
@@ -4181,30 +4394,31 @@ void __fastcall TForm1::CBGuardarClick(TObject *Sender)
         // ENombreFichero->Enabled = false;
     }
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::EFilaFinAChange(TObject *Sender)
 //------------------------------------------------------------------------------
 {
     /*
-      if(EFU->Text.ToInt() > CCDs[CBCCD_A->ItemIndex].FilasFisicas)
-         EFU->Text = CCDs[CBCCD_A->ItemIndex].FilasFisicas;
-      CCDs[CBCCD_A->ItemIndex].FilasUtiles = EFU->Text.ToInt();
-      NumeroColumnas = ECU->Text.ToInt() / Binin;
-      NumeroFilas = EFU->Text.ToInt() / Binin;
-      offsetx = (CCDs[CBCCD_A->ItemIndex].ColumnasFisicas - CCDs[CBCCD_A->ItemIndex].ColumnasUtiles)/2;
-      offsety = (CCDs[CBCCD_A->ItemIndex].FilasFisicas - CCDs[CBCCD_A->ItemIndex].FilasUtiles)/2;
-      if(CBR->State == cbUnchecked)
-      {
-        PX1->Caption = 0;
-        PX2->Caption = ECU->Text;
-        PY1->Caption = 0;
-        PY2->Caption = EFU->Text;
-      }
+    if(EFU->Text.ToInt() > CCDs[CBCCD_A->ItemIndex].FilasFisicas)
+    	EFU->Text = CCDs[CBCCD_A->ItemIndex].FilasFisicas;
+    CCDs[CBCCD_A->ItemIndex].FilasUtiles = EFU->Text.ToInt();
+    NumeroColumnas = ECU->Text.ToInt() / Binin;
+    NumeroFilas = EFU->Text.ToInt() / Binin;
+    offsetx = (CCDs[CBCCD_A->ItemIndex].ColumnasFisicas - CCDs[CBCCD_A->ItemIndex].ColumnasUtiles)/2;
+    offsety = (CCDs[CBCCD_A->ItemIndex].FilasFisicas - CCDs[CBCCD_A->ItemIndex].FilasUtiles)/2;
+    if(CBR->State == cbUnchecked)
+    {
+    	PX1->Caption = 0;
+    	PX2->Caption = ECU->Text;
+    	PY1->Caption = 0;
+    	PY2->Caption = EFU->Text;
+    }
     */
 }
-//---------------------------------------------------------------------------
-//--------------Envia orden de moverse al motor de enfoque ------------------
+
 //==============================================================================
+// Envia orden de moverse al motor de enfoque
 void MueveEnfoque()
 //==============================================================================
 {
@@ -4234,6 +4448,7 @@ void MueveEnfoque()
         strcpy(Buf_Cfs[indice_cfs],  A.c_str());
     }
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::subirClick(TObject *Sender)
 //------------------------------------------------------------------------------
@@ -4245,6 +4460,7 @@ void __fastcall TForm1::subirClick(TObject *Sender)
         MueveEnfoque();
     }
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::bajarClick(TObject *Sender)
 //------------------------------------------------------------------------------
@@ -4256,6 +4472,7 @@ void __fastcall TForm1::bajarClick(TObject *Sender)
         MueveEnfoque();
     }
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::BResetFocoClick(TObject *Sender)
 //------------------------------------------------------------------------------
@@ -4265,6 +4482,7 @@ void __fastcall TForm1::BResetFocoClick(TObject *Sender)
     //  errorcfs = 0; //desbloquea recepcion cfs
     FinX = 1;
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::Button1Click(TObject *Sender)
 //------------------------------------------------------------------------------
@@ -4274,6 +4492,7 @@ void __fastcall TForm1::Button1Click(TObject *Sender)
 
     FinX = 1;
 }
+
 //==============================================================================
 void Lupa(int X, int Y, cFoto *Foto, bool actualizar)
 //==============================================================================
@@ -4339,12 +4558,14 @@ void Lupa(int X, int Y, cFoto *Foto, bool actualizar)
         }
     }
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::PB1Click(TObject *Sender)
 //------------------------------------------------------------------------------
 {
     FActivo = NULL;
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::BFlipxClick(TObject *Sender)
 //------------------------------------------------------------------------------
@@ -4361,6 +4582,7 @@ void __fastcall TForm1::BFlipxClick(TObject *Sender)
         RellenarBitmap(0, 0, NumeroColumnas, NumeroFilas);
     }
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::DG2DrawCell(TObject *Sender, int ACol, int ARow,
                                     TRect &Rect, TGridDrawState State)
@@ -4368,6 +4590,7 @@ void __fastcall TForm1::DG2DrawCell(TObject *Sender, int ACol, int ARow,
 {
     Lupa(celdaX, celdaY, FotoPrincipal, true);
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::BFlipyClick(TObject *Sender)
 //------------------------------------------------------------------------------
@@ -4383,12 +4606,14 @@ void __fastcall TForm1::BFlipyClick(TObject *Sender)
         RellenarBitmap(0, 0, NumeroColumnas, NumeroFilas);
     }
 }
-/********    Actualiza la barra de horas ********/
+
 //==============================================================================
+// Actualiza la barra de horas
 void barra_horas(void)
 //==============================================================================
 {
 }
+
 //==============================================================================
 fitsfile * AbrirFoto(char *nombre)
 //==============================================================================
@@ -4510,9 +4735,10 @@ fitsfile * AbrirFoto(char *nombre)
     }
     return fptr;
 }
-/* Funcioncilla auxiliar para reconvertir coordenadas
-AR para que las lea Astrometrica de la cabecera FITS */
+
 //==============================================================================
+// Funcioncilla auxiliar para reconvertir coordenadas
+// AR para que las lea Astrometrica de la cabecera FITS
 AnsiString ReconvShortAR(AnsiString arin)
 //==============================================================================
 {
@@ -4525,7 +4751,7 @@ AnsiString ReconvShortAR(AnsiString arin)
     /*
     res = sscanf(arin.c_str(), "%dh%d,%d", &myhh, &myintmin, &myfracmin);
     if (res == 2)
-        myfracmin = 0;
+    	myfracmin = 0;
 
     mysec = myfracmin * 6;
     */
@@ -4534,9 +4760,10 @@ AnsiString ReconvShortAR(AnsiString arin)
     sprintf(buf, "%02d:%02d:%02d", myhh, myintmin, mysec);
     return (AnsiString(buf));
 }
-/* Funcioncilla auxiliar para reconvertir coordenadas
-DEC para que las lea Astrometrica de la cabecera FITS */
+
 //==============================================================================
+// Funcioncilla auxiliar para reconvertir coordenadas
+// DEC para que las lea Astrometrica de la cabecera FITS
 AnsiString ReconvShortDEC(AnsiString decin)
 //==============================================================================
 {
@@ -4555,7 +4782,7 @@ AnsiString ReconvShortDEC(AnsiString decin)
     /*
     res = sscanf(arin.c_str(), "%dh%d,%d", &myhh, &myintmin, &myfracmin);
     if (res == 2)
-        myfracmin = 0;
+    	myfracmin = 0;
 
     mysec = myfracmin * 6;
     */
@@ -4564,16 +4791,16 @@ AnsiString ReconvShortDEC(AnsiString decin)
     return (AnsiString(buf));
 }
 
-/* FUNCION MODIFICADA POR RAFA (17/10/2004) */
-/* La metainformación se graba como FITS keywords siguiendo el "Amateur
-FITS Standard v1.0, del 19 de Marzo de 2003 en lo que me ha parecido conveniente */
-
-/* ATENCION: El comporamiento de la CFITSIO de la NASA es que si se incluyen
-en la cabecera  BZERO y BSCALE, la grabación de los datos de la imagen se realiza
-con un reescalado previo. En nuestro caso BSCALE=1.0 y BZERO=0.0, esto es una
-absoluta perdida de tiempo. Por ello no se incluyen en la cabecera y en este
-sentido no siguen el Amateur FITS Standard */
 //==============================================================================
+// FUNCION MODIFICADA POR RAFA (17/10/2004)
+// La metainformación se graba como FITS keywords siguiendo el "Amateur FITS
+// Standard" v1.0, del 19 de Marzo de 2003 en lo que me ha parecido conveniente
+
+// ATENCION: El comporamiento de la CFITSIO de la NASA es que si se incluyen
+// en la cabecera BZERO y BSCALE, la grabación de los datos de la imagen se
+// realiza con un reescalado previo. En nuestro caso BSCALE=1.0 y BZERO=0.0,
+// esto es una absoluta perdida de tiempo. Por ello no se incluyen en la
+// cabecera y en este sentido no siguen el "Amateur FITS Standard"
 void GuardarFoto(char* nombre)
 //==============================================================================
 {
@@ -4767,9 +4994,9 @@ void GuardarFoto(char* nombre)
         int ps;
 
         if ((ps = dec.Pos("º")) != 0)
-            dec[ps] = ':';
+        	dec[ps] = ':';
         if ((ps = dec.Pos("'")) != 0)
-            dec[ps] = ':';
+        	dec[ps] = ':';
         dec += AnsiString("00"); // Segundos?
         */
         AnsiString ar  = ReconvShortAR( Form1->STRa->Caption);
@@ -4808,9 +5035,10 @@ void GuardarFoto(char* nombre)
     delete datos;
     return;
 }
-//------------------------------------------------------------------------------
 
-/****************FUNCIONES LX200 *******************/
+//------------------------------------------------------------------------------
+// FUNCIONES LX200
+//------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
 void __fastcall TForm1::BstopClick(TObject *Sender)
@@ -4829,6 +5057,7 @@ void __fastcall TForm1::BstopClick(TObject *Sender)
     S1->Escribir(aux, strlen("#:Q#") + 2, S1->IPRabbit);
 
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::BOClick(TObject *Sender)
 //------------------------------------------------------------------------------
@@ -4839,8 +5068,8 @@ void __fastcall TForm1::BOClick(TObject *Sender)
         ((TSpeedButton*)Sender)->Down = true;
 }
 
-// Bufer de salida al Telescopio para LX200
 //==============================================================================
+// Bufer de salida al Telescopio para LX200
 void EnviaLX(char *orden)
 //==============================================================================
 {
@@ -4856,8 +5085,8 @@ void EnviaLX(char *orden)
     cont_mensLX++;
 }
 
-// Bufer de salida al Telescopio para CGEM
 //==============================================================================
+// Bufer de salida al Telescopio para CGEM
 void EnviaLX(char *orden, int long_orden)
 //==============================================================================
 {
@@ -4891,6 +5120,7 @@ void EnviaLX(char *orden, int long_orden)
 
     cont_mensLX++;
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::BSMouseDown(TObject *Sender, TMouseButton Button,
                                     TShiftState Shift, int X, int Y)
@@ -4938,53 +5168,53 @@ void __fastcall TForm1::BSMouseDown(TObject *Sender, TMouseButton Button,
 
     //  slewCmd[4] = slewRate;
 
-/*
-Lógica del programa de VB functions.bas que mueve el telescopio conectado por RS-232
+    /*
+    Lógica del programa de VB functions.bas que mueve el telescopio conectado por RS-232
 
-Stop Tracking. "T0" strScopeResponse = ScopeComm("T" & Chr(0), 1, 500)
+    Stop Tracking. "T0" strScopeResponse = ScopeComm("T" & Chr(0), 1, 500)
 
-If slew RIGHT
+    If slew RIGHT
 
-    Stop DEC motor. Fixed rate ALT (or DEC) slew in negative direction
-    strCoord = Chr(80) & Chr(2) & Chr(17) & Chr(37) & Chr(0) & Chr(0) & Chr(0) & Chr(0)
-    strScopeResponse = ScopeComm(strCoord, 1, 500)
+    	Stop DEC motor. Fixed rate ALT (or DEC) slew in negative direction
+    	strCoord = Chr(80) & Chr(2) & Chr(17) & Chr(37) & Chr(0) & Chr(0) & Chr(0) & Chr(0)
+    	strScopeResponse = ScopeComm(strCoord, 1, 500)
 
-    Slew RA positive. Variable rate Azm (or RA) slew in positive direction
-    strCoord = Chr(80) & Chr(3) & Chr(16) & Chr(6) & Chr(TrackRateAzHigh) & Chr(TrackRateAzLow) & Chr(0) & Chr(0)
-    strScopeResponse = ScopeComm(strCoord, 1, 500)
+    	Slew RA positive. Variable rate Azm (or RA) slew in positive direction
+    	strCoord = Chr(80) & Chr(3) & Chr(16) & Chr(6) & Chr(TrackRateAzHigh) & Chr(TrackRateAzLow) & Chr(0) & Chr(0)
+    	strScopeResponse = ScopeComm(strCoord, 1, 500)
 
-If slew UP
+    If slew UP
 
-    Stop RA motor. Fixed rate Azm (or RA) slew in negative direction
-    strCoord = Chr(80) & Chr(2) & Chr(16) & Chr(37) & Chr(0) & Chr(0) & Chr(0) & Chr(0)
-    strScopeResponse = ScopeComm(strCoord, 1, 500)
+    	Stop RA motor. Fixed rate Azm (or RA) slew in negative direction
+    	strCoord = Chr(80) & Chr(2) & Chr(16) & Chr(37) & Chr(0) & Chr(0) & Chr(0) & Chr(0)
+    	strScopeResponse = ScopeComm(strCoord, 1, 500)
 
-    Slew DEC negative. Variable rate Alt (or Dec) slew in negative direction
-    strCoord = Chr(80) & Chr(3) & Chr(17) & Chr(7) & Chr(TrackRateAltHigh) & Chr(TrackRateAltLow) & Chr(0) & Chr(0)
-    strScopeResponse = ScopeComm(strCoord, 1, 500)
+    	Slew DEC negative. Variable rate Alt (or Dec) slew in negative direction
+    	strCoord = Chr(80) & Chr(3) & Chr(17) & Chr(7) & Chr(TrackRateAltHigh) & Chr(TrackRateAltLow) & Chr(0) & Chr(0)
+    	strScopeResponse = ScopeComm(strCoord, 1, 500)
 
-If slew LEFT
+    If slew LEFT
 
-    Stop DEC motor. Fixed rate ALT (or DEC) slew in negative direction
-    strCoord = Chr(80) & Chr(2) & Chr(17) & Chr(37) & Chr(0) & Chr(0) & Chr(0) & Chr(0)
-    strScopeResponse = ScopeComm(strCoord, 1, 500)
+    	Stop DEC motor. Fixed rate ALT (or DEC) slew in negative direction
+    	strCoord = Chr(80) & Chr(2) & Chr(17) & Chr(37) & Chr(0) & Chr(0) & Chr(0) & Chr(0)
+    	strScopeResponse = ScopeComm(strCoord, 1, 500)
 
-    Slew RA negative. Variable rate Azm (or RA) slew in negative direction
-    strCoord = Chr(80) & Chr(3) & Chr(16) & Chr(7) & Chr(TrackRateAzHigh) & Chr(TrackRateAzLow) & Chr(0) & Chr(0)
-    strScopeResponse = ScopeComm(strCoord, 1, 500)
+    	Slew RA negative. Variable rate Azm (or RA) slew in negative direction
+    	strCoord = Chr(80) & Chr(3) & Chr(16) & Chr(7) & Chr(TrackRateAzHigh) & Chr(TrackRateAzLow) & Chr(0) & Chr(0)
+    	strScopeResponse = ScopeComm(strCoord, 1, 500)
 
-If slew DOWN
+    If slew DOWN
 
-    Stop RA motor. Fixed rate Azm (or RA) slew in negative direction
-	strCoord = Chr(80) & Chr(2) & Chr(16) & Chr(37) & Chr(0) & Chr(0) & Chr(0) & Chr(0)
-    strScopeResponse = ScopeComm(strCoord, 1, 500)
+    	Stop RA motor. Fixed rate Azm (or RA) slew in negative direction
+    	strCoord = Chr(80) & Chr(2) & Chr(16) & Chr(37) & Chr(0) & Chr(0) & Chr(0) & Chr(0)
+    	strScopeResponse = ScopeComm(strCoord, 1, 500)
 
-    Slew DEC positive. Variable rate Alt (or Dec) slew in positive direction
-    strCoord = Chr(80) & Chr(3) & Chr(17) & Chr(6) & Chr(TrackRateAltHigh) & Chr(TrackRateAltLow) & Chr(0) & Chr(0)
-    strScopeResponse = ScopeComm(strCoord, 1, 500)
+    	Slew DEC positive. Variable rate Alt (or Dec) slew in positive direction
+    	strCoord = Chr(80) & Chr(3) & Chr(17) & Chr(6) & Chr(TrackRateAltHigh) & Chr(TrackRateAltLow) & Chr(0) & Chr(0)
+    	strScopeResponse = ScopeComm(strCoord, 1, 500)
 
 
-*/
+    */
 
     if (CGEM)
     {
@@ -5097,6 +5327,7 @@ If slew DOWN
             EnviaLX("#:Q#");
     }
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::BNOMouseUp(TObject *Sender, TMouseButton Button,
                                    TShiftState Shift, int X, int Y)
@@ -5159,6 +5390,7 @@ void __fastcall TForm1::BNOMouseUp(TObject *Sender, TMouseButton Button,
             EnviaLX("#:Qn##:Qe#");
     }
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::stSignClick(TObject *Sender)
 //------------------------------------------------------------------------------
@@ -5168,6 +5400,7 @@ void __fastcall TForm1::stSignClick(TObject *Sender)
     else
         stSign->Caption = "+";
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::bbGoClick(TObject *Sender)
 //------------------------------------------------------------------------------
@@ -5189,7 +5422,7 @@ void __fastcall TForm1::bbGoClick(TObject *Sender)
     /*
     if (Application->MessageBox("¿Confirma Movimiento del Telescopio ?", "ATENCION", MB_OKCANCEL ) == IDCANCEL )
     {
-        return;
+    	return;
     }
     */
 
@@ -5238,6 +5471,7 @@ void __fastcall TForm1::bbGoClick(TObject *Sender)
         S1->Escribir(aux, strlen(&aux[2]) + 2, S1->IPRabbit);
     }
 }
+
 //==============================================================================
 void WriteHistory (AnsiString cadena)
 //==============================================================================
@@ -5247,21 +5481,23 @@ void WriteHistory (AnsiString cadena)
         Historico->Mhistory->Lines->Add(cadena);
     }
 }
+
 //==============================================================================
 void GetRaDe_F(double *Ra, double *De)
 //==============================================================================
 {
     /*
-      char aux[300];
+    char aux[300];
 
-      aux[0] = 2;
-      strncpy(&aux[2], "#:GR#:GD#", 9);
-      if(S1 != NULL)
-        S1->Escribir(aux, strlen(&aux[2])+2, IPRabbit);
+    aux[0] = 2;
+    strncpy(&aux[2], "#:GR#:GD#", 9);
+    if(S1 != NULL)
+    	S1->Escribir(aux, strlen(&aux[2])+2, IPRabbit);
     */
     *Ra = tRa;    //son los valores recibidos en ProcesarLX200
     *De = tDe;
 }
+
 //==============================================================================
 void Slew_F(char *comando)
 //==============================================================================
@@ -5301,8 +5537,10 @@ void Slew_F(char *comando)
     EnviaLX(aux);
 }
 
-// -- recibe AR en horas decimales y DEC en grados decimales, envia cadena tipo LX200
 //==============================================================================
+// @param dRA: recibe AR en horas decimales
+// @param dDec: DEC en grados decimales
+// envia cadena tipo LX200 o CGEM
 void Slew_F(double dRA, double dDec)
 //==============================================================================
 {
@@ -5313,11 +5551,11 @@ void Slew_F(double dRA, double dDec)
     double dValue;			 			// temporary storage
     char cSign;	                        // declination sign
     /*
-        int HoraSlew;			 			// RA, hours
-        double dRAMin;			 			// RA, minutes
-        int nDecDeg;			 			// declination, degrees
-        int nDecMin;			 			// declination, minutes
-        char szCommand[128];				// command string
+    	int HoraSlew;			 			// RA, hours
+    	double dRAMin;			 			// RA, minutes
+    	int nDecDeg;			 			// declination, degrees
+    	int nDecMin;			 			// declination, minutes
+    	char szCommand[128];				// command string
     */
     // New variables
     long RAHor;                         // RA,  hours
@@ -5433,96 +5671,96 @@ void Slew_F(double dRA, double dDec)
     // the specified RA/Dec coordinates.
 
     /*
-        dValue = dRA / 15.0 + 1 / 1200.0;
-        WriteHistory("dValue = " + AnsiString(dValue));
+    	dValue = dRA / 15.0 + 1 / 1200.0;
+    	WriteHistory("dValue = " + AnsiString(dValue));
 
-        HoraSlew = int(dValue);
-        dRAMin = (dValue - HoraSlew) * 60.0;
+    	HoraSlew = int(dValue);
+    	dRAMin = (dValue - HoraSlew) * 60.0;
 
-        dValue = dDec;
-        if (dValue < 0.0)
-        {
-            dValue = -dValue;
-            cSign = '-';
-        }
-        else
-            cSign = '+';
+    	dValue = dDec;
+    	if (dValue < 0.0)
+    	{
+    		dValue = -dValue;
+    		cSign = '-';
+    	}
+    	else
+    		cSign = '+';
 
-        dValue += 1 / 120.0;
-        nDecDeg = int(dValue);
-        nDecMin = int((dValue - nDecDeg) * 60.0);
+    	dValue += 1 / 120.0;
+    	nDecDeg = int(dValue);
+    	nDecMin = int((dValue - nDecDeg) * 60.0);
 
-        sprintf(carecta, "%02dh%04.1lfm", HoraSlew, dRAMin);
-        sprintf(cdeclinacion, "%c%02dº%02d'", cSign, nDecDeg, nDecMin );
+    	sprintf(carecta, "%02dh%04.1lfm", HoraSlew, dRAMin);
+    	sprintf(cdeclinacion, "%c%02dº%02d'", cSign, nDecDeg, nDecMin );
 
-        if (CGEM)
-        {
-            if (Sincronizando)
-            {
-                //ArDecToOrden(long Ar_Hora  , long Ar_Minuto , long Ar_Segundo , long Ar_CentSegundo,
-                //             long Dec_Grado, long Dec_Minuto, long Dec_Segundo, long Dec_CentSegundo, char Dec_Sign)
-                //strcpy(aux, ArDecToOrden(HoraSlew, dRAMin, 0, 0,
-                //                         nDecDeg, nDecMin, 0, 0, cSign));
+    	if (CGEM)
+    	{
+    		if (Sincronizando)
+    		{
+    			//ArDecToOrden(long Ar_Hora  , long Ar_Minuto , long Ar_Segundo , long Ar_CentSegundo,
+    			//             long Dec_Grado, long Dec_Minuto, long Dec_Segundo, long Dec_CentSegundo, char Dec_Sign)
+    			//strcpy(aux, ArDecToOrden(HoraSlew, dRAMin, 0, 0,
+    			//                         nDecDeg, nDecMin, 0, 0, cSign));
 
-                // Change from GOTO to SYNC
-                if (HPREC)
-                {
-                    strcpy(aux, ArDecPrecToOrden(HoraSlew, dRAMin, 0, 0,
-                                                 nDecDeg, nDecMin, 0, 0, cSign));
-                    aux[0] = 's';
-                }
-                else
-                {
-                    strcpy(aux, ArDecToOrden(HoraSlew, dRAMin, 0, 0,
-                                             nDecDeg, nDecMin, 0, 0, cSign));
-                    aux[0] = 'S';
-                }
+    			// Change from GOTO to SYNC
+    			if (HPREC)
+    			{
+    				strcpy(aux, ArDecPrecToOrden(HoraSlew, dRAMin, 0, 0,
+    											nDecDeg, nDecMin, 0, 0, cSign));
+    				aux[0] = 's';
+    			}
+    			else
+    			{
+    				strcpy(aux, ArDecToOrden(HoraSlew, dRAMin, 0, 0,
+    										nDecDeg, nDecMin, 0, 0, cSign));
+    				aux[0] = 'S';
+    			}
 
-                Historico->Mhistory->Lines->Add ("Orden Sync: " + AnsiString(carecta) + " " +
-                                                 + cdeclinacion + " "
-                                                 + AnsiString(aux));
+    			Historico->Mhistory->Lines->Add ("Orden Sync: " + AnsiString(carecta) + " " +
+    											+ cdeclinacion + " "
+    											+ AnsiString(aux));
 
-                // From sendClick()
-                pedidaRaDe = false;
-            }
-            else
-            {
-                //ArDecToOrden(long Ar_Hora  , long Ar_Minuto , long Ar_Segundo , long Ar_CentSegundo,
-                //             long Dec_Grado, long Dec_Minuto, long Dec_Segundo, long Dec_CentSegundo, char Dec_Sign)
-                if (HPREC)
-                {
-                    strcpy(aux, ArDecPrecToOrden(HoraSlew, dRAMin, 0, 0,
-                                                 nDecDeg, nDecMin, 0, 0, cSign));
-                }
-                else
-                {
-                    strcpy(aux, ArDecToOrden(HoraSlew, dRAMin, 0, 0,
-                                             nDecDeg, nDecMin, 0, 0, cSign));
-                }
-                Historico->Mhistory->Lines->Add ("Orden Slew: " + AnsiString(carecta) + " " +
-                                                 + cdeclinacion + " "
-                                                 + AnsiString(aux));
+    			// From sendClick()
+    			pedidaRaDe = false;
+    		}
+    		else
+    		{
+    			//ArDecToOrden(long Ar_Hora  , long Ar_Minuto , long Ar_Segundo , long Ar_CentSegundo,
+    			//             long Dec_Grado, long Dec_Minuto, long Dec_Segundo, long Dec_CentSegundo, char Dec_Sign)
+    			if (HPREC)
+    			{
+    				strcpy(aux, ArDecPrecToOrden(HoraSlew, dRAMin, 0, 0,
+    											nDecDeg, nDecMin, 0, 0, cSign));
+    			}
+    			else
+    			{
+    				strcpy(aux, ArDecToOrden(HoraSlew, dRAMin, 0, 0,
+    										nDecDeg, nDecMin, 0, 0, cSign));
+    			}
+    			Historico->Mhistory->Lines->Add ("Orden Slew: " + AnsiString(carecta) + " " +
+    											+ cdeclinacion + " "
+    											+ AnsiString(aux));
 
-                // From sendClick()
-            }
+    			// From sendClick()
+    		}
 
-        }
-        else
-        {
+    	}
+    	else
+    	{
 
-            if (Sincronizando == true)
-            {
-                //           sprintf( &aux[2], ":Sr %02d:%04.1lf#:Sd %c%02d\337%02d#:CM#",
-                sprintf( aux, ":Sr %02d:%04.1lf#:Sd %c%02d\337%02d#:CM#",
-                         HoraSlew, dRAMin, cSign, nDecDeg, nDecMin );
-                Sincronizando = false;
-                Form1->CBSincronizar->State = cbUnchecked;
-            }
-            else
-                //           sprintf( &aux[2], ":Sr %02d:%04.1lf#:Sd %c%02d\337%02d#:MS#",
-                sprintf( aux, ":Sr %02d:%04.1lf#:Sd %c%02d\337%02d#:MS#",
-                         HoraSlew, dRAMin, cSign, nDecDeg, nDecMin );
-        }
+    		if (Sincronizando == true)
+    		{
+    			//           sprintf( &aux[2], ":Sr %02d:%04.1lf#:Sd %c%02d\337%02d#:CM#",
+    			sprintf( aux, ":Sr %02d:%04.1lf#:Sd %c%02d\337%02d#:CM#",
+    					HoraSlew, dRAMin, cSign, nDecDeg, nDecMin );
+    			Sincronizando = false;
+    			Form1->CBSincronizar->State = cbUnchecked;
+    		}
+    		else
+    			//           sprintf( &aux[2], ":Sr %02d:%04.1lf#:Sd %c%02d\337%02d#:MS#",
+    			sprintf( aux, ":Sr %02d:%04.1lf#:Sd %c%02d\337%02d#:MS#",
+    					HoraSlew, dRAMin, cSign, nDecDeg, nDecMin );
+    	}
     */
 
 
@@ -5532,10 +5770,9 @@ void Slew_F(double dRA, double dDec)
     //S1->Escribir(aux, strlen(&aux[2])+2, S1->IPRabbit);
     EnviaLX(aux.c_str());
 }
-//------------------------------------------------------------------------------
 
-//            Sincronizar telescopio con ELBRUS
 //------------------------------------------------------------------------------
+// Sincronizar telescopio con ELBRUS
 void __fastcall TForm1::BElbrusClick(TObject *Sender)
 //------------------------------------------------------------------------------
 {
@@ -5583,8 +5820,8 @@ void __fastcall TForm1::BElbrusClick(TObject *Sender)
     }
 }
 
-//   Ver deriva con la foto anterior
 //------------------------------------------------------------------------------
+// Ver deriva con la foto anterior
 void __fastcall TForm1::BDerivaAquiClick(TObject *Sender)
 //------------------------------------------------------------------------------
 {
@@ -5639,8 +5876,8 @@ void __fastcall TForm1::BDerivaAquiClick(TObject *Sender)
     }
 }
 
-//--- pruebas de guiado -----
 //------------------------------------------------------------------------------
+// pruebas de guiado
 void __fastcall TForm1::BrecentrarARClick(TObject *Sender)
 //------------------------------------------------------------------------------
 {
@@ -5712,6 +5949,7 @@ void __fastcall TForm1::BrecentrarARClick(TObject *Sender)
         EnviaLX("#:RG#:Me#");
     }
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::BrecentrarDECClick(TObject *Sender)
 //------------------------------------------------------------------------------
@@ -5749,38 +5987,40 @@ void __fastcall TForm1::BrecentrarDECClick(TObject *Sender)
         EnviaLX("#:RG#:Ms#");
     }
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::BGraficasClick(TObject *Sender)
 //------------------------------------------------------------------------------
 {
     FGraficas->ShowModal();
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::ServerSocket1Accept(TObject *Sender,
         TCustomWinSocket *Socket)
 //------------------------------------------------------------------------------
 {
     Socket1 = Socket;
-
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::ServerSocket1ClientDisconnect(TObject *Sender,
         TCustomWinSocket *Socket)
 //------------------------------------------------------------------------------
 {
     Socket1 = NULL;
-
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::ServerSocket1ClientError(TObject *Sender,
         TCustomWinSocket *Socket, TErrorEvent ErrorEvent, int &ErrorCode)
 //------------------------------------------------------------------------------
 {
     Socket1 = NULL;
-
 }
-// Lo que viene por el PUERTO SERIE VIRTUAL es enviado al telescopio
+
 //------------------------------------------------------------------------------
+// Lo que viene por el PUERTO SERIE VIRTUAL es enviado al telescopio
 void __fastcall TForm1::ServerSocket1ClientRead(TObject *Sender,
         TCustomWinSocket *Socket)
 //------------------------------------------------------------------------------
@@ -5796,12 +6036,14 @@ void __fastcall TForm1::ServerSocket1ClientRead(TObject *Sender,
     strcpy(&aux[2], A.c_str());
     S1->Escribir(aux, strlen(&aux[2]) + 2, S1->IPRabbit);
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::BcambiaIPClick(TObject *Sender)
 //------------------------------------------------------------------------------
 {
     S1->IniciarRabbit();
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::BGuardaConfigClick(TObject *Sender)
 //------------------------------------------------------------------------------
@@ -5858,27 +6100,29 @@ void __fastcall TForm1::BGuardaConfigClick(TObject *Sender)
 
     fclose(out); /* close file */
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::EColumnaFinAChange(TObject *Sender)
 //------------------------------------------------------------------------------
 {
     /*
-      if(ECU->Text.ToInt() > CCDs[CBCCD_A->ItemIndex].ColumnasFisicas)
-         ECU->Text = CCDs[CBCCD_A->ItemIndex].ColumnasFisicas;
-      CCDs[CBCCD_A->ItemIndex].ColumnasUtiles = ECU->Text.ToInt();
-      NumeroColumnas = ECU->Text.ToInt() / Binin;
-      NumeroFilas = EFU->Text.ToInt() / Binin;
-      offsetx = (CCDs[CBCCD_A->ItemIndex].ColumnasFisicas - CCDs[CBCCD_A->ItemIndex].ColumnasUtiles)/2;
-      offsety = (CCDs[CBCCD_A->ItemIndex].FilasFisicas - CCDs[CBCCD_A->ItemIndex].FilasUtiles)/2;
-      if(CBR->State == cbUnchecked)
-      {
-        PX1->Caption = 0;
-        PX2->Caption = ECU->Text;
-        PY1->Caption = 0;
-        PY2->Caption = EFU->Text;
-      }
+    if(ECU->Text.ToInt() > CCDs[CBCCD_A->ItemIndex].ColumnasFisicas)
+    	ECU->Text = CCDs[CBCCD_A->ItemIndex].ColumnasFisicas;
+    CCDs[CBCCD_A->ItemIndex].ColumnasUtiles = ECU->Text.ToInt();
+    NumeroColumnas = ECU->Text.ToInt() / Binin;
+    NumeroFilas = EFU->Text.ToInt() / Binin;
+    offsetx = (CCDs[CBCCD_A->ItemIndex].ColumnasFisicas - CCDs[CBCCD_A->ItemIndex].ColumnasUtiles)/2;
+    offsety = (CCDs[CBCCD_A->ItemIndex].FilasFisicas - CCDs[CBCCD_A->ItemIndex].FilasUtiles)/2;
+    if(CBR->State == cbUnchecked)
+    {
+    	PX1->Caption = 0;
+    	PX2->Caption = ECU->Text;
+    	PY1->Caption = 0;
+    	PY2->Caption = EFU->Text;
+    }
     */
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::UpDown1ChangingEx(TObject *Sender,
         bool &AllowChange, short NewValue, TUpDownDirection Direction)
@@ -5899,6 +6143,7 @@ void __fastcall TForm1::UpDown1ChangingEx(TObject *Sender,
             UpDown1->Increment = 1;
     }
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::CBimagenChange(TObject *Sender)
 //------------------------------------------------------------------------------
@@ -5922,74 +6167,76 @@ void __fastcall TForm1::CBimagenChange(TObject *Sender)
         strcpy(Buf_Cfs[indice_cfs],  "<mx>");    // primero xo es LIFO
     }
     /*   else
-       {
-         indice_cfs++;
-         strcpy(Buf_Cfs[indice_cfs],  "<mf>");    // primero xo es LIFO
-       }
+    {
+    	indice_cfs++;
+    	strcpy(Buf_Cfs[indice_cfs],  "<mf>");    // primero xo es LIFO
+    }
     */
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::DirectoryListBox1Change(TObject *Sender)
 //------------------------------------------------------------------------------
 {
     mPath =  DirectoryListBox1->Directory;
 }
-//---------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
 
 /*
 void Estadistica()  //calcula la media y el histograma
 {
-  unsigned short Histograma[0x7FFF];
-  long m = 0;
-  int xcf;
+unsigned short Histograma[0x7FFF];
+long m = 0;
+int xcf;
 
-  for(int cf = 0; cf < 0x7FFF; cf++)
-  {
-    histo[cf] = 0;
-  }
-//  for (int cy = 10; cy < BM->Height - 10; cy++)
-  for (int cy = 10; cy < BM->Height - 10; cy++)
-  {
-//    for (int cx = 10; cx < BM->Width - 10; cx++)
-    for (int cx = 10; cx < BM->Width - 10; cx++)
-    {
-      m = m + Pixeles[cy * BM->Width + cx];
-      histo[Pixeles[cy * BM->Width + cx]/10]++;     //clave, histograma
-    }
-  }
-  fondocielo = 0;
-  for(int cf = 0; cf < 0x7FFF; cf++)
-  {
-    if(histo[cf] > fondocielo)
-    {
-      fondocielo = histo[cf];
-      xcf = cf;
-    }
-  }
-  fondocielo = xcf*10;  //clave , valor del fondo de cielo
-
-  m = m / ((BM->Height-20) * (BM->Width-20));
- // if(fondocielo > m)
- //     fondocielo = m;
-  Historico->Mhistory->Lines->Add("media = " + AnsiString(m));
-  Historico->Mhistory->Lines->Add("fondo = " + AnsiString(fondocielo));
-
-  return (m);
+for(int cf = 0; cf < 0x7FFF; cf++)
+{
+	histo[cf] = 0;
 }
- */
+//  for (int cy = 10; cy < BM->Height - 10; cy++)
+for (int cy = 10; cy < BM->Height - 10; cy++)
+{
+//    for (int cx = 10; cx < BM->Width - 10; cx++)
+	for (int cx = 10; cx < BM->Width - 10; cx++)
+	{
+	m = m + Pixeles[cy * BM->Width + cx];
+	histo[Pixeles[cy * BM->Width + cx]/10]++;     //clave, histograma
+	}
+}
+fondocielo = 0;
+for(int cf = 0; cf < 0x7FFF; cf++)
+{
+	if(histo[cf] > fondocielo)
+	{
+	fondocielo = histo[cf];
+	xcf = cf;
+	}
+}
+fondocielo = xcf*10;  //clave , valor del fondo de cielo
 
-/** FUNCION ADAPTADORA *
- *
- * Esta funciona adaptadora hace que tanto la region de fondo de cielo
- * como la region de calculo de centroide de la estrella sea toda la imagen
- * Si el punteio a la imagen cambia con cada toma, pues hay que llamarla
- * una vez por cada toma.
- * Si se reutiliza el mismo buffer una y otra vez, pues se lama una vez al principio
- *
- * Asume que la imagen es un buffer todo seguido de pixeles
- */
+m = m / ((BM->Height-20) * (BM->Width-20));
+// if(fondocielo > m)
+//     fondocielo = m;
+Historico->Mhistory->Lines->Add("media = " + AnsiString(m));
+Historico->Mhistory->Lines->Add("fondo = " + AnsiString(fondocielo));
+
+return (m);
+}
+*/
+
 
 //==============================================================================
+// FUNCION ADAPTADORA
+//
+// Esta funciona adaptadora hace que tanto la region de fondo de cielo
+// como la region de calculo de centroide de la estrella sea toda la imagen
+// Si el puntero a la imagen cambia con cada toma, pues hay que llamarla
+// una vez por cada toma.
+// Si se reutiliza el mismo buffer una y otra vez, se llama una vez al principio
+//
+// Asume que la imagen es un buffer todo seguido de pixeles
+//
 void ACOR_SetImage(pixel_t* img, int width, int height)
 //==============================================================================
 {
@@ -5998,8 +6245,8 @@ void ACOR_SetImage(pixel_t* img, int width, int height)
     AF_SetCentroidRegion(0, 0, width - 1, height - 1);
 }
 
-// Terminada una foto de enfoque, se procede a su analisis
 //==============================================================================
+// Terminada una foto de enfoque, se procede a su analisis
 void Enfoque()
 //==============================================================================
 {
@@ -6016,13 +6263,13 @@ void Enfoque()
     datos = new short [npixel + 1];
     memset(datos, 0, npixel * 2);
     /*
-     for(int py = Y2F-1; py >= Y1F; py--)
-     {
-         for (int px = (X2F-1); px >= X1F; px--)
-            datos[npixel--] = FotoPrincipal->Pixeles[py * FotoPrincipal->BM->Width + px];
-     }
-      height = Y2F-1 - Y1F;
-      width = X2F-1-X1F;
+    for(int py = Y2F-1; py >= Y1F; py--)
+    {
+    	for (int px = (X2F-1); px >= X1F; px--)
+    		datos[npixel--] = FotoPrincipal->Pixeles[py * FotoPrincipal->BM->Width + px];
+    }
+    height = Y2F-1 - Y1F;
+    width = X2F-1-X1F;
     */
     for (int py = Y2F - 1; py >= Y1F; py--)
     {
@@ -6092,6 +6339,7 @@ void Enfoque()
     Historico->Mhistory->Lines->Add("-> Pos: " + AnsiString(contador_pasos) + "  X: " + AnsiString(xc) + "  Y: " + AnsiString(yc) + "  hfd "  + AnsiString(hf));//+ " act " + AnsiString(FotoActual));
     //  Historico->Mhistory->Lines->Add(" X: " + AnsiString(xc) + " Y: " + AnsiString(yc) + "  hfd " + AnsiString(hf));
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::BIniCalClick(TObject *Sender)
 //------------------------------------------------------------------------------
@@ -6101,6 +6349,7 @@ void __fastcall TForm1::BIniCalClick(TObject *Sender)
     Memo1->Lines->Add("Width =" + AnsiString(FotoPrincipal->BM->Width) + "  Height =" + AnsiString(FotoPrincipal->BM->Height));
 
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::BFotoEnfocarClick(TObject *Sender)
 //------------------------------------------------------------------------------
@@ -6108,6 +6357,7 @@ void __fastcall TForm1::BFotoEnfocarClick(TObject *Sender)
     nfotos = FotoActual;   //lanza una toma
     // AF_SetImage(imagen, width, height);
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::IFotoMouseDown(TObject *Sender,
                                        TMouseButton Button, TShiftState Shift, int X, int Y)
@@ -6183,19 +6433,20 @@ void __fastcall TForm1::IFotoMouseDown(TObject *Sender,
         }
     }
 }
+
 //==============================================================================
 void QuitaRectangulo(void)
 //==============================================================================
 {
     /*   points[0] = Point(X1F,Y1F);
-       points[1] = Point(X2F,Y1F);
-       points[2] = Point(X2F,Y2F);
-       points[3] = Point(X1F,Y2F);
-       points[4] = Point(X1F,Y1F);
-       PB1->Canvas->Pen->Color = clWhite;
-       PB1->Canvas->Pen->Mode = pmXor;
-       PB1->Canvas->Polyline(points, 4);
-      */
+    points[1] = Point(X2F,Y1F);
+    points[2] = Point(X2F,Y2F);
+    points[3] = Point(X1F,Y2F);
+    points[4] = Point(X1F,Y1F);
+    PB1->Canvas->Pen->Color = clWhite;
+    PB1->Canvas->Pen->Mode = pmXor;
+    PB1->Canvas->Polyline(points, 4);
+    */
     Y1F = CCDs[Form1->CBCCD_A->ItemIndex ].FilaInicio / Binin;
     X1F = CCDs[Form1->CBCCD_A->ItemIndex].ColumnaInicio / Binin;
     Y2F = CCDs[Form1->CBCCD_A->ItemIndex].FilaFin / Binin;
@@ -6221,6 +6472,7 @@ void QuitaRectangulo(void)
     Form1->PY2->Caption = Y2T;
     //  PRecuadro->Caption = AnsiString(X2T-X1T) + " x " + AnsiString(Y2T-Y1T);
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::PB1MouseDown(TObject *Sender, TMouseButton Button,
                                      TShiftState Shift, int X, int Y)
@@ -6292,6 +6544,7 @@ void __fastcall TForm1::PB1MouseDown(TObject *Sender, TMouseButton Button,
         }//fin boton izquierdo
     }
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::PB1MouseMove(TObject *Sender, TShiftState Shift,
                                      int X, int Y)
@@ -6341,6 +6594,7 @@ void __fastcall TForm1::PB1MouseMove(TObject *Sender, TShiftState Shift,
         //PRecuadro->Caption = AnsiString(X2T-X1T) + " x " + AnsiString(Y2T-Y1T);
     }
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::PB1MouseUp(TObject *Sender, TMouseButton Button,
                                    TShiftState Shift, int X, int Y)
@@ -6373,6 +6627,7 @@ void __fastcall TForm1::PB1MouseUp(TObject *Sender, TMouseButton Button,
         }
     }
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::BPeltierAClick(TObject *Sender)
 //------------------------------------------------------------------------------
@@ -6392,6 +6647,7 @@ void __fastcall TForm1::BPeltierAClick(TObject *Sender)
     strcpy(Buf_Cfs[indice_cfs],  aux);
     VccdA = Form1->EVpelt_manA->Text.ToInt();
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::BPeltierBClick(TObject *Sender)
 //------------------------------------------------------------------------------
@@ -6410,6 +6666,7 @@ void __fastcall TForm1::BPeltierBClick(TObject *Sender)
     indice_cfs++;
     strcpy(Buf_Cfs[indice_cfs],  aux);
 }
+
 //==============================================================================
 void RegularTccdA(void)
 //==============================================================================
@@ -6600,6 +6857,7 @@ void __fastcall TForm1::Button2Click(TObject *Sender)
 
     //   errorcfs = 0;  //desbloquea recepcion cfs.
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::BCalibrarMeteoClick(TObject *Sender)
 //------------------------------------------------------------------------------
@@ -6610,18 +6868,21 @@ void __fastcall TForm1::BCalibrarMeteoClick(TObject *Sender)
     delete fp;
     fp = NULL;
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::BHistoriaClick(TObject *Sender)
 //------------------------------------------------------------------------------
 {
-    Historico->Visible = true;
+    Historico->Visible = !Historico->Visible;
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::Button3Click(TObject *Sender)
 //------------------------------------------------------------------------------
 {
     Filtro->mover_rueda(3);   //prueba de mover_rueda
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::BVergrafClick(TObject *Sender)
 //------------------------------------------------------------------------------
@@ -6629,6 +6890,7 @@ void __fastcall TForm1::BVergrafClick(TObject *Sender)
     //Form4->Series1->Clear();
     Form4->Visible = true;
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::BGetBFPClick(TObject *Sender)
 //------------------------------------------------------------------------------
@@ -6708,6 +6970,7 @@ void __fastcall TForm1::BGetBFPClick(TObject *Sender)
         Form4->PDatosV->Caption =  " DATOS INVALIDOS ";
     }
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::BInitCalibrationClick(TObject *Sender)
 //------------------------------------------------------------------------------
@@ -6730,6 +6993,7 @@ void __fastcall TForm1::BInitCalibrationClick(TObject *Sender)
 
     Form1->BGetBFP->Enabled = true;
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::BAutoEnfoqueClick(TObject *Sender)
 //------------------------------------------------------------------------------
@@ -6771,9 +7035,10 @@ void __fastcall TForm1::BAutoEnfoqueClick(TObject *Sender)
         Y1F = Y2F - 80;
     }
 }
-//-------------  Timer de 1sg para gestion del autoenfoque   -----------------
+
 //------------------------------------------------------------------------------
-void __fastcall TForm1::Timer6Timer(TObject *Sender)
+// Timer de 1sg para gestion del autoenfoque
+void __fastcall TForm1::Timer1000Timer(TObject *Sender)
 //------------------------------------------------------------------------------
 {
     char aux2[12];
@@ -6860,6 +7125,7 @@ void __fastcall TForm1::Timer6Timer(TObject *Sender)
         strcpy(Buf_Cfs[indice_cfs],  "<xp>");  //
     }
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::EPasosEnfoqueChange(TObject *Sender)
 //------------------------------------------------------------------------------
@@ -6882,6 +7148,7 @@ void __fastcall TForm1::EPasosEnfoqueChange(TObject *Sender)
         Form1->EPasosEnfoque->Text = pasos_x;
     }
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::EVelocidadEnfoqueChange(TObject *Sender)
 //------------------------------------------------------------------------------
@@ -6904,12 +7171,14 @@ void __fastcall TForm1::EVelocidadEnfoqueChange(TObject *Sender)
         Form1->EVelocidadEnfoque->Text = periodo_x;
     }
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::BrtmlClick(TObject *Sender)
 //------------------------------------------------------------------------------
 {
     Fprog->Visible = true;
 }
+
 /*
 Time/Location Commands (Hand Control)
 The following commands set the time and location in the hand control.
@@ -6973,6 +7242,7 @@ Example : 3:26:00PM on April 6, 2005 in the Eastern time zone (-5 UTC: 256-5 = 2
 Response: "#"
 
 */
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::BSendLXClick(TObject *Sender)
 //------------------------------------------------------------------------------
@@ -6980,6 +7250,7 @@ void __fastcall TForm1::BSendLXClick(TObject *Sender)
     EnviaLX(Form1->ELXsend->Text.c_str());
     //EnviaLX(":GT#");
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::BBAbrirObsClick(TObject *Sender)
 //------------------------------------------------------------------------------
@@ -7025,6 +7296,7 @@ void __fastcall TForm1::BBAbrirObsClick(TObject *Sender)
         }
     }
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::CBCGEMClick(TObject *Sender)
 //------------------------------------------------------------------------------
@@ -7044,6 +7316,7 @@ void __fastcall TForm1::CBCGEMClick(TObject *Sender)
         cbPrecision->Visible = false;
     }
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::MaskEditChange(TObject *Sender)
 //------------------------------------------------------------------------------
@@ -7054,6 +7327,7 @@ void __fastcall TForm1::MaskEditChange(TObject *Sender)
     if (valor > 59)
         ((TMaskEdit*)(Sender))->Text = "59";
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::EHraChange(TObject *Sender)
 //------------------------------------------------------------------------------
@@ -7064,6 +7338,7 @@ void __fastcall TForm1::EHraChange(TObject *Sender)
     if (valor > 23)
         ((TMaskEdit*)(Sender))->Text = "23";
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::EDdecChange(TObject *Sender)
 //------------------------------------------------------------------------------
@@ -7074,6 +7349,7 @@ void __fastcall TForm1::EDdecChange(TObject *Sender)
     if (valor > 90)
         ((TMaskEdit*)(Sender))->Text = "90";
 }
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::CBSincronizarClick(TObject *Sender)
 //------------------------------------------------------------------------------
@@ -7177,15 +7453,15 @@ void __fastcall TForm1::rgTrackingClick(TObject *Sender)
 
     track[1] = option;
     /*
-        switch (option)
-        {
-          case 0:
-            track[1] = 0;
-          break;
-          case 1:
-            char track[3] = {'H', 2};
-          break;
-        }
+    	switch (option)
+    	{
+    	case 0:
+    		track[1] = 0;
+    	break;
+    	case 1:
+    		char track[3] = {'H', 2};
+    	break;
+    	}
     */
     EnviaLX(track, 2);
 }
