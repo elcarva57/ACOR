@@ -26,6 +26,7 @@
 #include "ConfiFiltro.h"
 #include "Programacion.h"
 #include "fitsio.h"
+#include "VerInfo.h"
 #include <dateutils.hpp>
 
 #include "visualizar.h"
@@ -2543,7 +2544,9 @@ AnsiString formatAZM(double dAZM)
 
     if (AZCse > 99) AZCse = 99;
 
-    sprintf(aux, " %02dº %02dm %02d.%02ds", AZDeg, AZMin, AZSec, AZCse);
+    // Formato grados y minutos
+    sprintf(aux, "%02dº%02dm", AZDeg, AZMin);
+    //sprintf(aux, " %02dº %02dm %02d.%02ds", AZDeg, AZMin, AZSec, AZCse);
 
     return AnsiString(aux);
 }
@@ -2586,7 +2589,9 @@ AnsiString formatALT(double dALT)
 
     if (ALTCse > 99) ALTCse = 99;
 
-    sprintf(aux, "%c%02dº %02d' %02d.%02d\"", cSign, ALTGra, ALTMin, ALTSec, ALTCse);
+    // Formato grados y minutos
+    sprintf(aux, "%c%02dº%02dm", cSign, ALTGra, ALTMin);
+    //sprintf(aux, "%c%02dº %02d' %02d.%02d\"", cSign, ALTGra, ALTMin, ALTSec, ALTCse);
 
     return AnsiString(aux);
 }
@@ -7564,5 +7569,16 @@ void __fastcall TForm1::bEchoClick(TObject *Sender)
     char cmd[3] = {'K', eco};
 
     EnviaLX(cmd, 2);
+}
+
+//------------------------------------------------------------------------------
+void __fastcall TForm1::FormCreate(TObject *Sender)
+//------------------------------------------------------------------------------
+{
+    VerInfo myVerInfo;
+
+    Form1->Caption = myVerInfo.FileDescription + " v" +
+                     myVerInfo.FileVersion + " " +
+                     myVerInfo.LegalCopyright;
 }
 

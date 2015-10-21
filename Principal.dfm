@@ -39,6 +39,7 @@ object Form1: TForm1
   OldCreateOrder = False
   Position = poScreenCenter
   Scaled = False
+  OnCreate = FormCreate
   OnDestroy = FormDestroy
   PixelsPerInch = 96
   TextHeight = 16
@@ -1902,7 +1903,7 @@ object Form1: TForm1
             Height = 15
             Align = alTop
             Alignment = taCenter
-            Caption = 'Ultimo Slew Recibido2:'
+            Caption = 'Ultimo Slew Recibido:'
             Font.Charset = ANSI_CHARSET
             Font.Color = clMaroon
             Font.Height = -12

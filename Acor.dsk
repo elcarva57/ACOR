@@ -1,23 +1,24 @@
 [Closed Files]
-File_0=SourceModule,'D:\Cpp\RocPcServidorAsp\App.rc',0,1,1,1,1,0,0
-File_1=SourceModule,'D:\Cpp\RocPcServidorAsp\Principal.dfm',0,1,1,1,1,0,0
-File_2=SourceModule,'D:\Cpp\RocPcServidorAsp\conf_meteo.cpp',0,1,206,1,222,0,0
-File_3=SourceModule,'D:\C++\RocPcServidorAsp\visualizar.cpp',0,1,1,1,1,0,0
-File_4=SourceModule,'D:\C++\RocPcServidorAsp\Foto.cpp',0,1,37,38,207,0,0
-File_5=SourceModule,'D:\C++\RocPcServidorAsp\FocuserImpl.cpp',0,1,1,1,1,0,0
-File_6=SourceModule,'D:\C++\RocPcServidorAsp\cRocPcServidorImpl.cpp',0,1,87,31,103,0,0
+File_0=SourceModule,'c:\program files (x86)\borland\cbuilder6\include\vcl\dstring.h',0,1,132,1,150,0,0
+File_1=SourceModule,'D:\Cpp\RocPcServidorAsp\App.rc',0,1,1,1,1,0,0
+File_2=SourceModule,'D:\Cpp\RocPcServidorAsp\Principal.dfm',0,1,1,1,1,0,0
+File_3=SourceModule,'D:\Cpp\RocPcServidorAsp\conf_meteo.cpp',0,1,206,1,222,0,0
+File_4=SourceModule,'D:\C++\RocPcServidorAsp\visualizar.cpp',0,1,1,1,1,0,0
+File_5=SourceModule,'D:\C++\RocPcServidorAsp\Foto.cpp',0,1,37,38,207,0,0
+File_6=SourceModule,'D:\C++\RocPcServidorAsp\FocuserImpl.cpp',0,1,1,1,1,0,0
+File_7=SourceModule,'D:\C++\RocPcServidorAsp\cRocPcServidorImpl.cpp',0,1,87,31,103,0,0
 
 [Modules]
 Module0=D:\Cpp\RocPcServidorAsp\Principal.cpp
-Module1=D:\Cpp\RocPcServidorAsp\Programacion.cpp
-Module2=D:\Cpp\RocPcServidorAsp\cRocPcServidorImpl.cpp
-Module3=D:\Cpp\RocPcServidorAsp\Historia.cpp
-Module4=D:\Cpp\RocPcServidorAsp\CCD1Impl.cpp
-Module5=D:\Cpp\RocPcServidorAsp\FocuserImpl.cpp
-Module6=D:\Cpp\RocPcServidorAsp\RUEDA.CPP
-Module7=D:\Cpp\RocPcServidorAsp\RocPcServidor.tlb
-Module8=c:\program files (x86)\borland\cbuilder6\include\vcl\dstring.h
-Module9=D:\Cpp\RocPcServidorAsp\Acor.bpr
+Module1=D:\Cpp\RocPcServidorAsp\Acor.bpr
+Module2=D:\Cpp\RocPcServidorAsp\Programacion.cpp
+Module3=D:\Cpp\RocPcServidorAsp\CCD1Impl.cpp
+Module4=D:\Cpp\RocPcServidorAsp\FocuserImpl.cpp
+Module5=D:\Cpp\RocPcServidorAsp\script3.xml
+Module6=D:\Cpp\RocPcServidorAsp\cRocPcServidorImpl.cpp
+Module7=D:\Cpp\RocPcServidorAsp\RUEDA.CPP
+Module8=D:\Cpp\RocPcServidorAsp\RocPcServidor.tlb
+Module9=D:\Cpp\RocPcServidorAsp\Historia.cpp
 Count=10
 EditWindowCount=1
 TypeLibWindowCount=1
@@ -27,17 +28,12 @@ ModuleType=SourceModule
 FormState=1
 FormOnTop=0
 
-[D:\Cpp\RocPcServidorAsp\Programacion.cpp]
-ModuleType=SourceModule
-FormState=1
-FormOnTop=0
-
-[D:\Cpp\RocPcServidorAsp\cRocPcServidorImpl.cpp]
+[D:\Cpp\RocPcServidorAsp\Acor.bpr]
 ModuleType=SourceModule
 FormState=0
 FormOnTop=0
 
-[D:\Cpp\RocPcServidorAsp\Historia.cpp]
+[D:\Cpp\RocPcServidorAsp\Programacion.cpp]
 ModuleType=SourceModule
 FormState=1
 FormOnTop=0
@@ -52,6 +48,16 @@ ModuleType=SourceModule
 FormState=0
 FormOnTop=0
 
+[D:\Cpp\RocPcServidorAsp\script3.xml]
+ModuleType=SourceModule
+FormState=0
+FormOnTop=0
+
+[D:\Cpp\RocPcServidorAsp\cRocPcServidorImpl.cpp]
+ModuleType=SourceModule
+FormState=0
+FormOnTop=0
+
 [D:\Cpp\RocPcServidorAsp\RUEDA.CPP]
 ModuleType=SourceModule
 FormState=0
@@ -62,12 +68,7 @@ ModuleType=TypeLibModule
 FormState=0
 FormOnTop=0
 
-[c:\program files (x86)\borland\cbuilder6\include\vcl\dstring.h]
-ModuleType=SourceModule
-FormState=0
-FormOnTop=0
-
-[D:\Cpp\RocPcServidorAsp\Acor.bpr]
+[D:\Cpp\RocPcServidorAsp\Historia.cpp]
 ModuleType=SourceModule
 FormState=0
 FormOnTop=0
@@ -105,15 +106,15 @@ ClientWidth=1286
 ClientHeight=882
 LeftPanelSize=0
 RightPanelSize=0
-BottomPanelSize=178
+BottomPanelSize=0
 BottomPanelClients=MessageView@EditWindow0
-BottomPanelData=0000040000000000060500000000000002B200000000000000010000000000000000000000000100000000850300000000000001000000000605000000000000010000000006050000000000000100000000060500000000000001000000000605000000000000010000000006050000000000000100000000060500000B0000004D65737361676556696577FFFFFFFF
+BottomPanelData=00000400010000000B0000004D657373616765566965770605000000000000026700000000000000010000000000000000000000000100000000850300000000000001000000000605000000000000010000000006050000000000000100000000060500000000000001000000000605000000000000010000000006050000000000000100000000060500000B0000004D65737361676556696577FFFFFFFF
 
 [View0]
 Module=D:\Cpp\RocPcServidorAsp\Acor.cpp
-CursorX=2
-CursorY=21
-TopLine=18
+CursorX=78
+CursorY=54
+TopLine=36
 LeftCol=1
 
 [View1]
@@ -125,44 +126,44 @@ LeftCol=1
 
 [View2]
 Module=D:\Cpp\RocPcServidorAsp\Principal.cpp
-CursorX=68
-CursorY=2586
-TopLine=2636
+CursorX=1
+CursorY=7582
+TopLine=7560
 LeftCol=1
 
 [View3]
-Module=c:\program files (x86)\borland\cbuilder6\include\vcl\dstring.h
-CursorX=1
-CursorY=150
-TopLine=132
-LeftCol=1
-
-[View4]
 Module=D:\Cpp\RocPcServidorAsp\RocPcServidor_TLB.cpp
 CursorX=1
 CursorY=1
 TopLine=1
 LeftCol=1
 
-[View5]
+[View4]
 Module=D:\Cpp\RocPcServidorAsp\RUEDA.CPP
 CursorX=3
 CursorY=464
 TopLine=448
 LeftCol=1
 
-[View6]
+[View5]
 Module=D:\Cpp\RocPcServidorAsp\cRocPcServidorImpl.cpp
 CursorX=34
 CursorY=122
 TopLine=105
 LeftCol=1
 
-[View7]
+[View6]
 Module=D:\Cpp\RocPcServidorAsp\Programacion.cpp
+CursorX=25
+CursorY=403
+TopLine=387
+LeftCol=1
+
+[View7]
+Module=D:\Cpp\RocPcServidorAsp\script3.xml
 CursorX=1
-CursorY=29
-TopLine=29
+CursorY=1
+TopLine=1
 LeftCol=1
 
 [View8]
@@ -395,7 +396,7 @@ LRDockWidth=274
 Dockable=1
 SplitPos=144
 ArrangeBy=Name
-SelectedItem=Hint
+SelectedItem=Caption
 ExpandedItems=DepthAxis.Axis,EdgeBorders,Font,LeftAxis,VisibleButtons
 HiddenCategories=Legacy
 
@@ -532,17 +533,17 @@ ClassViewDisplayMode=0
 
 [MessageView@EditWindow0]
 Create=1
-Visible=1
+Visible=0
 State=0
 Left=12
 Top=0
 Width=1274
-Height=178
+Height=103
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1274
-ClientHeight=178
-TBDockHeight=178
+ClientHeight=103
+TBDockHeight=103
 LRDockWidth=443
 Dockable=1
 

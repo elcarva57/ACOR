@@ -601,6 +601,7 @@ __published:	// IDE-managed Components
     void __fastcall bSendSingleCommandClick(TObject *Sender);
     void __fastcall rgDeviceClick(TObject *Sender);
     void __fastcall bEchoClick(TObject *Sender);
+    void __fastcall FormCreate(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
     __fastcall TForm1(TComponent* Owner);
