@@ -10,7 +10,7 @@
 // ************************************************************************ //
 
 // C++ TLBWRTR : $Revision:   1.151.1.0.1.27  $
-// File generated on 21/10/2015 14:39:02 from Type Library described below.
+// File generated on 11/11/2015 20:16:28 from Type Library described below.
 
 // ************************************************************************  //
 // Type Lib: D:\Cpp\RocPcServidorAsp\RocPcServidor.tlb (1)
@@ -117,7 +117,7 @@ typedef ICCD1Ptr CCD1Ptr;
 interface IcRocPcServidor  : public IDispatch
 {
 public:
-  virtual HRESULT STDMETHODCALLTYPE OnStartPage(LPUNKNOWN AScriptingContext/*[in]*/) = 0; // [1]
+  virtual HRESULT STDMETHODCALLTYPE OnStartPage(LPUNKNOWN AScriptingContext/*[in]*/) = 0; // [-1]
   virtual HRESULT STDMETHODCALLTYPE OnEndPage(void) = 0; // [2]
   virtual HRESULT STDMETHODCALLTYPE Foto(BSTR nombre/*[in]*/) = 0; // [3]
   virtual HRESULT STDMETHODCALLTYPE Slew(BSTR com/*[in]*/) = 0; // [4]
@@ -965,7 +965,7 @@ TCOMIcRocPcServidorT<T>::get_FocusAbsolute(void)
 template <class T> HRESULT __fastcall
 IcRocPcServidorDispT<T>::OnStartPage(LPUNKNOWN AScriptingContext/*[in]*/)
 {
-  _TDispID _dispid(*this, OLETEXT("OnStartPage"), DISPID(1));
+  _TDispID _dispid(*this, OLETEXT("OnStartPage"), DISPID(DISPID_UNKNOWN/*[1610743808]*/));
   TAutoArgs<1> _args;
   _args[1] = AScriptingContext /*[VT_UNKNOWN:0]*/;
   return OleFunction(_dispid, _args);

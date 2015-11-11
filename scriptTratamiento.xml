@@ -1,0 +1,60 @@
+<RTML>
+
+<Request>
+    <UserName>Admin</UserName>
+    <Observers>El Cerro</Observers>
+    <TimeStamp>2015-10-29T18:00:00</TimeStamp>
+
+	<Target>--------------------------------------------------------------ProcesarFichero
+	  <ID>Albireo</ID>------------------------------------------------ProcesarTarget
+	  <Name>Albireo</Name>--------------------------------------------ProcesarTarget
+	  <DateTime>2015-10-29T18:01:00</DateTime>------------------------ProcesarTarget
+	  <Coordinates> 
+	     <RightAscension>292,842</RightAscension>---------------------ProcesarTarget
+	     <Declination>28,0003</Declination>---------------------------ProcesarTarget
+	  </Coordinates>
+
+	  <Picture>-------------------------------------------------------ProcesarTarget  
+	     <Filter>0</Filter>---------------------------------------ProcesarPicture
+	     <Count>2</Count>-----------------------------------------ProcesarPicture
+	     <Binning>1</Binning>-------------------------------------ProcesarPicture
+	     <ExposureTime>5</ExposureTime>---------------------------ProcesarPicture
+	  </Picture>
+	</Target>
+
+	<Target>
+  		<ID>Auto</ID>
+  		<Name>M57</Name>
+  		<DateTime>2015-10-29T18:10:00</DateTime>
+  		<Coordinates>                            
+     		<RightAscension>283.5417</RightAscension>
+     		<Declination>33,0569</Declination>
+  		</Coordinates>
+
+  		<Picture>
+     		<Filter>0</Filter>
+     		<Count>10</Count>
+     		<Binning>1</Binning>
+     		<ExposureTime>30</ExposureTime>
+  		</Picture>
+	</Target>
+
+	<Target>
+	  <ID>Auto</ID>
+	  <Name>NGC6826</Name>
+	  <DateTime>2015-10-29T18:15:00</DateTime>
+	  <Coordinates>
+	     <RightAscension>296,3083</RightAscension>
+	     <Declination>50,5719</Declination>
+	  </Coordinates>
+
+	  <Picture>  
+	     <Filter>0</Filter>
+	     <Count>10</Count>
+	     <Binning>1</Binning>
+	     <ExposureTime>60</ExposureTime>
+	  </Picture>
+	</Target>
+</Request>
+
+</RTML>

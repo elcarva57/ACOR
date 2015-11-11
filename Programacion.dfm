@@ -1,8 +1,8 @@
 object Fprog: TFprog
   Left = 556
   Top = 76
-  Width = 314
-  Height = 562
+  Width = 323
+  Height = 565
   Caption = 'Adquisicion Programada'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -21,9 +21,9 @@ object Fprog: TFprog
     Height = 13
     Caption = 'Tiempo Actual'
   end
-  object Label1: TLabel
-    Left = 230
-    Top = 462
+  object lEstado: TLabel
+    Left = 157
+    Top = 478
     Width = 33
     Height = 13
     Caption = 'Estado'
@@ -196,7 +196,7 @@ object Fprog: TFprog
     Width = 33
     Height = 21
     TabOrder = 7
-    Text = '150'
+    Text = '0'
   end
   object EAlturaSup: TEdit
     Left = 192
@@ -204,7 +204,7 @@ object Fprog: TFprog
     Width = 33
     Height = 21
     TabOrder = 8
-    Text = '70'
+    Text = '90'
   end
   object EAzimut2: TEdit
     Left = 256
@@ -212,7 +212,7 @@ object Fprog: TFprog
     Width = 33
     Height = 21
     TabOrder = 9
-    Text = '270'
+    Text = '360'
   end
   object Timer1: TTimer
     OnTimer = Timer1Timer

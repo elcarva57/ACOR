@@ -295,13 +295,13 @@ STDMETHODIMP TcRocPcServidorImpl::get_MensEMAv2(BSTR* Value)
 
 STDMETHODIMP TcRocPcServidorImpl::FocusMove(double Pasos)
 {
-
+    return S_OK;
 }
 
 
 STDMETHODIMP TcRocPcServidorImpl::get_FocusPosition(double* Value)
 {
-
+    return S_OK;
 };
 
 
@@ -318,6 +318,4 @@ STDMETHODIMP TcRocPcServidorImpl::get_FocusAbsolute(long* Value)
     }
     return S_OK;
 };
-
-
 

@@ -124,7 +124,8 @@ STDMETHODIMP TFocuserImpl::get_StepSize(long* Value)
 
 STDMETHODIMP TFocuserImpl::Halt()
 {
-  Form1->Button1Click(NULL);
+    Form1->Button1Click(NULL);
+    return S_OK;
 }
 
 STDMETHODIMP TFocuserImpl::get_TempComp(VARIANT_BOOL* Value)

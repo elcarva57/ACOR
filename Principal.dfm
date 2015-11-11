@@ -756,7 +756,7 @@ object Form1: TForm1
     Top = 0
     Width = 250
     Height = 745
-    ActivePage = TELESCOPIO
+    ActivePage = CAMARA
     Align = alLeft
     Constraints.MinWidth = 225
     Font.Charset = ANSI_CHARSET
@@ -768,7 +768,7 @@ object Form1: TForm1
     MultiLine = True
     ParentFont = False
     TabHeight = 17
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 1
     TabPosition = tpLeft
     object CAMARA: TTabSheet
@@ -783,7 +783,7 @@ object Form1: TForm1
         object Label62: TLabel
           Left = 1
           Top = 17
-          Width = 110
+          Width = 223
           Height = 14
           Align = alTop
           Alignment = taCenter
@@ -811,7 +811,7 @@ object Form1: TForm1
         object Label43: TLabel
           Left = 1
           Top = 1
-          Width = 26
+          Width = 223
           Height = 16
           Align = alTop
           Alignment = taCenter
@@ -1776,30 +1776,54 @@ object Form1: TForm1
           object LAzimut: TLabel
             Left = 135
             Top = 65
-            Width = 6
-            Height = 13
+            Width = 16
+            Height = 16
             Caption = '--'
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -13
+            Font.Name = 'Courier New'
+            Font.Style = []
+            ParentFont = False
           end
           object LAltura: TLabel
-            Left = 71
+            Left = 60
             Top = 65
-            Width = 6
-            Height = 13
+            Width = 16
+            Height = 16
             Caption = '--'
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -13
+            Font.Name = 'Courier New'
+            Font.Style = []
+            ParentFont = False
           end
           object LAlturaRx: TLabel
             Left = 60
             Top = 51
-            Width = 6
-            Height = 13
+            Width = 16
+            Height = 16
             Caption = '--'
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -13
+            Font.Name = 'Courier New'
+            Font.Style = []
+            ParentFont = False
           end
           object LAzimutRx: TLabel
             Left = 135
             Top = 51
-            Width = 6
-            Height = 13
+            Width = 16
+            Height = 16
             Caption = '--'
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -13
+            Font.Name = 'Courier New'
+            Font.Style = []
+            ParentFont = False
           end
           object Label83: TLabel
             Left = 6
@@ -4151,6 +4175,7 @@ object Form1: TForm1
             Top = 4
             Width = 63
             Height = 16
+            Hint = 'ld'
             Align = alCustom
             Alignment = taCenter
             Caption = 'Camara B'
@@ -4433,7 +4458,7 @@ object Form1: TForm1
         object Label76: TLabel
           Left = 1
           Top = 1
-          Width = 48
+          Width = 223
           Height = 16
           Align = alTop
           Alignment = taCenter

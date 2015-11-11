@@ -412,6 +412,7 @@ void EMAv2COM();
 void ProcesarLX200();
 void ProcesarCGEM();
 void ProcesarGetPreRAS_DEC(AnsiString CadCgem);
+void ProcesarGetRAS_DEC(AnsiString CadCgem);
 void ProcesarGetPreAZM_ALT(AnsiString CadCgem);
 AnsiString formatARE(double dARE);
 AnsiString formatDEC(double dDEC);
@@ -2072,8 +2073,8 @@ void ProcesarCGEM()
     //Long = 10;
     //strcpy(BuffLX,"F25F,FB60#");         // RA=22 43m 20.24s DEC=-06º 30' 14.06"
     //Long = 10;
-    strcpy(BuffLX, "34AB0500,12CE0500#"); // RA=04h 56m 15.47s DEC=+26º 26' 39.12"
-    Long = 18;
+    //strcpy(BuffLX, "34AB0500,12CE0500#"); // RA=04h 56m 15.47s DEC=+26º 26' 39.12"
+    //Long = 18;
     //strcpy(BuffLX,"F25F2F00,FB605B00#"); // RA=22h 43m 20.49s DEC=-06º 30' 07.03"
     //Long = 18;
     /*************************/
@@ -2091,48 +2092,9 @@ void ProcesarCGEM()
     {
         case GetPreRAS_DEC:
             ProcesarGetPreRAS_DEC(BuffLX);
-
-            /*
-            		are_s = "0x" + CadCgem.SubString( 1, 8);
-            		dec_s = "0x" + CadCgem.SubString(10, 8);
-            		are_l = strtoul(are_s.c_str(), &pEnd, 16);
-            		dec_l = strtoul(dec_s.c_str(), &pEnd, 16);
-            		*/
-            /*
-            		if ( TryStrToInt(ar_s, ar_i) )
-            			;//     Historico->Mhistory->Lines->Add( ar_i );
-            		if ( TryStrToInt(dec_s, dec_i) )
-            			;//    Historico->Mhistory->Lines->Add( dec_i );
-            		*/
-            /*
-            		are_f = (((double)are_l / 4294967296.0) * 360) / 15.0; // grados AR para Skymap
-            		dec_f =  ((double)dec_l / 4294967296.0) * 360; // grados DEC para Skymap
-
-            		if (dec_f > 90)
-            		{
-            			dec_f = dec_f - 360;
-            		}
-
-            		tRa = are_f * 15;
-            		tDe = dec_f;
-
-            		coordARE = formatARE(are_f);
-            		coordDEC = formatDEC(dec_f);
-
-            		//   Historico->Mhistory->Lines->Add("AR:" + AnsiString(ar_f) + "     Dec:"  + AnsiString(dec_f));
-
-            		// Eduardo discovered bug
-            		// tRa = 15.0 * ( nRAHour + dRAMin / 60.0);
-
-            		// INIBLOQUE Se podría eliminar este bloque? ***********************
-            		nRAHour = (int)are_f;  //Hora RA
-            		dRAMin  = (int)((are_f - nRAHour) * 100 * 0.6);
-            		nDecDeg = (int)dec_f;
-            		nDecMin = (int)((dec_f - nDecDeg) * 100 * 0.6);
-            		// FINBLOQUE *******************************************************
-
-            		LXresponde = true;   //las fragmentadas por el momento no se usan
-            		*/
+            break;
+        case GetRAS_DEC:
+            ProcesarGetRAS_DEC(BuffLX);
             break;
         case GetPreAZM_ALT:
             ProcesarGetPreAZM_ALT(BuffLX);
@@ -2181,7 +2143,7 @@ void ProcesarCGEM()
                     name = "6/8 SE";
                     break;
                 case 14:
-                    name = "El nuestro";
+                    name = "CGEM";
                     break;
                 default:
                     name = "Unknown";
@@ -2250,6 +2212,7 @@ void ProcesarCGEM()
     else
         Historico->Mhistory->Lines->Add( "->" + AnsiString(BuffLX) );
 
+    /*
     if (Long == 10)  //Espera una cadena completa con AR, DEC, Alt y Az.  //8BD0,3F35# -> AR,DEC
     {
         CadCgem =  BuffLX;
@@ -2257,14 +2220,14 @@ void ProcesarCGEM()
         dec_s = "0x" + CadCgem.SubString(6, 4);
         are_l = strtoul(are_s.c_str(), &pEnd, 16);
         dec_l = strtoul(dec_s.c_str(), &pEnd, 16);
-
+     */
         /*
         if ( TryStrToInt(ar_s, ar_i) )
         	;//     Historico->Mhistory->Lines->Add( ar_i );
         if ( TryStrToInt(dec_s, dec_i) )
         	;//    Historico->Mhistory->Lines->Add( dec_i );
         */
-
+      /*
         are_f = (((double)are_l / 65536.0) * 360) / 15.0; // grados AR para Skymap
         dec_f =  ((double)dec_l / 65536.0) * 360; // grados DEC para Skymap
 
@@ -2291,7 +2254,7 @@ void ProcesarCGEM()
 
         LXresponde = true;   //las fragmentadas por el momento no se usan
     }
-
+    */
     /*
     if (Long == 18)  // Espera una cadena alta precisión  //34AB0500,12CE0500# -> AR,DEC
     {
@@ -2368,33 +2331,33 @@ void ProcesarGetPreRAS_DEC(AnsiString CadCgem)
 
     AnsiString    are_s, dec_s;
     unsigned long are_l, dec_l;
-    double        are_f, dec_f;
+    double        arg_f, arh_f, dec_f, alt_f, azm_f;
 
     are_s = "0x" + CadCgem.SubString( 1, 8);
     dec_s = "0x" + CadCgem.SubString(10, 8);
     are_l = strtoul(are_s.c_str(), &pEnd, 16);
     dec_l = strtoul(dec_s.c_str(), &pEnd, 16);
 
-    /*
-    if ( TryStrToInt(ar_s, ar_i) )
-    	;//     Historico->Mhistory->Lines->Add( ar_i );
-    if ( TryStrToInt(dec_s, dec_i) )
-    	;//    Historico->Mhistory->Lines->Add( dec_i );
-    */
-
-    are_f = (((double)are_l / 4294967296.0) * 360) / 15.0; // grados AR para Skymap
-    dec_f =  ((double)dec_l / 4294967296.0) * 360; // grados DEC para Skymap
+    arg_f = ((double)are_l / 4294967296.0) * 360; // grados AR para Skymap
+    arh_f = arg_f / 15.0;                         // horas  AR para formatear
+    dec_f = ((double)dec_l / 4294967296.0) * 360; // grados DEC para Skymap
 
     if (dec_f > 90)
     {
         dec_f = dec_f - 360;
     }
 
-    tRa = are_f * 15;
+    tRa = arg_f;
     tDe = dec_f;
 
-    coordARE = formatARE(are_f);
+    coordARE = formatARE(arh_f);
     coordDEC = formatDEC(dec_f);
+
+    alt_f = CalAltura(arg_f, dec_f);
+    azm_f = CalAzimut(alt_f, arg_f, dec_f);
+
+    coordAZM = formatAZM(azm_f);
+    coordALT = formatALT(alt_f);
 
     //   Historico->Mhistory->Lines->Add("AR:" + AnsiString(ar_f) + "     Dec:"  + AnsiString(dec_f));
 
@@ -2402,10 +2365,65 @@ void ProcesarGetPreRAS_DEC(AnsiString CadCgem)
     // tRa = 15.0 * ( nRAHour + dRAMin / 60.0);
 
     // INIBLOQUE Se podría eliminar este bloque? ***********************
+    /*
     nRAHour = (int)are_f;  //Hora RA
     dRAMin  = (int)((are_f - nRAHour) * 100 * 0.6);
     nDecDeg = (int)dec_f;
     nDecMin = (int)((dec_f - nDecDeg) * 100 * 0.6);
+    */
+    // FINBLOQUE *******************************************************
+
+    LXresponde = true;   //las fragmentadas por el momento no se usan
+}
+
+//==============================================================================
+void ProcesarGetRAS_DEC(AnsiString CadCgem)
+//==============================================================================
+{
+    char * pEnd;
+
+    AnsiString    are_s, dec_s;
+    unsigned long are_l, dec_l;
+    double        arg_f, arh_f, dec_f, alt_f, azm_f;
+
+    are_s = "0x" + CadCgem.SubString(1, 4);
+    dec_s = "0x" + CadCgem.SubString(6, 4);
+    are_l = strtoul(are_s.c_str(), &pEnd, 16);
+    dec_l = strtoul(dec_s.c_str(), &pEnd, 16);
+
+    arg_f = ((double)are_l / 4294967296.0) * 360; // grados AR para Skymap
+    arh_f = arg_f / 15.0;                         // horas  AR para formatear
+    dec_f = ((double)dec_l / 4294967296.0) * 360; // grados DEC para Skymap
+
+    if (dec_f > 90)
+    {
+        dec_f = dec_f - 360;
+    }
+
+    tRa = arg_f;
+    tDe = dec_f;
+
+    coordARE = formatARE(arh_f);
+    coordDEC = formatDEC(dec_f);
+
+    alt_f = CalAltura(arg_f, dec_f);
+    azm_f = CalAzimut(alt_f, arg_f, dec_f);
+
+    coordAZM = formatAZM(azm_f);
+    coordALT = formatALT(alt_f);
+
+    //   Historico->Mhistory->Lines->Add("AR:" + AnsiString(ar_f) + "     Dec:"  + AnsiString(dec_f));
+
+    // Eduardo discovered bug
+    // tRa = 15.0 * ( nRAHour + dRAMin / 60.0);
+
+    // INIBLOQUE Se podría eliminar este bloque? ***********************
+    /*
+    nRAHour = (int)are_f;  //Hora RA
+    dRAMin  = (int)((are_f - nRAHour) * 100 * 0.6);
+    nDecDeg = (int)dec_f;
+    nDecMin = (int)((dec_f - nDecDeg) * 100 * 0.6);
+    */
     // FINBLOQUE *******************************************************
 
     LXresponde = true;   //las fragmentadas por el momento no se usan
@@ -2428,12 +2446,12 @@ void ProcesarGetPreAZM_ALT(AnsiString CadCgem)
 
     azm_f = (double)azm_l / 4294967296.0 * 360; // grados AZM
     alt_f = (double)alt_l / 4294967296.0 * 360; // grados ALT
-
+    /*
     if (alt_f > 90)
     {
         alt_f = alt_f - 360;
     }
-
+    */
     coordAZM = formatAZM(azm_f);
     coordALT = formatALT(alt_f);
 
@@ -3447,7 +3465,7 @@ void __fastcall TForm1::Timer5000Timer(TObject *Sender)
     /**************************
     Simulación envío telescopio
     **************************/
-    ProcesarCGEM();
+    //ProcesarCGEM();
     /*************************/
 
     if ((PBF->Position == 0) && (Lemav2->Visible == false))
@@ -3782,7 +3800,7 @@ void __fastcall TForm1::Timer100Timer(TObject *Sender)
                         EnviaLX("Z");
                     }
                 }
-                arde = !arde;
+                // arde = !arde; // Comentado siempre pide RAS_DEC nunca AZM_ALT
             }
             EsperaLX++;
         }
@@ -3805,7 +3823,8 @@ void __fastcall TForm1::Timer100Timer(TObject *Sender)
             Form1->STPerdido->Caption = "CONECTADO";
             // Form1->STRa->Caption = AnsiString(nRAHour) + AnsiString("h") + AnsiString(dRAMin) + AnsiString("m");
             Form1->STRa->Caption = coordARE;
-            Form1->LAzimutRx->Caption = coordAZM;
+            //Form1->LAzimutRx->Caption = coordAZM;
+            Form1->LAzimut->Caption = coordAZM;
 
             /*
             if (tDe > 0)
@@ -3819,7 +3838,8 @@ void __fastcall TForm1::Timer100Timer(TObject *Sender)
             }
             */
             Form1->STDe->Caption = coordDEC;
-            Form1->LAlturaRx->Caption = coordALT;
+            //Form1->LAlturaRx->Caption = coordALT;
+            Form1->LAltura->Caption = coordALT;
 
             Form1->arecta->Caption = carecta;
             Form1->declinacion->Caption = cdeclinacion;

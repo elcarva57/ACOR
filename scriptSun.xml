@@ -1,0 +1,26 @@
+<RTML>
+
+<Request>
+    <UserName>Admin</UserName>
+    <Observers>El Cerro</Observers>
+    <TimeStamp>2015-11-05T18:00:00</TimeStamp>
+
+	<Target>
+	  <ID>Sun</ID>
+	  <Name>Sun</Name>
+	  <DateTime>2015-11-05T14:00:00</DateTime>
+	  <Coordinates>
+	     <RightAscension>220.3385</RightAscension>
+	     <Declination>-15.67513889</Declination>
+	  </Coordinates>
+
+	  <Picture>
+	     <Filter>0</Filter>
+	     <Count>1</Count>
+	     <Binning>1</Binning>
+	     <ExposureTime>5</ExposureTime>
+	  </Picture>
+	</Target>
+</Request>
+
+</RTML>

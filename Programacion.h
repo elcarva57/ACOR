@@ -15,7 +15,7 @@ class TFprog : public TForm
 __published:	// IDE-managed Components
         TButton *BCarga;
         TLabel *LTdateTime;
-        TLabel *Label1;
+    TLabel *lEstado;
         TTimer *Timer1;
         TButton *BParaAuto;
         TLabel *Label3;

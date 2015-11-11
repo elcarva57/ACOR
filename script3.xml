@@ -11,7 +11,7 @@
   <Picture>
      <Filter>0</Filter>
      <Count>2</Count>
-     <Bining>2</Bining>
+     <Binning>2</Binning>
      <ExposureTime>5</ExposureTime>
   </Picture>
 
@@ -35,7 +35,7 @@
 	  <Picture>  
 	     <Filter>0</Filter>
 	     <Count>2</Count>
-	     <Bining>2</Bining>
+	     <Binning>2</Binning>
 	     <ExposureTime>5</ExposureTime>
 	  </Picture>
 	</Target>
@@ -53,7 +53,7 @@
 	  <Picture>  
 	     <Filter>0</Filter>
 	     <Count>2</Count>
-	     <Bining>2</Bining>
+	     <Binning>2</Binning>
 	     <ExposureTime>3</ExposureTime>
 	  </Picture>
 	</Target>

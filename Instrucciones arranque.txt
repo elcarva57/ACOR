@@ -1,5 +1,5 @@
 ﻿// Instrucciones de arranque de ACOR conectado al telescopio
-// 2015-10-17
+// 2015-10-27
 
 ESTADO INICIAL
 * Interruptor del telescopio en ON (telescopio apagado)
@@ -23,6 +23,13 @@ ARRANQUE
 * Desde ACOR, enviar la hora UTC: Desde la pestaña CGEM, Panel Time/Location Commands, asegúrese de que el checkbox "Daylight Saving Time" esté desactivado y pulsar sobre el botón "Send UTC".
 
 PARADA
-
+* Desde el mando del telescopio pulsar MENU, UTILITIES, HOME POSITION, GOTO. Hasta que el telescopio se detenga y no haya actividad en el mando.
+* Salir con UNDO hasta el menú UTILITIES y pulsar HIBERNATE. "???", ENTER, "Power off the telescope???"
+* Desde ACOR, apagar el telescopio: Desde la pestaña CONTROL, Panel Alimentaciones, pulsar sobre los botones 1 (CCD + CFS) y 2 (Telescopio), y a continuación pulsar sobre el botón Validar. Los LEDs 1 y 2 se deben apagar y el telescopio se apagará.
+* Apagar la regleta principal (inferior) de la montura
+* Desde SkyMap desconectarse del telescopio (TTelescope, Close connection)
+* Salir de SkyMap
+* Detener ACOR, esto detendrá EMA y TESS
+* Apagar el PC
 
 SINCRONIZACIÓN

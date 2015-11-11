@@ -18,18 +18,22 @@ extern bool FinFoto;
 
 STDMETHODIMP TCCD1Impl::Foto()
 {
- Historico->Mhistory->Lines->Add(" Foto CCD1");
- Form1->IFotoMouseDown(NULL, (TMouseButton)NULL, TShiftState(), 0, 0);
+    Historico->Mhistory->Lines->Add(" Foto CCD1");
+    Form1->IFotoMouseDown(NULL, (TMouseButton)NULL, TShiftState(), 0, 0);
+
+    return S_OK;
 }
 
 STDMETHODIMP TCCD1Impl::get_FinFoto(VARIANT_BOOL* Value)
 {
-};
+    return S_OK;
+}
 
 
 STDMETHODIMP TCCD1Impl::NumFotos(double Numero)
-{ 
-   Form1->ENFotos->Text = Numero;
+{
+    Form1->ENFotos->Text = Numero;
+    return S_OK;
 }
 
 
@@ -66,26 +70,30 @@ STDMETHODIMP TCCD1Impl::get_FotoActual(double* Value)
 
 
 STDMETHODIMP TCCD1Impl::Exposicion(double Exposg)
-{ 
+{
     Form1->Esg->Text = Exposg;
+    return S_OK;
 }
 
 
 STDMETHODIMP TCCD1Impl::Binin(double Binin)
-{ 
-  Form1->TBBinin->Position = Binin;
+{
+    Form1->TBBinin->Position = Binin;
+    return S_OK;
 }
 
 
 STDMETHODIMP TCCD1Impl::TipoFoto(double tipo)
-{ 
-   Form1->TBBinin->Position = tipo;
+{
+    Form1->TBBinin->Position = tipo;
+    return S_OK;
 }
 
 
 STDMETHODIMP TCCD1Impl::nombre(BSTR nombre)
-{ 
-   Form1->ENombreFichero->Text = AnsiString(nombre);
+{
+    Form1->ENombreFichero->Text = AnsiString(nombre);
+    return S_OK;
 }
 
 
@@ -195,7 +203,8 @@ STDMETHODIMP TCCD1Impl::Expose(double Duration, int Light, int Filter)
 
 STDMETHODIMP TCCD1Impl::SetFullFrame()
 {
-   QuitaRectangulo();
+    QuitaRectangulo();
+    return S_OK;
 }
 
 
@@ -248,8 +257,9 @@ STDMETHODIMP TCCD1Impl::get_ImageReady(int* Value)
 
 STDMETHODIMP TCCD1Impl::SaveImage(BSTR path)
 {
-  Form1->ENombreFichero->Text = path;
-//  Historico->Mhistory->Lines->Add (path);
+    Form1->ENombreFichero->Text = path;
+    //  Historico->Mhistory->Lines->Add (path);
+    return S_OK;
 }
 
 

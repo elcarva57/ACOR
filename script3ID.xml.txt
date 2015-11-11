@@ -10,21 +10,21 @@
   <Picture>
      <Filter>1</Filter>
      <Count>1</Count>
-     <Bining>2</Bining>
+     <Binning>2</Binning>
      <ExposureTime>1</ExposureTime>
   </Picture>
 
   <Picture>
      <Filter>2</Filter>
      <Count>2</Count>
-     <Bining>2</Bining>
+     <Binning>2</Binning>
      <ExposureTime>1</ExposureTime>
   </Picture>
 
   <Picture>
      <Filter>3</Filter>
      <Count>3</Count>
-     <Bining>2</Bining>
+     <Binning>2</Binning>
      <ExposureTime>1</ExposureTime>
   </Picture>
 </Target>
@@ -42,7 +42,7 @@
   <Picture>  
      <Filter>4</Filter>
      <Count>2</Count>
-     <Bining>3</Bining>
+     <Binning>3</Binning>
      <ExposureTime>3</ExposureTime>
   </Picture>
 </Target>
@@ -59,7 +59,7 @@
   <Picture>  
      <Filter>0</Filter>
      <Count>2</Count>
-     <Bining>3</Bining>
+     <Binning>3</Binning>
      <ExposureTime>3</ExposureTime>
   </Picture>
 </Target>

@@ -1,0 +1,16 @@
+* En ProcesarCGEM se leen los datos que envía el telescopio con 
+	Long = min(S1->nDatosLX200, 500);
+    S1->LeerLX200(BuffLX, Long); // <========
+    BuffLX[Long] = 0;
+  Los datos quedan en BuffLX
+
+* ProcesarCGEM se ejecuta en Timer4 cada 100ms
+
+* Para mostrar RAS/DEC en el mando: Menu, Get RA/DEC
+* Para mostrar AZM/ALT en el mando: Menu, Utilities, Get axis position
+
+//===== 2015-10-29 ============================================================
+* Hacer pruebas de fotografía automática
+* Probar ID = Auto para creación directorios de fecha
+* Revisar los distintos estados de la unidad Programacion.cpp
+* Buscar el 0,0 en Azm/Alt. Probar varias posiciones del telescopio
