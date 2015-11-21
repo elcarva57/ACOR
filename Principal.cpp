@@ -4782,7 +4782,9 @@ AnsiString ReconvShortAR(AnsiString arin)
     */
     sscanf(arin.c_str(), "%dh %dm %d.%ds", &myhh, &myintmin, &mysec, &mycsec);
 
-    sprintf(buf, "%02d:%02d:%02d", myhh, myintmin, mysec);
+    // FITS OBJCTRA value
+    //sprintf(buf, "%02d:%02d:%02d", myhh, myintmin, mysec);
+    sprintf(buf, "%02d %02d %02d", myhh, myintmin, mysec);
     return (AnsiString(buf));
 }
 
@@ -4811,8 +4813,10 @@ AnsiString ReconvShortDEC(AnsiString decin)
 
     mysec = myfracmin * 6;
     */
-
-    sprintf(buf, "%c%02d:%02d:%02d", cSign, DECGra, DECMin, DECSec);
+    
+    //FITS OBJCTDEC value
+    //sprintf(buf, "%c%02d:%02d:%02d", cSign, DECGra, DECMin, DECSec);
+    sprintf(buf, "%c%02d %02d %02d", cSign, DECGra, DECMin, DECSec);
     return (AnsiString(buf));
 }
 
