@@ -38,3 +38,6 @@
 
 # Photo files
 *.fit
+
+# NTOFOCUS Info
+*NTOFOCUS.TXT

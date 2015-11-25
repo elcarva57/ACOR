@@ -783,7 +783,7 @@ object Form1: TForm1
         object Label62: TLabel
           Left = 1
           Top = 17
-          Width = 223
+          Width = 110
           Height = 14
           Align = alTop
           Alignment = taCenter
@@ -811,7 +811,7 @@ object Form1: TForm1
         object Label43: TLabel
           Left = 1
           Top = 1
-          Width = 223
+          Width = 26
           Height = 16
           Align = alTop
           Alignment = taCenter
@@ -2647,6 +2647,16 @@ object Form1: TForm1
         TabOrder = 4
         Visible = False
         OnClick = CBCGEMClick
+      end
+      object bTest: TButton
+        Left = 128
+        Top = 688
+        Width = 75
+        Height = 25
+        Caption = 'Test'
+        TabOrder = 5
+        Visible = False
+        OnClick = bTestClick
       end
     end
     object CUPULA: TTabSheet

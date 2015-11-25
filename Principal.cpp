@@ -3231,7 +3231,7 @@ void __fastcall TForm1::Timer50Timer(TObject *Sender)
                 }
                 else
                 {
-                    sprintf(Name, (ENombreFichero->Text ).c_str());
+                    sprintf(Name, (ENombreFichero->Text + AnsiString(".fit")).c_str());
                     //Historico->Mhistory->Lines->Add(" Nombre Foto: " + AnsiString(Name));
                 }
 
@@ -3239,14 +3239,20 @@ void __fastcall TForm1::Timer50Timer(TObject *Sender)
                     DeleteFile(Name);
                 GuardarFoto(Name);
 
+
+                // Este directorio se saca de EMA.CFG (binario) y direc_jpg es C://inetpub//wwwroot//
                 strcpy(aux, confEMA.direc_jpg);
                 if ((FotoActual - 1) > 1)
                     strcat(aux, "aux_1.fit");
                 else
                     strcat(aux, "referen.fit");
-                if (FileExists(aux) )
-                    DeleteFile(aux);
-                CopyFile(Name, aux, NULL);
+
+                // if (FileExists(aux) )
+                //     DeleteFile(aux);
+                // CopyFile(Name, aux, NULL);
+
+                // El parámetro FALSE indica sobreescribir si fichero existe
+                CopyFile(Name, aux, FALSE);
 
                 if (CBrecentrar->Checked == true)
                 {
@@ -3261,9 +3267,12 @@ void __fastcall TForm1::Timer50Timer(TObject *Sender)
                     BrecentrarDECClick(NULL);
                 }
 
-                if (FileExists( "c:\\inetpub\\aux_1.fit") )
-                    DeleteFile("c:\\inetpub\\aux_1.fit");
-                CopyFile(Name, "c:\\inetpub\\aux_1.fit",  NULL);
+                // if (FileExists( "c:\\inetpub\\aux_1.fit") )
+                //     DeleteFile("c:\\inetpub\\aux_1.fit");
+                // CopyFile(Name, "c:\\inetpub\\aux_1.fit",  NULL);
+
+                // El parámetro FALSE indica sobreescribir si fichero existe
+                CopyFile(Name, "c:\\inetpub\\aux_1.fit", FALSE);
 
                 //        if(FileExists( "aux_1.fit") )
                 //            DeleteFile("aux_1.fit");
@@ -6395,11 +6404,13 @@ void __fastcall TForm1::IFotoMouseDown(TObject *Sender,
     char *ptr;
     char aux[300];
 
+    // Simulación foto
     if (ColorEstado == clRed)
     {
         Application->MessageBox("COR Desconectado.", "ATENCION", MB_OKCANCEL );
         return;
     }
+
     if (S1 != NULL)
     {
         if (PFoto->BevelOuter == bvRaised)
@@ -7604,5 +7615,37 @@ void __fastcall TForm1::FormCreate(TObject *Sender)
     Form1->Caption = myVerInfo.FileDescription + " v" +
                      myVerInfo.FileVersion + " " +
                      myVerInfo.LegalCopyright;
+}
+
+//------------------------------------------------------------------------------
+void __fastcall TForm1::bTestClick(TObject *Sender)
+//------------------------------------------------------------------------------
+{
+    char aux[300];
+    char Name[80];
+
+    strcpy(aux,  "Test.fit");
+    strcpy(Name, "M57_1.fit");
+
+//    if (FileExists(aux) )
+//        DeleteFile(aux);
+
+// CopyFile (ExistingFileName, NewFileName, FailIfExists);
+// Parameter 3: FailIfExists [TRUE/FALSE] (uppercase)
+// If this parameter is TRUE  and the new file specified by NewFileName already exists, the function fails.
+// If this parameter is FALSE and the new file already exists, the function overwrites the existing file and succeeds.
+
+    bool b = CopyFile(Name, aux, FALSE);
+    int error=0;
+
+    if (!b)
+    {
+        error = GetLastError();
+        WriteHistory("Error: " + error);
+    }
+    else
+    {
+        WriteHistory("OK");
+    }
 }
 
