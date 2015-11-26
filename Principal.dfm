@@ -2655,8 +2655,24 @@ object Form1: TForm1
         Height = 25
         Caption = 'Test'
         TabOrder = 5
-        Visible = False
         OnClick = bTestClick
+      end
+      object cbDisableAllTimers: TCheckBox
+        Left = 8
+        Top = 664
+        Width = 137
+        Height = 17
+        Caption = 'Disable ALL Timers'
+        Checked = True
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+        State = cbChecked
+        TabOrder = 6
+        OnClick = cbDisableAllTimersClick
       end
     end
     object CUPULA: TTabSheet
@@ -6437,5 +6453,10 @@ object Form1: TForm1
     ConnectKind = ckRunningOrNew
     Left = 272
     Top = 464
+  end
+  object t100Slew: TTimer
+    Interval = 100
+    Left = 581
+    Top = 475
   end
 end

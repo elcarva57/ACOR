@@ -495,6 +495,8 @@ __published:	// IDE-managed Components
     TButton *bGetTime;
     TEdit *eGetTime;
     TButton *bTest;
+    TCheckBox *cbDisableAllTimers;
+    TTimer *t100Slew;
     void __fastcall Timer50Timer(TObject *Sender);
     void __fastcall FormDestroy(TObject *Sender);
     void __fastcall BEnviarClick(TObject *Sender);
@@ -604,6 +606,7 @@ __published:	// IDE-managed Components
     void __fastcall bEchoClick(TObject *Sender);
     void __fastcall FormCreate(TObject *Sender);
     void __fastcall bTestClick(TObject *Sender);
+    void __fastcall cbDisableAllTimersClick(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
     __fastcall TForm1(TComponent* Owner);

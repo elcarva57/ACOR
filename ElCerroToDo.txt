@@ -20,3 +20,10 @@ El Cerro
 * Probar ID = Auto para creación directorios de fecha
 * Revisar los distintos estados de la unidad Programacion.cpp
 * Buscar el 0,0 en Azm/Alt. Probar varias posiciones del telescopio
+
+//===== 2015-11-26 ============================================================
+* Directorio grabación de imágenes: C://Inetpub//wwwroot// procedente de EMA.CFG
+* EMA.CFG es binario. Cómo se puede cambiar?
+* Pruebas y debug de grabaciones de imágenes.
+* Prueba coordenadas con espacio en vez de : -> Elbrus las reconoce bien?
+* Prueba nuevo Timer para slew

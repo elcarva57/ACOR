@@ -443,6 +443,7 @@ void EnviaLX(char *orden);
 void EnviaLX(char *orden, int long_orden);
 
 AnsiString CmdToStr(Commands cmd);
+void setTimers (bool valEnabled);
 
 //==============================================================================
 //------------------------------------------------------------------------------
@@ -450,7 +451,7 @@ AnsiString CmdToStr(Commands cmd);
 
 //------------------------------------------------------------------------------
 __fastcall TForm1::TForm1(TComponent* Owner) : TForm(Owner)
-//------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------
 {
     char *ptr;
     char aux[100];
@@ -2221,38 +2222,38 @@ void ProcesarCGEM()
         are_l = strtoul(are_s.c_str(), &pEnd, 16);
         dec_l = strtoul(dec_s.c_str(), &pEnd, 16);
      */
-        /*
-        if ( TryStrToInt(ar_s, ar_i) )
-        	;//     Historico->Mhistory->Lines->Add( ar_i );
-        if ( TryStrToInt(dec_s, dec_i) )
-        	;//    Historico->Mhistory->Lines->Add( dec_i );
-        */
-      /*
-        are_f = (((double)are_l / 65536.0) * 360) / 15.0; // grados AR para Skymap
-        dec_f =  ((double)dec_l / 65536.0) * 360; // grados DEC para Skymap
+    /*
+    if ( TryStrToInt(ar_s, ar_i) )
+    	;//     Historico->Mhistory->Lines->Add( ar_i );
+    if ( TryStrToInt(dec_s, dec_i) )
+    	;//    Historico->Mhistory->Lines->Add( dec_i );
+    */
+    /*
+      are_f = (((double)are_l / 65536.0) * 360) / 15.0; // grados AR para Skymap
+      dec_f =  ((double)dec_l / 65536.0) * 360; // grados DEC para Skymap
 
-        if (dec_f > 90)
-        {
-            dec_f = dec_f - 360;
-        }
+      if (dec_f > 90)
+      {
+          dec_f = dec_f - 360;
+      }
 
-        tRa = are_f * 15;
-        tDe = dec_f;
+      tRa = are_f * 15;
+      tDe = dec_f;
 
-        coordARE = formatARE(are_f);
-        coordDEC = formatDEC(dec_f);
+      coordARE = formatARE(are_f);
+      coordDEC = formatDEC(dec_f);
 
-        //   Historico->Mhistory->Lines->Add("AR:" + AnsiString(ar_f) + "     Dec:"  + AnsiString(dec_f));
+      //   Historico->Mhistory->Lines->Add("AR:" + AnsiString(ar_f) + "     Dec:"  + AnsiString(dec_f));
 
-        // Eduardo discovered bug
-        // tRa = 15.0 * ( nRAHour + dRAMin / 60.0);
+      // Eduardo discovered bug
+      // tRa = 15.0 * ( nRAHour + dRAMin / 60.0);
 
-        nRAHour = (int)are_f;  //Hora RA
-        dRAMin  = (int)((are_f - nRAHour) * 100 * 0.6);
-        nDecDeg = (int)dec_f;
-        nDecMin = (int)((dec_f - nDecDeg) * 100 * 0.6);
+      nRAHour = (int)are_f;  //Hora RA
+      dRAMin  = (int)((are_f - nRAHour) * 100 * 0.6);
+      nDecDeg = (int)dec_f;
+      nDecMin = (int)((dec_f - nDecDeg) * 100 * 0.6);
 
-        LXresponde = true;   //las fragmentadas por el momento no se usan
+      LXresponde = true;   //las fragmentadas por el momento no se usan
     }
     */
     /*
@@ -4822,7 +4823,7 @@ AnsiString ReconvShortDEC(AnsiString decin)
 
     mysec = myfracmin * 6;
     */
-    
+
     //FITS OBJCTDEC value
     //sprintf(buf, "%c%02d:%02d:%02d", cSign, DECGra, DECMin, DECSec);
     sprintf(buf, "%c%02d %02d %02d", cSign, DECGra, DECMin, DECSec);
@@ -7627,16 +7628,16 @@ void __fastcall TForm1::bTestClick(TObject *Sender)
     strcpy(aux,  "Test.fit");
     strcpy(Name, "M57_1.fit");
 
-//    if (FileExists(aux) )
-//        DeleteFile(aux);
+    //    if (FileExists(aux) )
+    //        DeleteFile(aux);
 
-// CopyFile (ExistingFileName, NewFileName, FailIfExists);
-// Parameter 3: FailIfExists [TRUE/FALSE] (uppercase)
-// If this parameter is TRUE  and the new file specified by NewFileName already exists, the function fails.
-// If this parameter is FALSE and the new file already exists, the function overwrites the existing file and succeeds.
+    // CopyFile (ExistingFileName, NewFileName, FailIfExists);
+    // Parameter 3: FailIfExists [TRUE/FALSE] (uppercase)
+    // If this parameter is TRUE  and the new file specified by NewFileName already exists, the function fails.
+    // If this parameter is FALSE and the new file already exists, the function overwrites the existing file and succeeds.
 
     bool b = CopyFile(Name, aux, FALSE);
-    int error=0;
+    int error = 0;
 
     if (!b)
     {
@@ -7649,3 +7650,41 @@ void __fastcall TForm1::bTestClick(TObject *Sender)
     }
 }
 
+//------------------------------------------------------------------------------
+void __fastcall TForm1::cbDisableAllTimersClick(TObject *Sender)
+//------------------------------------------------------------------------------
+{
+    AnsiString strCaption;
+    TCheckBox* cb = (TCheckBox*)Sender;
+
+    cb->Checked ? strCaption = "Disable ALL Timers" :
+                  strCaption = "Enable ALL Timers";
+
+    cb->Caption = strCaption;
+    setTimers(cb->Checked);
+}
+
+//==============================================================================
+void setTimers (bool valEnabled)
+//==============================================================================
+{
+    typedef TTimer* TTimers;
+    TTimers Timers[6] = {Form1->Timer50,
+                         Form1->Timer100,
+                         Form1->Timer1000,
+                         Form1->Timer3000,
+                         Form1->Timer5000,
+                         Form1->Timer60000};
+    int index;
+    AnsiString strEnabled;
+
+    valEnabled ? strEnabled = " Enabled" : strEnabled = " Disabled";
+
+    for (index = 0; index < 6; index++)
+    {
+        Timers[index]->Enabled = valEnabled;
+        WriteHistory(Timers[index]->Name + strEnabled);
+    }
+}
+
+//------------------------------------------------------------------------------
