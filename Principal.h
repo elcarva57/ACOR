@@ -607,6 +607,7 @@ __published:	// IDE-managed Components
     void __fastcall FormCreate(TObject *Sender);
     void __fastcall bTestClick(TObject *Sender);
     void __fastcall cbDisableAllTimersClick(TObject *Sender);
+    void __fastcall t100SlewTimer(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
     __fastcall TForm1(TComponent* Owner);

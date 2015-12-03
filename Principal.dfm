@@ -6456,6 +6456,7 @@ object Form1: TForm1
   end
   object t100Slew: TTimer
     Interval = 100
+    OnTimer = t100SlewTimer
     Left = 581
     Top = 475
   end

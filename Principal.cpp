@@ -7688,3 +7688,188 @@ void setTimers (bool valEnabled)
 }
 
 //------------------------------------------------------------------------------
+// Timer especial de 100ms sólo para slew del telescopio
+void __fastcall TForm1::t100SlewTimer(TObject *Sender)
+//------------------------------------------------------------------------------
+{
+    char aux[3000];
+    TDateTime Fech, DTenvio;
+
+    AnsiString buffer;
+    char temp[50];
+
+    //salida de mensajes para LX200
+    if ((cont_mensLX > 0 && (PBF->Position == 0)))
+    {
+        if (CBver_envio_lx->Checked == true)
+        {
+            DTenvio = Fecha.CurrentTime();
+            // Historico->Mhistory->Lines->Add ("EnvioLX " + AnsiString(buf_LX[ind_rdLX])+ " pend  " + AnsiString(cont_mensLX) + "  " + AnsiString(DTenvio));
+            // Historico->Mhistory->Lines->Add (AnsiString(DTenvio) + "  EnvioLX " + AnsiString(buf_LX[ind_rdLX]) );
+        }
+        aux[0] = 2;  //mensaje para LX
+        aux[1] = 0;
+        // strcpy(&aux[2], buf_LX[ind_rdLX]); <== Está en el else
+
+        if (S1 != NULL)
+        {
+            if (CGEM)
+            {
+
+                memcpy(&aux[2], buf_LX[ind_rdLX], len_buf_LX[ind_rdLX]);
+                S1->Escribir(aux, len_buf_LX[ind_rdLX] + 2, S1->IPRabbit);
+
+                sprintf(temp, "cont_mensLX: %d ", cont_mensLX);
+                buffer = buffer + temp;
+                sprintf(temp, ", ind_rdLX %d ", ind_rdLX);
+                buffer = buffer + temp;
+
+                if (len_buf_LX[ind_rdLX] > 2)
+                {
+                    aux[1] = 0;
+                }
+
+                for (int i = 0; i < len_buf_LX[ind_rdLX]; i++)
+                {
+                    sprintf(temp, "%02X ", buf_LX[ind_rdLX][i]);
+                    //temp[i] = buf_LX[ind_rdLX + i][i];
+                    //temp[i+1] = 0;
+                    buffer = buffer + temp;
+                }
+
+                //WriteHistory("Escribir: " + AnsiString(buffer));
+
+            }
+            else
+            {
+                strcpy(&aux[2], buf_LX[ind_rdLX]);
+                S1->Escribir(aux, strlen(buf_LX[ind_rdLX]) + 2, S1->IPRabbit);
+            }
+        }
+        cont_mensLX--;
+        ind_rdLX++;
+        if (ind_rdLX >= BUF_LX )
+            ind_rdLX = 0;
+    }
+
+
+    // Vigilar conexion Telescopio
+    if (EsperaLX > 2) // despues de 2 sg
+    {
+        EsperaLX = 0;
+        if (LXresponde)
+        {
+            LXresponde = false;
+
+            Fech = Fecha.CurrentDateTime();
+            if ( Form1->STPerdido->Caption == "DESCONECTADO")
+            {
+                Historico->Mhistory->Lines->Add( "LX200 Conectado     " + AnsiString(Fech) );
+            }
+
+            Form1->STPerdido->Caption = "CONECTADO";
+            // Form1->STRa->Caption = AnsiString(nRAHour) + AnsiString("h") + AnsiString(dRAMin) + AnsiString("m");
+            Form1->STRa->Caption = coordARE;
+            Form1->LAzimut->Caption = coordAZM;
+
+            Form1->STDe->Caption = coordDEC;
+            Form1->LAltura->Caption = coordALT;
+
+            Form1->arecta->Caption = carecta;
+            Form1->declinacion->Caption = cdeclinacion;
+        }
+        else
+        {
+            Fech = Fecha.CurrentDateTime();
+            if ( Form1->STPerdido->Caption == "CONECTADO")
+            {
+                Historico->Mhistory->Lines->Add( "LX200 Desconectado  " + AnsiString(Fech) );
+            }
+            STPerdido->Caption = "DESCONECTADO";
+
+            // Form1->STRa->Caption = AnsiString(nRAHour) + AnsiString("h") + AnsiString(dRAMin) + AnsiString("m");
+            Form1->STRa->Caption = coordARE;
+
+            Form1->STDe->Caption = coordDEC;
+
+            Form1->arecta->Caption = carecta;
+            Form1->declinacion->Caption = cdeclinacion;
+        }
+    }
+
+
+    if (LeyendoFoto == false)
+    {
+        S1->ComprobarConexion(::GetTickCount());
+    }
+    else
+    {
+        TRabbit = ::GetTickCount();
+        TiempoPasado->Alignment = taLeftJustify;
+        TiempoPasado->Caption = (::GetTickCount() - TiempoInicio) / 1000;
+    }
+
+    PMax->Hint = AnsiString("X: ") + AnsiString(FotoPrincipal->xmax) + AnsiString("  ;Y: ") + AnsiString(FotoPrincipal->ymax);
+    PMin->Hint = AnsiString("X: ") + AnsiString(FotoPrincipal->xmin) + AnsiString("  ;Y: ") + AnsiString(FotoPrincipal->ymin);
+    PPerdidos->Caption = paquetesperdidos;
+    PRABBIT->Caption = "    COR: " + AnsiString(S1->cadenaIPRabbit);
+
+    // Gestion conexion COR
+    if (S1->PerdidaConexion == true)
+    {
+        EstadoRabbit = "    COR no responde";
+        ColorEstado = clRed;
+
+        TDateTime DTFalloCOR;
+        AvisoCorOK = false;
+        if (AvisoFalloCor == false)
+        {
+            AvisoFalloCor = true;
+            DTFalloCOR = Fecha.CurrentDateTime();
+            Historico->Mhistory->Lines->Add("COR NO Conectado " + DTFalloCOR);
+        }
+    }
+    else
+    {
+        EstadoRabbit = AnsiString("    COR ") + AnsiString(S1->cadenaIPRabbit);
+        ColorEstado = clLime;
+
+        TDateTime DTConexionOK;
+        AvisoFalloCor = false;
+
+        if (AvisoCorOK == false)
+        {
+            AvisoCorOK = true;
+            DTConexionOK = Fecha.CurrentDateTime();
+            Historico->Mhistory->Lines->Add("COR Conectado OK " + DTConexionOK);
+        }
+
+        if (S1->nDatosRabbit >= 17) // ???
+        {
+            S1->LeerRabbit(aux, 100);
+            aux[18] = 0;
+        }
+
+//        if (S1->nDatosCFS > 0)
+//        {
+//            ProcesarCFS();
+//        }
+
+        if (S1->nDatosLX200 > 0)
+        {
+            if (CGEM)
+                ProcesarCGEM();
+            else
+                ProcesarLX200();
+        }
+
+        actualizar_datos(); // refresca la informacion del panel de control
+    }
+
+    EstadoAnterior = EstadoRabbit;
+    // PStatus->Font->Color = ColorEstado;
+    SC->Brush->Color = ColorEstado;
+
+}
+//------------------------------------------------------------------------------
+

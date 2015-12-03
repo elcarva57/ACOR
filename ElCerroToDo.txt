@@ -23,7 +23,32 @@ El Cerro
 
 //===== 2015-11-26 ============================================================
 * Directorio grabación de imágenes: C://Inetpub//wwwroot// procedente de EMA.CFG
+= Probado con un fichero testAntonio, se crean los siguientes:
+  * C:\user\Antonio\Cpp\RocPcServidorAsp\testAntonio.fit
+  * C:\inetpub\wwwroot\pp.jpg
+  * C:\inetpub\wwwroot\referen.fit
+  * C:\inetpub\aux_1.fit
+= Probado con un fichero test3Fotos, y 3 fotos se crean los siguientes:
+  * 18:33 C:\user\Antonio\Cpp\RocPcServidorAsp\test3Fotos_001.fit
+  * 18:34 C:\user\Antonio\Cpp\RocPcServidorAsp\test3Fotos_002.fit
+  * 18:34 C:\user\Antonio\Cpp\RocPcServidorAsp\test3Fotos_003.fit
+  * 18:33 C:\inetpub\wwwroot\referen.fit
+  * 18:34 C:\inetpub\wwwroot\pp.jpg
+  * 18:34 C:\inetpub\wwwroot\aux_1.fit
+  * 18:34 C:\inetpub\aux_1.fit
+
 * EMA.CFG es binario. Cómo se puede cambiar?
+= Con EMA.EXE, Ajustes, Guardar configuración
+
 * Pruebas y debug de grabaciones de imágenes.
+= Casi imposible de trazar, debido a los timers que descuadran el debug
+
+* Prueba coordenadas con espacio en vez de : -> fotoDif las reconoce bien?
+= SI
+
 * Prueba coordenadas con espacio en vez de : -> Elbrus las reconoce bien?
+= SI
+
 * Prueba nuevo Timer para slew
+=
+
