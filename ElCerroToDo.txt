@@ -52,3 +52,19 @@ El Cerro
 * Prueba nuevo Timer para slew
 =
 
+//===== 2015-12-10 ============================================================
+* Probar velocidades SLW
+=
+
+* Probar velocidades FND
+=
+
+* Probar velocidades CEN
+=
+
+* Probar velocidades GUI
+=
+
+* Desactivar nuevo Timer para slew
+=
+

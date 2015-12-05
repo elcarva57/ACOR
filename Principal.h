@@ -27,6 +27,7 @@
 #include <OleServer.hpp>
 #include "ema_OCX.h"
 #include "Test_OCX.h"
+#include <Menus.hpp>
 //#include "ema_OCX.h"
 //#include "Test_OCX.h"
 
@@ -222,10 +223,10 @@ __published:	// IDE-managed Components
     TSpeedButton *BO;
     TSpeedButton *SBstop;
     TPanel *Panel69;
-    TSpeedButton *BSLW;
-    TSpeedButton *BMOV;
-    TSpeedButton *BCEN;
-    TSpeedButton *BGUI;
+    TSpeedButton *sbSLW;
+    TSpeedButton *sbFND;
+    TSpeedButton *sbCEN;
+    TSpeedButton *sbGUI;
     TEdit *ELXsend;
     TButton *BSendLX;
     TCheckBox *CBver_envio_lx;
@@ -608,6 +609,8 @@ __published:	// IDE-managed Components
     void __fastcall bTestClick(TObject *Sender);
     void __fastcall cbDisableAllTimersClick(TObject *Sender);
     void __fastcall t100SlewTimer(TObject *Sender);
+    void __fastcall sbCENClick(TObject *Sender);
+    void __fastcall SBstopClick(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
     __fastcall TForm1(TComponent* Owner);

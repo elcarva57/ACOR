@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = -2
-  Top = 104
+  Left = 418
+  Top = 107
   Width = 1024
   Height = 780
   BorderIcons = [biMinimize, biMaximize]
@@ -2428,11 +2428,14 @@ object Form1: TForm1
             Top = 48
             Width = 33
             Height = 32
+            Hint = 'Cancel GOTO'
             AllowAllUp = True
             GroupIndex = 2
             Caption = 'STOP'
+            ParentShowHint = False
+            ShowHint = True
             Transparent = False
-            OnClick = BOClick
+            OnClick = SBstopClick
             OnMouseDown = BSMouseDown
             OnMouseUp = BNOMouseUp
           end
@@ -2444,11 +2447,13 @@ object Form1: TForm1
           Height = 34
           BevelOuter = bvLowered
           TabOrder = 2
-          object BSLW: TSpeedButton
+          object sbSLW: TSpeedButton
+            Tag = 16383
             Left = 6
             Top = 4
             Width = 42
             Height = 26
+            Hint = '~5 '#186'/sec'
             GroupIndex = 5
             Caption = 'SLW'
             Font.Charset = ANSI_CHARSET
@@ -2457,27 +2462,37 @@ object Form1: TForm1
             Font.Name = 'Arial'
             Font.Style = []
             ParentFont = False
+            ParentShowHint = False
+            ShowHint = True
+            OnClick = sbCENClick
           end
-          object BMOV: TSpeedButton
+          object sbFND: TSpeedButton
+            Tag = 3600
             Left = 54
             Top = 4
             Width = 41
             Height = 26
+            Hint = '1 '#186'/sec'
             GroupIndex = 5
-            Caption = 'MOV '
+            Caption = 'FND'
             Font.Charset = ANSI_CHARSET
             Font.Color = clBlack
             Font.Height = -12
             Font.Name = 'Arial'
             Font.Style = []
             ParentFont = False
+            ParentShowHint = False
+            ShowHint = True
             Spacing = 1
+            OnClick = sbCENClick
           end
-          object BCEN: TSpeedButton
+          object sbCEN: TSpeedButton
+            Tag = 480
             Left = 102
             Top = 4
             Width = 42
             Height = 26
+            Hint = '4 arcmin/sec'
             GroupIndex = 5
             Down = True
             Caption = 'CEN'
@@ -2487,12 +2502,17 @@ object Form1: TForm1
             Font.Name = 'Arial'
             Font.Style = []
             ParentFont = False
+            ParentShowHint = False
+            ShowHint = True
+            OnClick = sbCENClick
           end
-          object BGUI: TSpeedButton
+          object sbGUI: TSpeedButton
+            Tag = 30
             Left = 151
             Top = 4
             Width = 45
             Height = 26
+            Hint = '30 arcsec/sec'
             GroupIndex = 5
             Caption = 'GUI'
             Font.Charset = ANSI_CHARSET
@@ -2501,6 +2521,9 @@ object Form1: TForm1
             Font.Name = 'Arial'
             Font.Style = []
             ParentFont = False
+            ParentShowHint = False
+            ShowHint = True
+            OnClick = sbCENClick
           end
         end
         object ELXsend: TEdit
@@ -4351,7 +4374,7 @@ object Form1: TForm1
             Font.Height = -10
             Font.Name = 'Arial'
             Font.Style = []
-            ItemHeight = 0
+            ItemHeight = 13
             ParentFont = False
             TabOrder = 4
             OnChange = CBCCD_A_Change
@@ -4369,7 +4392,7 @@ object Form1: TForm1
             Font.Height = -10
             Font.Name = 'Arial'
             Font.Style = []
-            ItemHeight = 0
+            ItemHeight = 13
             ParentFont = False
             TabOrder = 5
             OnChange = CBCCD_B_Change

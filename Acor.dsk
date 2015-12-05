@@ -9,17 +9,18 @@ File_6=SourceModule,'c:\program files (x86)\borland\cbuilder6\include\vcl\systda
 
 [Modules]
 Module0=D:\Cpp\RocPcServidorAsp\Principal.cpp
-Module1=D:\Cpp\RocPcServidorAsp\ElCerroToDo.txt
-Module2=D:\Cpp\RocPcServidorAsp\Programacion.cpp
+Module1=D:\Cpp\RocPcServidorAsp\Programacion.cpp
+Module2=D:\Cpp\RocPcServidorAsp\visualizar.cpp
 Module3=D:\Cpp\RocPcServidorAsp\Foto.cpp
-Module4=D:\Cpp\RocPcServidorAsp\Acor.bpr
-Module5=D:\Cpp\RocPcServidorAsp\CCD1Impl.cpp
-Module6=D:\Cpp\RocPcServidorAsp\FocuserImpl.cpp
-Module7=D:\Cpp\RocPcServidorAsp\cRocPcServidorImpl.cpp
-Module8=D:\Cpp\RocPcServidorAsp\SOCKET.cpp
-Module9=D:\Cpp\RocPcServidorAsp\conf_meteo.cpp
-Module10=D:\Cpp\RocPcServidorAsp\RUEDA.CPP
-Count=11
+Module4=D:\Cpp\RocPcServidorAsp\ElCerroToDo.txt
+Module5=D:\Cpp\RocPcServidorAsp\Acor.bpr
+Module6=D:\Cpp\RocPcServidorAsp\CCD1Impl.cpp
+Module7=D:\Cpp\RocPcServidorAsp\FocuserImpl.cpp
+Module8=D:\Cpp\RocPcServidorAsp\cRocPcServidorImpl.cpp
+Module9=D:\Cpp\RocPcServidorAsp\SOCKET.cpp
+Module10=D:\Cpp\RocPcServidorAsp\conf_meteo.cpp
+Module11=D:\Cpp\RocPcServidorAsp\RUEDA.CPP
+Count=12
 EditWindowCount=1
 TypeLibWindowCount=1
 
@@ -28,17 +29,22 @@ ModuleType=SourceModule
 FormState=1
 FormOnTop=0
 
-[D:\Cpp\RocPcServidorAsp\ElCerroToDo.txt]
-ModuleType=SourceModule
-FormState=0
-FormOnTop=0
-
 [D:\Cpp\RocPcServidorAsp\Programacion.cpp]
 ModuleType=SourceModule
 FormState=1
 FormOnTop=0
 
+[D:\Cpp\RocPcServidorAsp\visualizar.cpp]
+ModuleType=SourceModule
+FormState=1
+FormOnTop=0
+
 [D:\Cpp\RocPcServidorAsp\Foto.cpp]
+ModuleType=SourceModule
+FormState=0
+FormOnTop=0
+
+[D:\Cpp\RocPcServidorAsp\ElCerroToDo.txt]
 ModuleType=SourceModule
 FormState=0
 FormOnTop=0
@@ -87,7 +93,7 @@ FormState=0
 FormOnTop=0
 
 [EditWindow0]
-ViewCount=11
+ViewCount=12
 CurrentView=0
 View0=0
 View1=1
@@ -100,6 +106,7 @@ View7=7
 View8=8
 View9=9
 View10=10
+View11=11
 CodeExplorer=CodeExplorer@EditWindow0
 MessageView=MessageView@EditWindow0
 ClassHierarchy=ClassHierarchy@EditWindow0
@@ -116,15 +123,15 @@ ClientWidth=1286
 ClientHeight=882
 LeftPanelSize=0
 RightPanelSize=0
-BottomPanelSize=162
+BottomPanelSize=0
 BottomPanelClients=MessageView@EditWindow0
-BottomPanelData=0000040000000000060500000000000002A200000000000000010000000000000000000000000100000000850300000000000001000000000605000000000000010000000006050000000000000100000000060500000000000001000000000605000000000000010000000006050000000000000100000000060500000B0000004D65737361676556696577FFFFFFFF
+BottomPanelData=00000400010000000B0000004D657373616765566965770605000000000000026700000000000000010000000000000000000000000100000000850300000000000001000000000605000000000000010000000006050000000000000100000000060500000000000001000000000605000000000000010000000006050000000000000100000000060500000B0000004D65737361676556696577FFFFFFFF
 
 [View0]
 Module=D:\Cpp\RocPcServidorAsp\Principal.cpp
-CursorX=3
-CursorY=7752
-TopLine=7724
+CursorX=5
+CursorY=7940
+TopLine=7930
 LeftCol=1
 
 [View1]
@@ -184,13 +191,20 @@ TopLine=890
 LeftCol=1
 
 [View9]
-Module=D:\Cpp\RocPcServidorAsp\ElCerroToDo.txt
+Module=D:\Cpp\RocPcServidorAsp\visualizar.cpp
 CursorX=1
 CursorY=1
-TopLine=1
+TopLine=100
 LeftCol=1
 
 [View10]
+Module=D:\Cpp\RocPcServidorAsp\ElCerroToDo.txt
+CursorX=22
+CursorY=65
+TopLine=39
+LeftCol=1
+
+[View11]
 Module=D:\Cpp\RocPcServidorAsp\Foto.cpp
 CursorX=1
 CursorY=1
@@ -413,7 +427,7 @@ LRDockWidth=274
 Dockable=1
 SplitPos=144
 ArrangeBy=Name
-SelectedItem=OnTimer
+SelectedItem=OnClick
 ExpandedItems=DepthAxis.Axis,EdgeBorders,Font,LeftAxis,VisibleButtons
 HiddenCategories=Legacy
 
@@ -550,17 +564,17 @@ ClassViewDisplayMode=0
 
 [MessageView@EditWindow0]
 Create=1
-Visible=1
+Visible=0
 State=0
 Left=12
 Top=0
 Width=1274
-Height=162
+Height=103
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1274
-ClientHeight=162
-TBDockHeight=162
+ClientHeight=103
+TBDockHeight=103
 LRDockWidth=443
 Dockable=1
 

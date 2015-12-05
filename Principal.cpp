@@ -381,7 +381,9 @@ bool CGEM = false;
 bool LX200 = false;
 bool HPREC = false;
 
-//---------------------------------------------------------------------------
+int SlewSpeed = 480; // Centrado ==> Botón centrado down=True
+
+//----------------------- Prototipos de funciones ------------------------------
 // Prototipos de funciones
 extern void LeerConfMeteo();
 void Slew_F(double Ra, double De);
@@ -441,6 +443,8 @@ void WriteHistory (AnsiString cadena);
 
 void EnviaLX(char *orden);
 void EnviaLX(char *orden, int long_orden);
+
+int readSpeedValues(TSpeedButton* sb);
 
 AnsiString CmdToStr(Commands cmd);
 void setTimers (bool valEnabled);
@@ -5165,12 +5169,47 @@ void __fastcall TForm1::BSMouseDown(TObject *Sender, TMouseButton Button,
                                     TShiftState Shift, int X, int Y)
 //------------------------------------------------------------------------------
 {
-    //int slewRate = 7;
-    int arcsecBySec = 36000; // 1º/s
+
+    /* Velocidades de LX200:
+       SLW: Slew       8º/sec a 6º/sec
+       FND: Find       2º/sec
+       CEN: Centrado 480 arcsec/sec
+       GUI: Guiado    30 arcsec/sec
+
+       Velocidades CGEM:
+       1 = .5x                   8 arcsec/sec
+       2 = 1x (sidereal)        15 arcsec/sec
+       3 = 4x   60 arcsec/sec =  1 arcmin/sec
+       4 = 8x  120 arcsec/sec =  2 arcmin/sec
+       5 = 16x 240 arcsec/sec =  4 arcmin/sec
+       6 = 64x 960 arcsec/sec = 16 arcmin/sec
+       7 =    3600 arcsec/sec =  1 º/sec
+       8 =    7200 arcsec/sec =  2 º/sec
+       9 =   18000 arcsec/sec =  5 º/sec
+    */
+
+    /* int arcsecBySec = 36000; // 1º/s
+       Esta es la velocidad que probamos primero, como 1º/s, pero según el
+       manual de CGEM este valor rate=7 es de 3600 arcsec/sec. El valor máximo
+       no puede superar 16383, para que multiplicando por 4 y dividiendo
+       por 256 de 255 y resto 252 ambos valores entre 0 y 255.
+       Según este algoritmo, la velocidad máxima será de 16383 arcsec/sec
+       que equivale a ~ 4,6 º/sec
+    */
+
+    /* Según todo lo anterior las velocidades asignadas a cada botón tipo LX200
+       serán:
+       SLW: Slew     Rate=9 16383 arcsec/sec ~  5 º/sec
+       FND: Find     Rate=7  3600 arcsec/sec =  1 º/sec
+       CEN: Centrado Rate~5   480 arcsec/sec =  4 arcmin/sec
+       GUI: Guiado   Rate=2-3  30 arcsec/sec = 30 arcsec/sec
+
+    */
+
+    int arcsecBySec = SlewSpeed;
 
     int TrackRateAltHigh = (arcsecBySec * 4) / 256;
     int TrackRateAltLow = (arcsecBySec * 4) % 256;
-
 
     char stopTrk[] = {'T', 0};  // Set tracking mode to 0 (Off)
     //char starTrk[] = {'T', 2};  // Set tracking mode to 2 (EQ North)
@@ -5337,13 +5376,13 @@ void __fastcall TForm1::BSMouseDown(TObject *Sender, TMouseButton Button,
     }
     else                             //LX200
     {
-        if (BSLW->Down == true)
+        if (sbSLW->Down == true)
             EnviaLX("#:RS#");
-        else if (BMOV->Down == true)
+        else if (sbFND->Down == true)
             EnviaLX("#:RM#");
-        else if (BCEN->Down == true)
+        else if (sbCEN->Down == true)
             EnviaLX("#:RC#");
-        else if (BGUI->Down == true)
+        else if (sbGUI->Down == true)
             EnviaLX("#:RG#");
 
         if (Sender == BN)
@@ -5428,6 +5467,13 @@ void __fastcall TForm1::BNOMouseUp(TObject *Sender, TMouseButton Button,
         else if (Sender == BNE)
             EnviaLX("#:Qn##:Qe#");
     }
+}
+
+//==============================================================================
+int readSpeedValues(TSpeedButton* sb)
+//==============================================================================
+{
+    return sb->Tag;
 }
 
 //------------------------------------------------------------------------------
@@ -7870,6 +7916,32 @@ void __fastcall TForm1::t100SlewTimer(TObject *Sender)
     // PStatus->Font->Color = ColorEstado;
     SC->Brush->Color = ColorEstado;
 
+}
+
+//------------------------------------------------------------------------------
+void __fastcall TForm1::sbCENClick(TObject *Sender)
+//------------------------------------------------------------------------------
+{
+    TSpeedButton* sb = (TSpeedButton*)Sender;
+
+    SlewSpeed = readSpeedValues(sb);
+}
+
+//------------------------------------------------------------------------------
+void __fastcall TForm1::SBstopClick(TObject *Sender)
+//------------------------------------------------------------------------------
+{
+    char cmd[2] = {0};
+
+    cmd[0] = 'M';
+    command = GotoCancel;
+
+    EnviaLX(cmd, 1);
+    
+    if (((TSpeedButton*)Sender)->Down == true)
+        ((TSpeedButton*)Sender)->Down = false;
+    else
+        ((TSpeedButton*)Sender)->Down = true;
 }
 //------------------------------------------------------------------------------
 
