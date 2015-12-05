@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 418
-  Top = 107
+  Left = 5
+  Top = 121
   Width = 1024
   Height = 780
   BorderIcons = [biMinimize, biMaximize]
@@ -47,13 +47,13 @@ object Form1: TForm1
     Left = 250
     Top = 0
     Width = 758
-    Height = 745
+    Height = 742
     Align = alClient
     Caption = 'Panel7'
     TabOrder = 0
     object Label61: TLabel
       Left = 1
-      Top = 628
+      Top = 625
       Width = 756
       Height = 17
       Align = alBottom
@@ -69,7 +69,7 @@ object Form1: TForm1
       Left = 1
       Top = 23
       Width = 756
-      Height = 605
+      Height = 602
       Align = alClient
       BevelInner = bvNone
       BevelOuter = bvRaised
@@ -105,7 +105,7 @@ object Form1: TForm1
     end
     object Panel56: TPanel
       Left = 1
-      Top = 700
+      Top = 697
       Width = 756
       Height = 44
       Align = alBottom
@@ -541,7 +541,7 @@ object Form1: TForm1
     end
     object Memo1: TMemo
       Left = 1
-      Top = 645
+      Top = 642
       Width = 756
       Height = 55
       Align = alBottom
@@ -755,7 +755,7 @@ object Form1: TForm1
     Left = 0
     Top = 0
     Width = 250
-    Height = 745
+    Height = 742
     ActivePage = TELESCOPIO
     Align = alLeft
     Constraints.MinWidth = 225
@@ -777,7 +777,7 @@ object Form1: TForm1
         Left = 0
         Top = 308
         Width = 225
-        Height = 429
+        Height = 426
         Align = alClient
         TabOrder = 0
         object Label62: TLabel
@@ -2448,12 +2448,12 @@ object Form1: TForm1
           BevelOuter = bvLowered
           TabOrder = 2
           object sbSLW: TSpeedButton
-            Tag = 16383
+            Tag = 16200
             Left = 6
             Top = 4
             Width = 42
             Height = 26
-            Hint = '~5 '#186'/sec'
+            Hint = '4,5 '#186'/sec'
             GroupIndex = 5
             Caption = 'SLW'
             Font.Charset = ANSI_CHARSET
@@ -6478,6 +6478,7 @@ object Form1: TForm1
     Top = 464
   end
   object t100Slew: TTimer
+    Enabled = False
     Interval = 100
     OnTimer = t100SlewTimer
     Left = 581

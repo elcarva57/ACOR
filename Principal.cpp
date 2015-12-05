@@ -7738,7 +7738,7 @@ void setTimers (bool valEnabled)
 void __fastcall TForm1::t100SlewTimer(TObject *Sender)
 //------------------------------------------------------------------------------
 {
-    char aux[3000];
+/*    char aux[3000];
     TDateTime Fech, DTenvio;
 
     AnsiString buffer;
@@ -7915,7 +7915,7 @@ void __fastcall TForm1::t100SlewTimer(TObject *Sender)
     EstadoAnterior = EstadoRabbit;
     // PStatus->Font->Color = ColorEstado;
     SC->Brush->Color = ColorEstado;
-
+*/
 }
 
 //------------------------------------------------------------------------------
