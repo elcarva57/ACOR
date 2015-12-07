@@ -47,13 +47,13 @@ object Form1: TForm1
     Left = 250
     Top = 0
     Width = 758
-    Height = 742
+    Height = 745
     Align = alClient
     Caption = 'Panel7'
     TabOrder = 0
     object Label61: TLabel
       Left = 1
-      Top = 625
+      Top = 628
       Width = 756
       Height = 17
       Align = alBottom
@@ -69,7 +69,7 @@ object Form1: TForm1
       Left = 1
       Top = 23
       Width = 756
-      Height = 602
+      Height = 605
       Align = alClient
       BevelInner = bvNone
       BevelOuter = bvRaised
@@ -105,7 +105,7 @@ object Form1: TForm1
     end
     object Panel56: TPanel
       Left = 1
-      Top = 697
+      Top = 700
       Width = 756
       Height = 44
       Align = alBottom
@@ -541,7 +541,7 @@ object Form1: TForm1
     end
     object Memo1: TMemo
       Left = 1
-      Top = 642
+      Top = 645
       Width = 756
       Height = 55
       Align = alBottom
@@ -755,7 +755,7 @@ object Form1: TForm1
     Left = 0
     Top = 0
     Width = 250
-    Height = 742
+    Height = 745
     ActivePage = TELESCOPIO
     Align = alLeft
     Constraints.MinWidth = 225
@@ -777,7 +777,7 @@ object Form1: TForm1
         Left = 0
         Top = 308
         Width = 225
-        Height = 426
+        Height = 429
         Align = alClient
         TabOrder = 0
         object Label62: TLabel
@@ -2678,6 +2678,7 @@ object Form1: TForm1
         Height = 25
         Caption = 'Test'
         TabOrder = 5
+        Visible = False
         OnClick = bTestClick
       end
       object cbDisableAllTimers: TCheckBox
@@ -4374,7 +4375,7 @@ object Form1: TForm1
             Font.Height = -10
             Font.Name = 'Arial'
             Font.Style = []
-            ItemHeight = 13
+            ItemHeight = 0
             ParentFont = False
             TabOrder = 4
             OnChange = CBCCD_A_Change
@@ -4392,7 +4393,7 @@ object Form1: TForm1
             Font.Height = -10
             Font.Name = 'Arial'
             Font.Style = []
-            ItemHeight = 13
+            ItemHeight = 0
             ParentFont = False
             TabOrder = 5
             OnChange = CBCCD_B_Change
@@ -6476,12 +6477,5 @@ object Form1: TForm1
     ConnectKind = ckRunningOrNew
     Left = 272
     Top = 464
-  end
-  object t100Slew: TTimer
-    Enabled = False
-    Interval = 100
-    OnTimer = t100SlewTimer
-    Left = 581
-    Top = 475
   end
 end

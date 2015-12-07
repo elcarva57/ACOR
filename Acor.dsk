@@ -8,48 +8,36 @@ File_5=SourceModule,'D:\Cpp\RocPcServidorAsp\scriptTest.xml',0,1,1,29,54,0,0
 File_6=SourceModule,'c:\program files (x86)\borland\cbuilder6\include\vcl\systdate.h',0,1,102,1,118,0,0
 
 [Modules]
-Module0=C:\user\Antonio\Cpp\RocPcServidorAsp\Principal.cpp
-Module1=C:\user\Antonio\Cpp\RocPcServidorAsp\ElCerroToDo.txt
-Module2=C:\user\Antonio\Cpp\RocPcServidorAsp\CCD1Impl.cpp
-Module3=C:\user\Antonio\Cpp\RocPcServidorAsp\FocuserImpl.cpp
-Module4=C:\user\Antonio\Cpp\RocPcServidorAsp\cRocPcServidorImpl.cpp
-Module5=C:\user\Antonio\Cpp\RocPcServidorAsp\Programacion.cpp
-Module6=C:\user\Antonio\Cpp\RocPcServidorAsp\Acor.bpr
-Count=7
+Module0=D:\Cpp\RocPcServidorAsp\Principal.cpp
+Module1=D:\Cpp\RocPcServidorAsp\CCD1Impl.cpp
+Module2=D:\Cpp\RocPcServidorAsp\FocuserImpl.cpp
+Module3=D:\Cpp\RocPcServidorAsp\cRocPcServidorImpl.cpp
+Module4=D:\Cpp\RocPcServidorAsp\Acor.bpr
+Count=5
 EditWindowCount=1
 TypeLibWindowCount=1
 
-[C:\user\Antonio\Cpp\RocPcServidorAsp\Principal.cpp]
+[D:\Cpp\RocPcServidorAsp\Principal.cpp]
 ModuleType=SourceModule
 FormState=1
 FormOnTop=0
 
-[C:\user\Antonio\Cpp\RocPcServidorAsp\ElCerroToDo.txt]
+[D:\Cpp\RocPcServidorAsp\CCD1Impl.cpp]
 ModuleType=SourceModule
 FormState=0
 FormOnTop=0
 
-[C:\user\Antonio\Cpp\RocPcServidorAsp\CCD1Impl.cpp]
+[D:\Cpp\RocPcServidorAsp\FocuserImpl.cpp]
 ModuleType=SourceModule
 FormState=0
 FormOnTop=0
 
-[C:\user\Antonio\Cpp\RocPcServidorAsp\FocuserImpl.cpp]
+[D:\Cpp\RocPcServidorAsp\cRocPcServidorImpl.cpp]
 ModuleType=SourceModule
 FormState=0
 FormOnTop=0
 
-[C:\user\Antonio\Cpp\RocPcServidorAsp\cRocPcServidorImpl.cpp]
-ModuleType=SourceModule
-FormState=0
-FormOnTop=0
-
-[C:\user\Antonio\Cpp\RocPcServidorAsp\Programacion.cpp]
-ModuleType=SourceModule
-FormState=0
-FormOnTop=0
-
-[C:\user\Antonio\Cpp\RocPcServidorAsp\Acor.bpr]
+[D:\Cpp\RocPcServidorAsp\Acor.bpr]
 ModuleType=SourceModule
 FormState=0
 FormOnTop=0
@@ -58,20 +46,18 @@ FormOnTop=0
 FormState=0
 FormOnTop=0
 
-[C:\user\Antonio\Cpp\RocPcServidorAsp\RocPcServidor.tlb]
+[D:\Cpp\RocPcServidorAsp\RocPcServidor.tlb]
 FormState=0
 FormOnTop=0
 
 [EditWindow0]
-ViewCount=7
+ViewCount=5
 CurrentView=1
 View0=0
 View1=1
 View2=2
 View3=3
 View4=4
-View5=5
-View6=6
 CodeExplorer=CodeExplorer@EditWindow0
 MessageView=MessageView@EditWindow0
 ClassHierarchy=ClassHierarchy@EditWindow0
@@ -79,66 +65,52 @@ Create=1
 Visible=1
 State=0
 Left=359
-Top=114
-Width=921
-Height=872
+Top=120
+Width=1302
+Height=917
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=905
-ClientHeight=834
+ClientWidth=1286
+ClientHeight=882
 LeftPanelSize=0
 RightPanelSize=0
 BottomPanelSize=0
 BottomPanelClients=MessageView@EditWindow0
-BottomPanelData=00000400010000000B0000004D657373616765566965778903000000000000026700000000000000010000000000000000000000000100000000850300000000000001000000000605000000000000010000000006050000000000000100000000060500000000000001000000000605000000000000010000000006050000000000000100000000890300000B0000004D65737361676556696577FFFFFFFF
+BottomPanelData=00000400010000000B0000004D657373616765566965770605000000000000026700000000000000010000000000000000000000000100000000850300000000000001000000000605000000000000010000000006050000000000000100000000060500000000000001000000000605000000000000010000000006050000000000000100000000060500000B0000004D65737361676556696577FFFFFFFF
 
 [View0]
-Module=C:\user\Antonio\Cpp\RocPcServidorAsp\Acor.cpp
+Module=D:\Cpp\RocPcServidorAsp\Acor.cpp
 CursorX=1
 CursorY=1
 TopLine=1
 LeftCol=1
 
 [View1]
-Module=C:\user\Antonio\Cpp\RocPcServidorAsp\Principal.cpp
-CursorX=3
-CursorY=7723
-TopLine=7723
+Module=D:\Cpp\RocPcServidorAsp\Principal.cpp
+CursorX=1
+CursorY=7703
+TopLine=7699
 LeftCol=1
 
 [View2]
-Module=C:\user\Antonio\Cpp\RocPcServidorAsp\Programacion.cpp
-CursorX=8
-CursorY=146
-TopLine=130
+Module=D:\Cpp\RocPcServidorAsp\cRocPcServidorImpl.cpp
+CursorX=1
+CursorY=1
+TopLine=1
 LeftCol=1
 
 [View3]
-Module=C:\user\Antonio\Cpp\RocPcServidorAsp\cRocPcServidorImpl.cpp
+Module=D:\Cpp\RocPcServidorAsp\FocuserImpl.cpp
 CursorX=1
 CursorY=1
 TopLine=1
 LeftCol=1
 
 [View4]
-Module=C:\user\Antonio\Cpp\RocPcServidorAsp\FocuserImpl.cpp
+Module=D:\Cpp\RocPcServidorAsp\CCD1Impl.cpp
 CursorX=1
 CursorY=1
 TopLine=1
-LeftCol=1
-
-[View5]
-Module=C:\user\Antonio\Cpp\RocPcServidorAsp\CCD1Impl.cpp
-CursorX=1
-CursorY=1
-TopLine=1
-LeftCol=1
-
-[View6]
-Module=C:\user\Antonio\Cpp\RocPcServidorAsp\ElCerroToDo.txt
-CursorX=1
-CursorY=1
-TopLine=46
 LeftCol=1
 
 [TypeLibEditWindow0]
@@ -148,12 +120,12 @@ State=0
 Left=189
 Top=133
 Width=658
-Height=457
+Height=454
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=642
 ClientHeight=419
-Module=C:\user\Antonio\Cpp\RocPcServidorAsp\RocPcServidor.tlb
+Module=D:\Cpp\RocPcServidorAsp\RocPcServidor.tlb
 
 [Watches]
 Count=1
@@ -171,12 +143,12 @@ Visible=1
 State=0
 Left=0
 Top=0
-Width=1280
-Height=122
+Width=1665
+Height=116
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=1264
-ClientHeight=84
+ClientWidth=1649
+ClientHeight=81
 
 [Components]
 Create=1
@@ -189,7 +161,7 @@ Height=266
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=202
-ClientHeight=232
+ClientHeight=233
 
 [ProjectManager]
 Create=1
@@ -202,7 +174,7 @@ Height=585
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=536
-ClientHeight=551
+ClientHeight=552
 TBDockHeight=382
 LRDockWidth=537
 Dockable=1
@@ -218,7 +190,7 @@ Height=666
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=945
-ClientHeight=628
+ClientHeight=631
 DumpPane=101
 DisassemblyPane=240
 RegisterPane=297
@@ -235,7 +207,7 @@ Height=717
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=1202
-ClientHeight=683
+ClientHeight=684
 TBDockHeight=291
 LRDockWidth=708
 Dockable=1
@@ -251,7 +223,7 @@ Height=572
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=737
-ClientHeight=538
+ClientHeight=539
 TBDockHeight=232
 LRDockWidth=516
 Dockable=1
@@ -267,7 +239,7 @@ Height=250
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=454
-ClientHeight=216
+ClientHeight=217
 TBDockHeight=250
 LRDockWidth=470
 Dockable=1
@@ -291,22 +263,22 @@ Height=250
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=441
-ClientHeight=212
+ClientHeight=215
 RegisterPane=121
 FlagPane=59
 
 [WatchWindow]
 Create=1
-Visible=0
+Visible=1
 State=0
-Left=79
-Top=450
-Width=1035
+Left=20
+Top=716
+Width=339
 Height=250
 MaxLeft=-1
 MaxTop=-1
-ClientWidth=1019
-ClientHeight=216
+ClientWidth=323
+ClientHeight=217
 TBDockHeight=149
 LRDockWidth=421
 Dockable=1
@@ -322,7 +294,7 @@ Height=513
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=485
-ClientHeight=479
+ClientHeight=480
 TBDockHeight=161
 LRDockWidth=294
 Dockable=1
@@ -334,7 +306,7 @@ State=0
 Left=552
 Top=82
 Width=156
-Height=84
+Height=83
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=150
@@ -344,20 +316,20 @@ ClientHeight=60
 Create=1
 Visible=1
 State=0
-Left=4
-Top=115
+Left=2
+Top=121
 Width=354
-Height=871
+Height=918
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=338
-ClientHeight=837
+ClientHeight=885
 TBDockHeight=662
 LRDockWidth=274
 Dockable=1
 SplitPos=144
 ArrangeBy=Name
-SelectedItem=Caption
+SelectedItem=OnClick
 ExpandedItems=DepthAxis.Axis,EdgeBorders,Font,LeftAxis,VisibleButtons
 HiddenCategories=Legacy
 
@@ -372,7 +344,7 @@ Height=197
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=721
-ClientHeight=163
+ClientHeight=164
 TBDockHeight=197
 LRDockWidth=737
 Dockable=1
@@ -394,7 +366,7 @@ Height=478
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=763
-ClientHeight=444
+ClientHeight=445
 TBDockHeight=152
 LRDockWidth=624
 Dockable=1
@@ -414,7 +386,7 @@ Height=355
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=622
-ClientHeight=321
+ClientHeight=322
 TBDockHeight=355
 LRDockWidth=638
 Dockable=1
@@ -435,7 +407,7 @@ Height=264
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=174
-ClientHeight=230
+ClientHeight=231
 TBDockHeight=264
 LRDockWidth=190
 Dockable=1
@@ -451,7 +423,7 @@ Height=190
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=432
-ClientHeight=156
+ClientHeight=157
 TBDockHeight=190
 LRDockWidth=448
 Dockable=1
@@ -467,7 +439,7 @@ Height=284
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=387
-ClientHeight=250
+ClientHeight=251
 TBDockHeight=284
 LRDockWidth=403
 Dockable=1
@@ -486,7 +458,7 @@ Height=660
 MaxLeft=-1
 MaxTop=-1
 ClientWidth=570
-ClientHeight=626
+ClientHeight=627
 TBDockHeight=388
 LRDockWidth=170
 Dockable=1
