@@ -2211,11 +2211,11 @@ void ProcesarCGEM()
         if ( Form1->CBver_envio_lx->Checked == true)
         {
             TimeRxLX200 = Fecha.CurrentTime();
-            Historico->Mhistory->Lines->Add( AnsiString(TimeRxLX200) + "->" + AnsiString(BuffLX) );
+            //Historico->Mhistory->Lines->Add( AnsiString(TimeRxLX200) + "->" + AnsiString(BuffLX) );
         }
     }
     else
-        Historico->Mhistory->Lines->Add( "->" + AnsiString(BuffLX) );
+        //Historico->Mhistory->Lines->Add( "->" + AnsiString(BuffLX) );
 
     /*
     if (Long == 10)  //Espera una cadena completa con AR, DEC, Alt y Az.  //8BD0,3F35# -> AR,DEC
@@ -7759,4 +7759,6 @@ void __fastcall TForm1::SBstopClick(TObject *Sender)
         ((TSpeedButton*)Sender)->Down = true;
 }
 //------------------------------------------------------------------------------
+
+
 
