@@ -10,6 +10,7 @@
 //------------------------------------------------------------------------------
 // includes generales
 #include <vcl.h>
+#include <IniFiles.hpp>
 #pragma hdrstop
 #include <stdio.h>
 #include <stdlib.h>
@@ -124,6 +125,25 @@ enum Commands {GetRAS_DEC, GetPreRAS_DEC, GetAZM_ALT, GetPreAZM_ALT,
               };
 
 Commands command = None;
+
+typedef struct     //configuracion del programa ({appname}.ini)
+{
+    AnsiString LocationName;
+    int kpluvio;
+    int alerta_nube;
+    int bar_ofset;
+    int bar_altura;
+    int RefZener[6];
+    int luzIR_ofset;
+    int luzUV_ofset;
+    int kmecanico;
+    int k1termico;
+    int k2termico;
+    char direc_datos[100];
+    char direc_jpg[100];
+} CONF_INI;
+
+CONF_INI cfg;
 
 typedef struct    // almacena lecturas promediadas de un minuto
 {
@@ -448,6 +468,7 @@ int readSpeedValues(TSpeedButton* sb);
 
 AnsiString CmdToStr(Commands cmd);
 void setTimers (bool valEnabled);
+void readINI();
 
 //==============================================================================
 //------------------------------------------------------------------------------
@@ -455,7 +476,7 @@ void setTimers (bool valEnabled);
 
 //------------------------------------------------------------------------------
 __fastcall TForm1::TForm1(TComponent* Owner) : TForm(Owner)
-    //------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 {
     char *ptr;
     char aux[100];
@@ -464,6 +485,8 @@ __fastcall TForm1::TForm1(TComponent* Owner) : TForm(Owner)
     char config[100][50];
     //char ConfMeteo[100];
     char filtro[200], shuter[200];
+
+    readINI();
 
     GetCurrentDirectory( 100, dir_trab);
     strcat(dir_trab, "\\");
@@ -5476,6 +5499,32 @@ int readSpeedValues(TSpeedButton* sb)
     return sb->Tag;
 }
 
+//==============================================================================
+void readINI()
+//==============================================================================
+{
+    // Válidos para usar el mismo nombre que el programa y
+    // un fichero en el mismo directorio que el ejecutable
+    TIniFile *INI = new TIniFile(ChangeFileExt(Application->ExeName, ".ini"));
+    //TIniFile *StartUp = new TIniFile(".\\Ini01.INI");
+
+    cfg.LocationName = INI->ReadString("Location", "Name", "Casa");
+
+//    //int val = StartUp->ReadInteger("FormPos", "Mivalor", 0);
+//    Left = StartUp->ReadInteger("FormPos", "Left", Left);
+//    Top  = StartUp->ReadInteger("FormPos", "Top", 200);
+//
+//    // The controls values section
+//    edtPreview->Text   = StartUp->ReadString("CtlValues",  "txtPreview", "Euzhan Palcy");
+//    cboFonts->Text     = StartUp->ReadString("CtlValues",  "FontSelected", "Times New Roman");
+//    cboFontSizes->Text = StartUp->ReadString("CtlValues",  "FontSize", "24");
+//    scrRed->Position   = StartUp->ReadInteger("CtlValues", "RedPos", 0);
+//    scrGreen->Position = StartUp->ReadInteger("CtlValues", "GreenPos", 0);
+//    scrBlue->Position  = StartUp->ReadInteger("CtlValues", "BluePos", 0);
+
+    delete INI;
+}
+
 //------------------------------------------------------------------------------
 void __fastcall TForm1::stSignClick(TObject *Sender)
 //------------------------------------------------------------------------------
@@ -5889,11 +5938,13 @@ void __fastcall TForm1::BElbrusClick(TObject *Sender)
         //      strncpy(&cad[0], &aqui[34], 24);
         strncpy(&cad[0], &aqui[123], 24);
         cad[24] = 0;
-        aa = "¿Sincronizar Telescopio en:  " + AnsiString(cad) + " ?";
+//        aa = "¿Sincronizar Telescopio en:  " + AnsiString(cad) + " ?";
+        aa = "¿Sincronizar Telescopio en: \n\n\tAR =  " + formatARE(ar/15.0) +
+                                           "\n\tDE = "  + formatDEC(dec) + "\n?";
 
-        if (Application->MessageBox(aa.c_str(), "   ATENCION", MB_OKCANCEL	) == IDOK  )
+        if (Application->MessageBox(aa.c_str(), "SINCRONIZACIÓN ELBRUS", MB_OKCANCEL|MB_ICONQUESTION) == IDOK)
         {
-            Historico->Mhistory->Lines->Add ("Sinc AR: " + AnsiString(ar) + " DEC: " + AnsiString(dec));
+            Historico->Mhistory->Lines->Add ("Sinc AR: " + formatARE(ar/15.0) + " DEC: " + formatDEC(dec));
             Sincronizando = true;
             Slew_F(ar, dec);       //manda las nuevas coordenadas
             //BSincronizarClick(NULL);  //envia el comando de cambio de coordenadas

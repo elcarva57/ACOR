@@ -756,7 +756,7 @@ object Form1: TForm1
     Top = 0
     Width = 250
     Height = 745
-    ActivePage = TELESCOPIO
+    ActivePage = CAMARA
     Align = alLeft
     Constraints.MinWidth = 225
     Font.Charset = ANSI_CHARSET
@@ -768,7 +768,7 @@ object Form1: TForm1
     MultiLine = True
     ParentFont = False
     TabHeight = 17
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 1
     TabPosition = tpLeft
     object CAMARA: TTabSheet
@@ -783,7 +783,7 @@ object Form1: TForm1
         object Label62: TLabel
           Left = 1
           Top = 17
-          Width = 110
+          Width = 223
           Height = 14
           Align = alTop
           Alignment = taCenter
@@ -811,7 +811,7 @@ object Form1: TForm1
         object Label43: TLabel
           Left = 1
           Top = 1
-          Width = 26
+          Width = 223
           Height = 16
           Align = alTop
           Alignment = taCenter
@@ -1923,7 +1923,7 @@ object Form1: TForm1
           object Label82: TLabel
             Left = 1
             Top = 1
-            Width = 196
+            Width = 121
             Height = 15
             Align = alTop
             Alignment = taCenter
@@ -2105,7 +2105,7 @@ object Form1: TForm1
           object Label89: TLabel
             Left = 1
             Top = 1
-            Width = 196
+            Width = 133
             Height = 15
             Align = alTop
             Alignment = taCenter
@@ -2570,7 +2570,7 @@ object Form1: TForm1
           object Label85: TLabel
             Left = 1
             Top = 1
-            Width = 196
+            Width = 140
             Height = 15
             Align = alTop
             Alignment = taCenter
@@ -5030,7 +5030,7 @@ object Form1: TForm1
       object Panel3: TPanel
         Left = 0
         Top = 0
-        Width = 208
+        Width = 225
         Height = 625
         Align = alTop
         BevelInner = bvRaised

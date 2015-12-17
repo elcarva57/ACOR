@@ -40,6 +40,12 @@ CLSID
 // Type Lib: D:\Cpp\RocPcServidorAsp\RocPcServidor.tlb (1)
 // LIBID: {88B924B2-99C6-4B1B-B13A-EF64509CDE41}
 
+{533ECBF1-8A1C-4311-A9B0-D75A5ED30A0E} // Ema.exe /automation (Astronomy Weather Station)
+
+{936E0CDD-F317-4759-902A-5A6AFE01FF74} // Acor.exe /automation (Enfocador CFS))
+{ABD30286-D456-41A1-BC57-8D14A639FFA6} // Acor.exe /automation (cRocPcServidor Object)
+{FFE394F9-C03C-4B70-962D-AF8AD5AE06CF} // Acor.exe /automation (Camara CCD principal)
+
 ELEVATION PROBLEM
 =================
 http://stackoverflow.com/questions/9289527/com-elevation-moniker-fails-to-elevate-the-server-under-vista-windows-7
