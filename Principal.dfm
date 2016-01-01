@@ -756,7 +756,7 @@ object Form1: TForm1
     Top = 0
     Width = 250
     Height = 745
-    ActivePage = CAMARA
+    ActivePage = TELESCOPIO
     Align = alLeft
     Constraints.MinWidth = 225
     Font.Charset = ANSI_CHARSET
@@ -768,7 +768,7 @@ object Form1: TForm1
     MultiLine = True
     ParentFont = False
     TabHeight = 17
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 1
     TabPosition = tpLeft
     object CAMARA: TTabSheet
@@ -1923,7 +1923,7 @@ object Form1: TForm1
           object Label82: TLabel
             Left = 1
             Top = 1
-            Width = 121
+            Width = 196
             Height = 15
             Align = alTop
             Alignment = taCenter
@@ -2105,7 +2105,7 @@ object Form1: TForm1
           object Label89: TLabel
             Left = 1
             Top = 1
-            Width = 133
+            Width = 196
             Height = 15
             Align = alTop
             Alignment = taCenter
@@ -2570,7 +2570,7 @@ object Form1: TForm1
           object Label85: TLabel
             Left = 1
             Top = 1
-            Width = 140
+            Width = 196
             Height = 15
             Align = alTop
             Alignment = taCenter
@@ -2678,7 +2678,6 @@ object Form1: TForm1
         Height = 25
         Caption = 'Test'
         TabOrder = 5
-        Visible = False
         OnClick = bTestClick
       end
       object cbDisableAllTimers: TCheckBox
@@ -2706,7 +2705,7 @@ object Form1: TForm1
       object Panel12: TPanel
         Left = 0
         Top = 0
-        Width = 204
+        Width = 221
         Height = 222
         Align = alTop
         BevelInner = bvRaised
@@ -3130,7 +3129,7 @@ object Form1: TForm1
       object Panel21: TPanel
         Left = 0
         Top = 222
-        Width = 204
+        Width = 221
         Height = 171
         Align = alTop
         BevelInner = bvRaised
@@ -4375,7 +4374,7 @@ object Form1: TForm1
             Font.Height = -10
             Font.Name = 'Arial'
             Font.Style = []
-            ItemHeight = 0
+            ItemHeight = 13
             ParentFont = False
             TabOrder = 4
             OnChange = CBCCD_A_Change
@@ -4393,7 +4392,7 @@ object Form1: TForm1
             Font.Height = -10
             Font.Name = 'Arial'
             Font.Style = []
-            ItemHeight = 0
+            ItemHeight = 13
             ParentFont = False
             TabOrder = 5
             OnChange = CBCCD_B_Change
@@ -4508,7 +4507,7 @@ object Form1: TForm1
         object Label76: TLabel
           Left = 1
           Top = 1
-          Width = 48
+          Width = 223
           Height = 16
           Align = alTop
           Alignment = taCenter
@@ -4602,7 +4601,7 @@ object Form1: TForm1
         end
         object TLabel
           Left = 100
-          Top = 46
+          Top = 44
           Width = 24
           Height = 15
           Caption = 'Lon.'
@@ -4697,9 +4696,9 @@ object Form1: TForm1
           Text = '-'
         end
         object ETelescop: TEdit
-          Left = 79
+          Left = 72
           Top = 100
-          Width = 115
+          Width = 122
           Height = 18
           AutoSize = False
           BevelInner = bvNone
@@ -4793,7 +4792,7 @@ object Form1: TForm1
         end
         object ELongitud: TEdit
           Left = 124
-          Top = 44
+          Top = 43
           Width = 70
           Height = 18
           AutoSize = False

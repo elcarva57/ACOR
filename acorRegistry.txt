@@ -1,0 +1,396 @@
+==================================================
+Registry Key      : HKCR\Interface\{1671E3FC-C0C0-44FB-A79C-9DF0A4E4EB2D}\TypeLib
+Name              : 
+Type              : REG_SZ
+Data              : {88B924B2-99C6-4B1B-B13A-EF64509CDE41}
+Key Modified Time : 29/05/2015 14:39:27
+Data Length       : 39
+==================================================
+
+==================================================
+Registry Key      : HKCR\Interface\{66B2796B-5575-43DA-9199-226B1DE9D006}\TypeLib
+Name              : 
+Type              : REG_SZ
+Data              : {88B924B2-99C6-4B1B-B13A-EF64509CDE41}
+Key Modified Time : 29/05/2015 14:39:27
+Data Length       : 39
+==================================================
+
+==================================================
+Registry Key      : HKCR\Interface\{A5A73D7E-9916-4F9F-AF63-C2748F9B7CD5}\TypeLib
+Name              : 
+Type              : REG_SZ
+Data              : {88B924B2-99C6-4B1B-B13A-EF64509CDE41}
+Key Modified Time : 29/05/2015 14:39:27
+Data Length       : 39
+==================================================
+
+==================================================
+Registry Key      : HKCR\TypeLib\{88B924B2-99C6-4B1B-B13A-EF64509CDE41}\1.0
+Name              : 
+Type              : REG_SZ
+Data              : RocPcServidor Library
+Key Modified Time : 29/05/2015 14:39:27
+Data Length       : 22
+==================================================
+
+==================================================
+Registry Key      : HKCR\TypeLib\{88B924B2-99C6-4B1B-B13A-EF64509CDE41}\1.0\0\win32
+Name              : 
+Type              : REG_SZ
+Data              : D:\Cpp\RocPcServidorAsp\Acor.exe
+Key Modified Time : 26/09/2015 19:16:45
+Data Length       : 33
+==================================================
+
+==================================================
+Registry Key      : HKCR\TypeLib\{88B924B2-99C6-4B1B-B13A-EF64509CDE41}\1.0\FLAGS
+Name              : 
+Type              : REG_SZ
+Data              : 0
+Key Modified Time : 29/05/2015 14:39:27
+Data Length       : 2
+==================================================
+
+==================================================
+Registry Key      : HKCR\TypeLib\{88B924B2-99C6-4B1B-B13A-EF64509CDE41}\1.0\HELPDIR
+Name              : 
+Type              : REG_SZ
+Data              : D:\Cpp\RocPcServidorAsp\
+Key Modified Time : 26/09/2015 19:16:45
+Data Length       : 25
+==================================================
+
+==================================================
+Registry Key      : HKCR\Wow6432Node\CLSID\{936E0CDD-F317-4759-902A-5A6AFE01FF74}\Typelib
+Name              : 
+Type              : REG_SZ
+Data              : {88B924B2-99C6-4B1B-B13A-EF64509CDE41}
+Key Modified Time : 29/05/2015 14:39:27
+Data Length       : 39
+==================================================
+
+==================================================
+Registry Key      : HKCR\Wow6432Node\CLSID\{ABD30286-D456-41A1-BC57-8D14A639FFA6}\Typelib
+Name              : 
+Type              : REG_SZ
+Data              : {88B924B2-99C6-4B1B-B13A-EF64509CDE41}
+Key Modified Time : 29/05/2015 14:39:27
+Data Length       : 39
+==================================================
+
+==================================================
+Registry Key      : HKCR\Wow6432Node\CLSID\{FFE394F9-C03C-4B70-962D-AF8AD5AE06CF}\Typelib
+Name              : 
+Type              : REG_SZ
+Data              : {88B924B2-99C6-4B1B-B13A-EF64509CDE41}
+Key Modified Time : 29/05/2015 14:39:27
+Data Length       : 39
+==================================================
+
+==================================================
+Registry Key      : HKCR\Wow6432Node\Interface\{1671E3FC-C0C0-44FB-A79C-9DF0A4E4EB2D}\TypeLib
+Name              : 
+Type              : REG_SZ
+Data              : {88B924B2-99C6-4B1B-B13A-EF64509CDE41}
+Key Modified Time : 29/05/2015 14:39:27
+Data Length       : 39
+==================================================
+
+==================================================
+Registry Key      : HKCR\Wow6432Node\Interface\{66B2796B-5575-43DA-9199-226B1DE9D006}\TypeLib
+Name              : 
+Type              : REG_SZ
+Data              : {88B924B2-99C6-4B1B-B13A-EF64509CDE41}
+Key Modified Time : 29/05/2015 14:39:27
+Data Length       : 39
+==================================================
+
+==================================================
+Registry Key      : HKCR\Wow6432Node\Interface\{A5A73D7E-9916-4F9F-AF63-C2748F9B7CD5}\TypeLib
+Name              : 
+Type              : REG_SZ
+Data              : {88B924B2-99C6-4B1B-B13A-EF64509CDE41}
+Key Modified Time : 29/05/2015 14:39:27
+Data Length       : 39
+==================================================
+
+==================================================
+Registry Key      : HKCR\Wow6432Node\TypeLib\{88B924B2-99C6-4B1B-B13A-EF64509CDE41}\1.0
+Name              : 
+Type              : REG_SZ
+Data              : RocPcServidor Library
+Key Modified Time : 29/05/2015 14:39:27
+Data Length       : 22
+==================================================
+
+==================================================
+Registry Key      : HKCR\Wow6432Node\TypeLib\{88B924B2-99C6-4B1B-B13A-EF64509CDE41}\1.0\0\win32
+Name              : 
+Type              : REG_SZ
+Data              : D:\Cpp\RocPcServidorAsp\Acor.exe
+Key Modified Time : 26/09/2015 19:16:45
+Data Length       : 33
+==================================================
+
+==================================================
+Registry Key      : HKCR\Wow6432Node\TypeLib\{88B924B2-99C6-4B1B-B13A-EF64509CDE41}\1.0\FLAGS
+Name              : 
+Type              : REG_SZ
+Data              : 0
+Key Modified Time : 29/05/2015 14:39:27
+Data Length       : 2
+==================================================
+
+==================================================
+Registry Key      : HKCR\Wow6432Node\TypeLib\{88B924B2-99C6-4B1B-B13A-EF64509CDE41}\1.0\HELPDIR
+Name              : 
+Type              : REG_SZ
+Data              : D:\Cpp\RocPcServidorAsp\
+Key Modified Time : 26/09/2015 19:16:45
+Data Length       : 25
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Classes\Interface\{1671E3FC-C0C0-44FB-A79C-9DF0A4E4EB2D}\TypeLib
+Name              : 
+Type              : REG_SZ
+Data              : {88B924B2-99C6-4B1B-B13A-EF64509CDE41}
+Key Modified Time : 29/05/2015 14:39:27
+Data Length       : 39
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Classes\Interface\{66B2796B-5575-43DA-9199-226B1DE9D006}\TypeLib
+Name              : 
+Type              : REG_SZ
+Data              : {88B924B2-99C6-4B1B-B13A-EF64509CDE41}
+Key Modified Time : 29/05/2015 14:39:27
+Data Length       : 39
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Classes\Interface\{A5A73D7E-9916-4F9F-AF63-C2748F9B7CD5}\TypeLib
+Name              : 
+Type              : REG_SZ
+Data              : {88B924B2-99C6-4B1B-B13A-EF64509CDE41}
+Key Modified Time : 29/05/2015 14:39:27
+Data Length       : 39
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Classes\TypeLib\{88B924B2-99C6-4B1B-B13A-EF64509CDE41}\1.0
+Name              : 
+Type              : REG_SZ
+Data              : RocPcServidor Library
+Key Modified Time : 29/05/2015 14:39:27
+Data Length       : 22
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Classes\TypeLib\{88B924B2-99C6-4B1B-B13A-EF64509CDE41}\1.0\0\win32
+Name              : 
+Type              : REG_SZ
+Data              : D:\Cpp\RocPcServidorAsp\Acor.exe
+Key Modified Time : 26/09/2015 19:16:45
+Data Length       : 33
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Classes\TypeLib\{88B924B2-99C6-4B1B-B13A-EF64509CDE41}\1.0\FLAGS
+Name              : 
+Type              : REG_SZ
+Data              : 0
+Key Modified Time : 29/05/2015 14:39:27
+Data Length       : 2
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Classes\TypeLib\{88B924B2-99C6-4B1B-B13A-EF64509CDE41}\1.0\HELPDIR
+Name              : 
+Type              : REG_SZ
+Data              : D:\Cpp\RocPcServidorAsp\
+Key Modified Time : 26/09/2015 19:16:45
+Data Length       : 25
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Classes\Wow6432Node\CLSID\{936E0CDD-F317-4759-902A-5A6AFE01FF74}\Typelib
+Name              : 
+Type              : REG_SZ
+Data              : {88B924B2-99C6-4B1B-B13A-EF64509CDE41}
+Key Modified Time : 29/05/2015 14:39:27
+Data Length       : 39
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Classes\Wow6432Node\CLSID\{ABD30286-D456-41A1-BC57-8D14A639FFA6}\Typelib
+Name              : 
+Type              : REG_SZ
+Data              : {88B924B2-99C6-4B1B-B13A-EF64509CDE41}
+Key Modified Time : 29/05/2015 14:39:27
+Data Length       : 39
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Classes\Wow6432Node\CLSID\{FFE394F9-C03C-4B70-962D-AF8AD5AE06CF}\Typelib
+Name              : 
+Type              : REG_SZ
+Data              : {88B924B2-99C6-4B1B-B13A-EF64509CDE41}
+Key Modified Time : 29/05/2015 14:39:27
+Data Length       : 39
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Classes\Wow6432Node\Interface\{1671E3FC-C0C0-44FB-A79C-9DF0A4E4EB2D}\TypeLib
+Name              : 
+Type              : REG_SZ
+Data              : {88B924B2-99C6-4B1B-B13A-EF64509CDE41}
+Key Modified Time : 29/05/2015 14:39:27
+Data Length       : 39
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Classes\Wow6432Node\Interface\{66B2796B-5575-43DA-9199-226B1DE9D006}\TypeLib
+Name              : 
+Type              : REG_SZ
+Data              : {88B924B2-99C6-4B1B-B13A-EF64509CDE41}
+Key Modified Time : 29/05/2015 14:39:27
+Data Length       : 39
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Classes\Wow6432Node\Interface\{A5A73D7E-9916-4F9F-AF63-C2748F9B7CD5}\TypeLib
+Name              : 
+Type              : REG_SZ
+Data              : {88B924B2-99C6-4B1B-B13A-EF64509CDE41}
+Key Modified Time : 29/05/2015 14:39:27
+Data Length       : 39
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Classes\Wow6432Node\TypeLib\{88B924B2-99C6-4B1B-B13A-EF64509CDE41}\1.0
+Name              : 
+Type              : REG_SZ
+Data              : RocPcServidor Library
+Key Modified Time : 29/05/2015 14:39:27
+Data Length       : 22
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Classes\Wow6432Node\TypeLib\{88B924B2-99C6-4B1B-B13A-EF64509CDE41}\1.0\0\win32
+Name              : 
+Type              : REG_SZ
+Data              : D:\Cpp\RocPcServidorAsp\Acor.exe
+Key Modified Time : 26/09/2015 19:16:45
+Data Length       : 33
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Classes\Wow6432Node\TypeLib\{88B924B2-99C6-4B1B-B13A-EF64509CDE41}\1.0\FLAGS
+Name              : 
+Type              : REG_SZ
+Data              : 0
+Key Modified Time : 29/05/2015 14:39:27
+Data Length       : 2
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Classes\Wow6432Node\TypeLib\{88B924B2-99C6-4B1B-B13A-EF64509CDE41}\1.0\HELPDIR
+Name              : 
+Type              : REG_SZ
+Data              : D:\Cpp\RocPcServidorAsp\
+Key Modified Time : 26/09/2015 19:16:45
+Data Length       : 25
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Wow6432Node\Classes\CLSID\{936E0CDD-F317-4759-902A-5A6AFE01FF74}\Typelib
+Name              : 
+Type              : REG_SZ
+Data              : {88B924B2-99C6-4B1B-B13A-EF64509CDE41}
+Key Modified Time : 29/05/2015 14:39:27
+Data Length       : 39
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Wow6432Node\Classes\CLSID\{ABD30286-D456-41A1-BC57-8D14A639FFA6}\Typelib
+Name              : 
+Type              : REG_SZ
+Data              : {88B924B2-99C6-4B1B-B13A-EF64509CDE41}
+Key Modified Time : 29/05/2015 14:39:27
+Data Length       : 39
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Wow6432Node\Classes\CLSID\{FFE394F9-C03C-4B70-962D-AF8AD5AE06CF}\Typelib
+Name              : 
+Type              : REG_SZ
+Data              : {88B924B2-99C6-4B1B-B13A-EF64509CDE41}
+Key Modified Time : 29/05/2015 14:39:27
+Data Length       : 39
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Wow6432Node\Classes\Interface\{1671E3FC-C0C0-44FB-A79C-9DF0A4E4EB2D}\TypeLib
+Name              : 
+Type              : REG_SZ
+Data              : {88B924B2-99C6-4B1B-B13A-EF64509CDE41}
+Key Modified Time : 29/05/2015 14:39:27
+Data Length       : 39
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Wow6432Node\Classes\Interface\{66B2796B-5575-43DA-9199-226B1DE9D006}\TypeLib
+Name              : 
+Type              : REG_SZ
+Data              : {88B924B2-99C6-4B1B-B13A-EF64509CDE41}
+Key Modified Time : 29/05/2015 14:39:27
+Data Length       : 39
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Wow6432Node\Classes\Interface\{A5A73D7E-9916-4F9F-AF63-C2748F9B7CD5}\TypeLib
+Name              : 
+Type              : REG_SZ
+Data              : {88B924B2-99C6-4B1B-B13A-EF64509CDE41}
+Key Modified Time : 29/05/2015 14:39:27
+Data Length       : 39
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Wow6432Node\Classes\TypeLib\{88B924B2-99C6-4B1B-B13A-EF64509CDE41}\1.0
+Name              : 
+Type              : REG_SZ
+Data              : RocPcServidor Library
+Key Modified Time : 29/05/2015 14:39:27
+Data Length       : 22
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Wow6432Node\Classes\TypeLib\{88B924B2-99C6-4B1B-B13A-EF64509CDE41}\1.0\0\win32
+Name              : 
+Type              : REG_SZ
+Data              : D:\Cpp\RocPcServidorAsp\Acor.exe
+Key Modified Time : 26/09/2015 19:16:45
+Data Length       : 33
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Wow6432Node\Classes\TypeLib\{88B924B2-99C6-4B1B-B13A-EF64509CDE41}\1.0\FLAGS
+Name              : 
+Type              : REG_SZ
+Data              : 0
+Key Modified Time : 29/05/2015 14:39:27
+Data Length       : 2
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Wow6432Node\Classes\TypeLib\{88B924B2-99C6-4B1B-B13A-EF64509CDE41}\1.0\HELPDIR
+Name              : 
+Type              : REG_SZ
+Data              : D:\Cpp\RocPcServidorAsp\
+Key Modified Time : 26/09/2015 19:16:45
+Data Length       : 25
+==================================================
+

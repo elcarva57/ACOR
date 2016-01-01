@@ -1,27 +1,25 @@
 [Closed Files]
-File_0=SourceModule,'D:\Cpp\RocPcServidorAsp\Acro.ini',0,1,1,1,1,0,0
-File_1=SourceModule,'D:\Cpp\RocPcServidorAsp\Acor_ATL.cpp',0,1,1,1,1,0,0
-File_2=SourceModule,'D:\Cpp\RocPcServidorAsp\Historia.cpp',0,1,4,1,13,0,0
-File_3=SourceModule,'D:\Cpp\RocPcServidorAsp\script3ID.xml.txt',0,1,34,25,62,0,0
-File_4=SourceModule,'D:\Cpp\RocPcServidorAsp\script1.xml',0,1,1,21,15,0,0
-File_5=SourceModule,'D:\Cpp\RocPcServidorAsp\script3.xml',0,1,28,29,56,0,0
-File_6=SourceModule,'D:\Cpp\RocPcServidorAsp\scriptkk.xml',0,1,40,1,1,0,0
-File_7=SourceModule,'D:\Cpp\RocPcServidorAsp\scriptTest.xml',0,1,1,29,54,0,0
-File_8=SourceModule,'c:\program files (x86)\borland\cbuilder6\include\vcl\systdate.h',0,1,102,1,118,0,0
+File_0=SourceModule,'D:\Cpp\RocPcServidorAsp\RUEDA.CPP',0,1,25,26,41,0,0
+File_1=SourceModule,'D:\Cpp\RocPcServidorAsp\rueda.h',0,1,54,96,83,0,0
+File_2=SourceModule,'D:\Cpp\RocPcServidorAsp\SOCKET.cpp',0,1,9,25,58,0,0
+File_3=SourceModule,'D:\Cpp\IniFiles\Main.cpp',0,1,82,32,16,1,0
+File_4=SourceModule,'D:\Cpp\RocPcServidorAsp\conf_meteo.cpp',0,1,208,19,65,1,0
+File_5=SourceModule,'D:\Cpp\RocPcServidorAsp\ema_TLB.cpp',0,1,1,1,18,0,0
+File_6=SourceModule,'D:\Cpp\RocPcServidorAsp\longnam.h',0,1,39,1,57,0,0
+File_7=SourceModule,'c:\program files (x86)\borland\cbuilder6\include\vcl\StdCtrls.hpp',0,1,765,1,783,0,0
+File_8=SourceModule,'D:\Cpp\RocPcServidorAsp\Acro.ini',0,1,1,1,1,0,0
+File_9=SourceModule,'D:\Cpp\RocPcServidorAsp\Acor_ATL.cpp',0,1,1,1,1,0,0
 
 [Modules]
 Module0=D:\Cpp\RocPcServidorAsp\Principal.cpp
 Module1=D:\Cpp\RocPcServidorAsp\Acor.ini
-Module2=D:\Cpp\IniFiles\Main.cpp
-Module3=D:\Cpp\RocPcServidorAsp\CCD1Impl.cpp
+Module2=D:\Cpp\RocPcServidorAsp\Programacion.cpp
+Module3=D:\Cpp\RocPcServidorAsp\Acor.bpr
 Module4=D:\Cpp\RocPcServidorAsp\FocuserImpl.cpp
-Module5=D:\Cpp\RocPcServidorAsp\ElCerroToDo.txt
-Module6=D:\Cpp\RocPcServidorAsp\RocPcServidor.tlb
-Module7=D:\Cpp\RocPcServidorAsp\ema_TLB.cpp
-Module8=D:\Cpp\RocPcServidorAsp\cRocPcServidorImpl.cpp
-Module9=D:\Cpp\RocPcServidorAsp\longnam.h
-Module10=D:\Cpp\RocPcServidorAsp\Acor.bpr
-Count=11
+Module5=D:\Cpp\RocPcServidorAsp\CCD1Impl.cpp
+Module6=D:\Cpp\RocPcServidorAsp\cRocPcServidorImpl.cpp
+Module7=D:\Cpp\RocPcServidorAsp\ElCerroToDo.txt
+Count=8
 EditWindowCount=1
 TypeLibWindowCount=1
 
@@ -35,12 +33,12 @@ ModuleType=SourceModule
 FormState=0
 FormOnTop=0
 
-[D:\Cpp\IniFiles\Main.cpp]
+[D:\Cpp\RocPcServidorAsp\Programacion.cpp]
 ModuleType=SourceModule
 FormState=1
 FormOnTop=0
 
-[D:\Cpp\RocPcServidorAsp\CCD1Impl.cpp]
+[D:\Cpp\RocPcServidorAsp\Acor.bpr]
 ModuleType=SourceModule
 FormState=0
 FormOnTop=0
@@ -50,17 +48,7 @@ ModuleType=SourceModule
 FormState=0
 FormOnTop=0
 
-[D:\Cpp\RocPcServidorAsp\ElCerroToDo.txt]
-ModuleType=SourceModule
-FormState=0
-FormOnTop=0
-
-[D:\Cpp\RocPcServidorAsp\RocPcServidor.tlb]
-ModuleType=TypeLibModule
-FormState=0
-FormOnTop=0
-
-[D:\Cpp\RocPcServidorAsp\ema_TLB.cpp]
+[D:\Cpp\RocPcServidorAsp\CCD1Impl.cpp]
 ModuleType=SourceModule
 FormState=0
 FormOnTop=0
@@ -70,12 +58,7 @@ ModuleType=SourceModule
 FormState=0
 FormOnTop=0
 
-[D:\Cpp\RocPcServidorAsp\longnam.h]
-ModuleType=SourceModule
-FormState=0
-FormOnTop=0
-
-[D:\Cpp\RocPcServidorAsp\Acor.bpr]
+[D:\Cpp\RocPcServidorAsp\ElCerroToDo.txt]
 ModuleType=SourceModule
 FormState=0
 FormOnTop=0
@@ -84,8 +67,12 @@ FormOnTop=0
 FormState=0
 FormOnTop=0
 
+[D:\Cpp\RocPcServidorAsp\RocPcServidor.tlb]
+FormState=0
+FormOnTop=0
+
 [EditWindow0]
-ViewCount=11
+ViewCount=8
 CurrentView=1
 View0=0
 View1=1
@@ -95,9 +82,6 @@ View4=4
 View5=5
 View6=6
 View7=7
-View8=8
-View9=9
-View10=10
 CodeExplorer=CodeExplorer@EditWindow0
 MessageView=MessageView@EditWindow0
 ClassHierarchy=ClassHierarchy@EditWindow0
@@ -120,37 +104,37 @@ BottomPanelData=00000400010000000B0000004D65737361676556696577060500000000000002
 
 [View0]
 Module=D:\Cpp\RocPcServidorAsp\Acor.cpp
-CursorX=39
-CursorY=14
+CursorX=48
+CursorY=21
 TopLine=1
 LeftCol=1
 
 [View1]
 Module=D:\Cpp\RocPcServidorAsp\Principal.cpp
-CursorX=1
-CursorY=5525
-TopLine=5504
+CursorX=68
+CursorY=3381
+TopLine=3380
 LeftCol=1
 
 [View2]
-Module=D:\Cpp\RocPcServidorAsp\Acor.ini
-CursorX=5
-CursorY=4
-TopLine=1
+Module=D:\Cpp\RocPcServidorAsp\Programacion.cpp
+CursorX=58
+CursorY=300
+TopLine=293
 LeftCol=1
 
 [View3]
-Module=D:\Cpp\IniFiles\Main.cpp
+Module=D:\Cpp\RocPcServidorAsp\Acor.ini
 CursorX=1
-CursorY=82
-TopLine=61
+CursorY=64
+TopLine=36
 LeftCol=1
 
 [View4]
-Module=D:\Cpp\RocPcServidorAsp\longnam.h
-CursorX=1
-CursorY=57
-TopLine=39
+Module=D:\Cpp\RocPcServidorAsp\ElCerroToDo.txt
+CursorX=19
+CursorY=80
+TopLine=64
 LeftCol=1
 
 [View5]
@@ -161,35 +145,14 @@ TopLine=1
 LeftCol=1
 
 [View6]
-Module=D:\Cpp\RocPcServidorAsp\ema_TLB.cpp
+Module=D:\Cpp\RocPcServidorAsp\CCD1Impl.cpp
 CursorX=1
-CursorY=18
+CursorY=1
 TopLine=1
 LeftCol=1
 
 [View7]
-Module=D:\Cpp\RocPcServidorAsp\RocPcServidor_TLB.cpp
-CursorX=1
-CursorY=1
-TopLine=1
-LeftCol=1
-
-[View8]
-Module=D:\Cpp\RocPcServidorAsp\ElCerroToDo.txt
-CursorX=19
-CursorY=80
-TopLine=64
-LeftCol=1
-
-[View9]
 Module=D:\Cpp\RocPcServidorAsp\FocuserImpl.cpp
-CursorX=1
-CursorY=1
-TopLine=1
-LeftCol=1
-
-[View10]
-Module=D:\Cpp\RocPcServidorAsp\CCD1Impl.cpp
 CursorX=1
 CursorY=1
 TopLine=1
@@ -411,7 +374,7 @@ LRDockWidth=274
 Dockable=1
 SplitPos=144
 ArrangeBy=Name
-SelectedItem=Action
+SelectedItem=Visible
 ExpandedItems=DepthAxis.Axis,EdgeBorders,Font,LeftAxis,VisibleButtons
 HiddenCategories=Legacy
 
@@ -508,6 +471,22 @@ ClientWidth=726
 ClientHeight=783
 TBDockHeight=816
 LRDockWidth=742
+Dockable=1
+
+[fmToDo]
+Create=1
+Visible=1
+State=0
+Left=721
+Top=386
+Width=477
+Height=307
+MaxLeft=-1
+MaxTop=-1
+ClientWidth=461
+ClientHeight=274
+TBDockHeight=307
+LRDockWidth=477
 Dockable=1
 
 [CodeguardLog]

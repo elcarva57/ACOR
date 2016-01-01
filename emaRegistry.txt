@@ -1,0 +1,270 @@
+==================================================
+Registry Key      : HKCR\Interface\{99A96C02-B41E-4DA1-9B5A-C2E2C9C0928A}\TypeLib
+Name              : 
+Type              : REG_SZ
+Data              : {63E9DAE2-1FC2-41B0-80E7-98F3C9662865}
+Key Modified Time : 28/05/2015 20:22:02
+Data Length       : 39
+==================================================
+
+==================================================
+Registry Key      : HKCR\TypeLib\{63E9DAE2-1FC2-41B0-80E7-98F3C9662865}\1.0
+Name              : 
+Type              : REG_SZ
+Data              : ema Library
+Key Modified Time : 28/05/2015 20:22:02
+Data Length       : 12
+==================================================
+
+==================================================
+Registry Key      : HKCR\TypeLib\{63E9DAE2-1FC2-41B0-80E7-98F3C9662865}\1.0\0\win32
+Name              : 
+Type              : REG_SZ
+Data              : D:\C++\Ema\ema.exe
+Key Modified Time : 28/05/2015 20:22:02
+Data Length       : 19
+==================================================
+
+==================================================
+Registry Key      : HKCR\TypeLib\{63E9DAE2-1FC2-41B0-80E7-98F3C9662865}\1.0\FLAGS
+Name              : 
+Type              : REG_SZ
+Data              : 0
+Key Modified Time : 28/05/2015 20:22:02
+Data Length       : 2
+==================================================
+
+==================================================
+Registry Key      : HKCR\TypeLib\{63E9DAE2-1FC2-41B0-80E7-98F3C9662865}\1.0\HELPDIR
+Name              : 
+Type              : REG_SZ
+Data              : D:\C++\Ema\
+Key Modified Time : 28/05/2015 20:22:02
+Data Length       : 12
+==================================================
+
+==================================================
+Registry Key      : HKCR\Wow6432Node\CLSID\{533ECBF1-8A1C-4311-A9B0-D75A5ED30A0E}\Typelib
+Name              : 
+Type              : REG_SZ
+Data              : {63E9DAE2-1FC2-41B0-80E7-98F3C9662865}
+Key Modified Time : 28/05/2015 20:22:02
+Data Length       : 39
+==================================================
+
+==================================================
+Registry Key      : HKCR\Wow6432Node\Interface\{99A96C02-B41E-4DA1-9B5A-C2E2C9C0928A}\TypeLib
+Name              : 
+Type              : REG_SZ
+Data              : {63E9DAE2-1FC2-41B0-80E7-98F3C9662865}
+Key Modified Time : 28/05/2015 20:22:02
+Data Length       : 39
+==================================================
+
+==================================================
+Registry Key      : HKCR\Wow6432Node\TypeLib\{63E9DAE2-1FC2-41B0-80E7-98F3C9662865}\1.0
+Name              : 
+Type              : REG_SZ
+Data              : ema Library
+Key Modified Time : 28/05/2015 20:22:02
+Data Length       : 12
+==================================================
+
+==================================================
+Registry Key      : HKCR\Wow6432Node\TypeLib\{63E9DAE2-1FC2-41B0-80E7-98F3C9662865}\1.0\0\win32
+Name              : 
+Type              : REG_SZ
+Data              : D:\C++\Ema\ema.exe
+Key Modified Time : 28/05/2015 20:22:02
+Data Length       : 19
+==================================================
+
+==================================================
+Registry Key      : HKCR\Wow6432Node\TypeLib\{63E9DAE2-1FC2-41B0-80E7-98F3C9662865}\1.0\FLAGS
+Name              : 
+Type              : REG_SZ
+Data              : 0
+Key Modified Time : 28/05/2015 20:22:02
+Data Length       : 2
+==================================================
+
+==================================================
+Registry Key      : HKCR\Wow6432Node\TypeLib\{63E9DAE2-1FC2-41B0-80E7-98F3C9662865}\1.0\HELPDIR
+Name              : 
+Type              : REG_SZ
+Data              : D:\C++\Ema\
+Key Modified Time : 28/05/2015 20:22:02
+Data Length       : 12
+==================================================
+
+==================================================
+Registry Key      : HKCU\Software\Microsoft\Windows\CurrentVersion\Applets\Regedit
+Name              : LastKey
+Type              : REG_SZ
+Data              : Equipo\HKEY_LOCAL_MACHINE\SOFTWARE\Classes\TypeLib\{63E9DAE2-1FC2-41B0-80E7-98F3C9662865}\1.0\0\win32
+Key Modified Time : 09/12/2015 20:53:05
+Data Length       : 102
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Classes\Interface\{99A96C02-B41E-4DA1-9B5A-C2E2C9C0928A}\TypeLib
+Name              : 
+Type              : REG_SZ
+Data              : {63E9DAE2-1FC2-41B0-80E7-98F3C9662865}
+Key Modified Time : 28/05/2015 20:22:02
+Data Length       : 39
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Classes\TypeLib\{63E9DAE2-1FC2-41B0-80E7-98F3C9662865}\1.0
+Name              : 
+Type              : REG_SZ
+Data              : ema Library
+Key Modified Time : 28/05/2015 20:22:02
+Data Length       : 12
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Classes\TypeLib\{63E9DAE2-1FC2-41B0-80E7-98F3C9662865}\1.0\0\win32
+Name              : 
+Type              : REG_SZ
+Data              : D:\C++\Ema\ema.exe
+Key Modified Time : 28/05/2015 20:22:02
+Data Length       : 19
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Classes\TypeLib\{63E9DAE2-1FC2-41B0-80E7-98F3C9662865}\1.0\FLAGS
+Name              : 
+Type              : REG_SZ
+Data              : 0
+Key Modified Time : 28/05/2015 20:22:02
+Data Length       : 2
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Classes\TypeLib\{63E9DAE2-1FC2-41B0-80E7-98F3C9662865}\1.0\HELPDIR
+Name              : 
+Type              : REG_SZ
+Data              : D:\C++\Ema\
+Key Modified Time : 28/05/2015 20:22:02
+Data Length       : 12
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Classes\Wow6432Node\CLSID\{533ECBF1-8A1C-4311-A9B0-D75A5ED30A0E}\Typelib
+Name              : 
+Type              : REG_SZ
+Data              : {63E9DAE2-1FC2-41B0-80E7-98F3C9662865}
+Key Modified Time : 28/05/2015 20:22:02
+Data Length       : 39
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Classes\Wow6432Node\Interface\{99A96C02-B41E-4DA1-9B5A-C2E2C9C0928A}\TypeLib
+Name              : 
+Type              : REG_SZ
+Data              : {63E9DAE2-1FC2-41B0-80E7-98F3C9662865}
+Key Modified Time : 28/05/2015 20:22:02
+Data Length       : 39
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Classes\Wow6432Node\TypeLib\{63E9DAE2-1FC2-41B0-80E7-98F3C9662865}\1.0
+Name              : 
+Type              : REG_SZ
+Data              : ema Library
+Key Modified Time : 28/05/2015 20:22:02
+Data Length       : 12
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Classes\Wow6432Node\TypeLib\{63E9DAE2-1FC2-41B0-80E7-98F3C9662865}\1.0\0\win32
+Name              : 
+Type              : REG_SZ
+Data              : D:\C++\Ema\ema.exe
+Key Modified Time : 28/05/2015 20:22:02
+Data Length       : 19
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Classes\Wow6432Node\TypeLib\{63E9DAE2-1FC2-41B0-80E7-98F3C9662865}\1.0\FLAGS
+Name              : 
+Type              : REG_SZ
+Data              : 0
+Key Modified Time : 28/05/2015 20:22:02
+Data Length       : 2
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Classes\Wow6432Node\TypeLib\{63E9DAE2-1FC2-41B0-80E7-98F3C9662865}\1.0\HELPDIR
+Name              : 
+Type              : REG_SZ
+Data              : D:\C++\Ema\
+Key Modified Time : 28/05/2015 20:22:02
+Data Length       : 12
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Wow6432Node\Classes\CLSID\{533ECBF1-8A1C-4311-A9B0-D75A5ED30A0E}\Typelib
+Name              : 
+Type              : REG_SZ
+Data              : {63E9DAE2-1FC2-41B0-80E7-98F3C9662865}
+Key Modified Time : 28/05/2015 20:22:02
+Data Length       : 39
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Wow6432Node\Classes\Interface\{99A96C02-B41E-4DA1-9B5A-C2E2C9C0928A}\TypeLib
+Name              : 
+Type              : REG_SZ
+Data              : {63E9DAE2-1FC2-41B0-80E7-98F3C9662865}
+Key Modified Time : 28/05/2015 20:22:02
+Data Length       : 39
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Wow6432Node\Classes\TypeLib\{63E9DAE2-1FC2-41B0-80E7-98F3C9662865}\1.0
+Name              : 
+Type              : REG_SZ
+Data              : ema Library
+Key Modified Time : 28/05/2015 20:22:02
+Data Length       : 12
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Wow6432Node\Classes\TypeLib\{63E9DAE2-1FC2-41B0-80E7-98F3C9662865}\1.0\0\win32
+Name              : 
+Type              : REG_SZ
+Data              : D:\C++\Ema\ema.exe
+Key Modified Time : 28/05/2015 20:22:02
+Data Length       : 19
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Wow6432Node\Classes\TypeLib\{63E9DAE2-1FC2-41B0-80E7-98F3C9662865}\1.0\FLAGS
+Name              : 
+Type              : REG_SZ
+Data              : 0
+Key Modified Time : 28/05/2015 20:22:02
+Data Length       : 2
+==================================================
+
+==================================================
+Registry Key      : HKLM\SOFTWARE\Wow6432Node\Classes\TypeLib\{63E9DAE2-1FC2-41B0-80E7-98F3C9662865}\1.0\HELPDIR
+Name              : 
+Type              : REG_SZ
+Data              : D:\C++\Ema\
+Key Modified Time : 28/05/2015 20:22:02
+Data Length       : 12
+==================================================
+
+==================================================
+Registry Key      : HKU\S-1-5-21-1480844029-2913793266-171487733-1001\Software\Microsoft\Windows\CurrentVersion\Applets\Regedit
+Name              : LastKey
+Type              : REG_SZ
+Data              : Equipo\HKEY_LOCAL_MACHINE\SOFTWARE\Classes\TypeLib\{63E9DAE2-1FC2-41B0-80E7-98F3C9662865}\1.0\0\win32
+Key Modified Time : 09/12/2015 20:53:05
+Data Length       : 102
+==================================================
+

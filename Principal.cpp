@@ -126,24 +126,87 @@ enum Commands {GetRAS_DEC, GetPreRAS_DEC, GetAZM_ALT, GetPreAZM_ALT,
 
 Commands command = None;
 
+/*******************************************************************************
+Para configurar la estructura del fichero INI hay que crear primero las
+estructuras de las secciones y después la estructura de todo el INI:
+a) Cree una estructura struct para cada sección del INI y nómbrela con el nombre
+   de la sección todo en mayúsculas. Ej: LOCATION;
+b) Añada en cada estructura el nombre de las variables del INI con su tipo
+   tal y como aparezcan en el fichero. Ej: unsigned short degLatA;
+c) Cree una estructura para todo el fichero INI compuesta por las estructuras
+   de cada una de sus secciones. Ej: CONF_INI;
+d) Dentro de CONF_INI añada una variable con cada sección del fichero INI
+   tal y como aparezcan en el fichero. Ej: LOCATION Location;
+e) Cree una variable del tipo CONF_INI y llámela ini. Ej: CONF_INI ini;
+f) De esta manera, para usar una determinada variable de configuración
+   habrá que usar: ini.Section.Variable
+   Ejemplos:
+   ini.Location.Name            Es el nombre del lugar de observación
+   ini.Observation.Telescope    Es el nombre del telescopio usado
+   ini.CamA.RowIni              Es el número de fila inicial de la cámara A
+*******************************************************************************/
+
+typedef struct //LOCATION
+{
+    AnsiString Name;
+    unsigned short degLatA; // A is the number of degrees of latitude.
+    unsigned short minLatB; // B is the number of minutes of latitude.
+    unsigned short secLatC; // C is the number of seconds of latitude.
+    unsigned short nosLatD; // D is 0 for north and 1 for south.
+    unsigned short degLonE; // E is the number of degrees of longitude.
+    unsigned short minLonF; // F is the number of minutes of longitude.
+    unsigned short secLonG; // G is the number of seconds of longitude.
+    unsigned short eowLonH; // H is 0 for east and 1 for west.
+} LOCATION;
+
+// Posición telescopio El Cerro:
+//                  40º25'5"N 3h33m11sW
+//SCOPE_POS telPos = {40, 25, 5, 0, 3, 33, 11, 1};
+
+typedef struct //OBSERVATION
+{
+    AnsiString Observer;
+    AnsiString Telescope;
+    AnsiString Focal;
+    AnsiString Aperture;
+    AnsiString Camera;
+    AnsiString Comment;
+    AnsiString IP;
+    AnsiString Retraso;
+    AnsiString Limpiado;
+} OBSERVATION;
+
+typedef struct //CAMERA
+{
+    AnsiString Name;
+    int Index;
+    int RowIni;
+    int RowFin;
+    int ColIni;
+    int ColFin;
+} CAMERA;
+
+typedef struct //IMAGE
+{
+    bool FlipVert;
+    bool FlipHori;
+    AnsiString FotoDir;
+    AnsiString NameDir;
+    AnsiString ElbrusFile;
+} IMAGE;
+
 typedef struct     //configuracion del programa ({appname}.ini)
 {
-    AnsiString LocationName;
-    int kpluvio;
-    int alerta_nube;
-    int bar_ofset;
-    int bar_altura;
-    int RefZener[6];
-    int luzIR_ofset;
-    int luzUV_ofset;
-    int kmecanico;
-    int k1termico;
-    int k2termico;
-    char direc_datos[100];
-    char direc_jpg[100];
+    LOCATION    Location;
+    OBSERVATION Observation;
+    CAMERA      CamA;
+    CAMERA      CamB;
+    IMAGE       Image;
 } CONF_INI;
 
-CONF_INI cfg;
+CONF_INI ini;
+
+//******************************************************************************
 
 typedef struct    // almacena lecturas promediadas de un minuto
 {
@@ -187,22 +250,6 @@ typedef struct     //configuracion de la estacion
 } CONF_METEO;
 
 CONF_METEO confEMA;
-
-typedef struct     //Posición del telescopio
-{
-    unsigned short degLatA; // A is the number of degrees of latitude.
-    unsigned short minLatB; // B is the number of minutes of latitude.
-    unsigned short secLatC; // C is the number of seconds of latitude.
-    unsigned short nosLatD; // D is 0 for north and 1 for south.
-    unsigned short degLonE; // E is the number of degrees of longitude.
-    unsigned short minLonF; // F is the number of minutes of longitude.
-    unsigned short secLonG; // G is the number of seconds of longitude.
-    unsigned short eowLonH; // H is 0 for east and 1 for west.
-} SCOPE_POS;
-
-// Posición telescopio El Cerro:
-//                  40º25'5"N 3h33m11sW
-SCOPE_POS telPos = {40, 25, 5, 0, 3, 33, 11, 1};
 
 typedef struct     //Fecha y hora del telescopio
 {
@@ -469,6 +516,7 @@ int readSpeedValues(TSpeedButton* sb);
 AnsiString CmdToStr(Commands cmd);
 void setTimers (bool valEnabled);
 void readINI();
+void writeINI();
 
 //==============================================================================
 //------------------------------------------------------------------------------
@@ -485,6 +533,10 @@ __fastcall TForm1::TForm1(TComponent* Owner) : TForm(Owner)
     char config[100][50];
     //char ConfMeteo[100];
     char filtro[200], shuter[200];
+
+    char loc[10] = {0};
+    char nos = 'N';
+    char eow = 'E';
 
     readINI();
 
@@ -574,83 +626,159 @@ __fastcall TForm1::TForm1(TComponent* Owner) : TForm(Owner)
     Form1->EPasosEnfoque->Text = pasos_x;
     Form1->EVelocidadEnfoque->Text = periodo_x;
 
-    TimeRead = ::GetTickCount();
+    // La lectura de cor.cfg se sustituye por los datos de Acor.ini
+    ELocation->Text = ini.Location.Name;
+    EObserver->Text = ini.Observation.Observer;
+    ETelescop->Text = ini.Observation.Telescope;
+    EFocal->Text = ini.Observation.Focal;
+    EApert->Text = ini.Observation.Aperture;
+    EInstrument->Text = ini.Observation.Camera;
+    EComent->Text = ini.Observation.Comment;
+    Edit_IP->Text = ini.Observation.IP;
+    ERetraso->Text = ini.Observation.Retraso;
+    ELimpiado->Text = ini.Observation.Limpiado;
 
-    memset(config, ' ', sizeof(config));
+    CBCCD_A->ItemIndex                     = ini.CamA.Index;
+    CCDs[CBCCD_A->ItemIndex].FilaInicio    = ini.CamA.RowIni;
+    CCDs[CBCCD_A->ItemIndex].FilaFin       = ini.CamA.RowFin;
+    CCDs[CBCCD_A->ItemIndex].ColumnaInicio = ini.CamA.ColIni;
+    CCDs[CBCCD_A->ItemIndex].ColumnaFin    = ini.CamA.ColFin;
 
-    if ((in = fopen("cor.cfg", "rt")) != NULL)
-    {
-        // GetCurrentDirectory( strlen(dir_trab), dir_trab);
+    EFilaInicioA->Text = CCDs[CBCCD_A->ItemIndex].FilaInicio;//config[12];
+    EFilaFinA->Text = CCDs[CBCCD_A->ItemIndex].FilaFin;//config[13];
+    EColumnaInicioA->Text = CCDs[CBCCD_A->ItemIndex].ColumnaInicio;//config[14];
+    EColumnaFinA->Text = CCDs[CBCCD_A->ItemIndex].ColumnaFin;//config[15];
 
-        fread(config, sizeof(config), 1, in);
-        fclose(in);
+    // PBinin->Caption = ((TTrackBar*)Sender)->Position;
+    Binin = PBinin->Caption.ToInt();
+    NumeroFilas = CCDs[CBCCD_A->ItemIndex].FilasFisicas / Binin;
+    NumeroColumnas = CCDs[CBCCD_A->ItemIndex].ColumnasFisicas / Binin;
+    Y1F = CCDs[CBCCD_A->ItemIndex].FilaInicio / Binin;
+    X1F = CCDs[CBCCD_A->ItemIndex].ColumnaInicio / Binin;
+    Y2F = CCDs[CBCCD_A->ItemIndex].FilaFin / Binin;
+    X2F = CCDs[CBCCD_A->ItemIndex].ColumnaFin / Binin;
 
-        ELocation->Text = config[0];
-        EObserver->Text = config[1];
-        ETelescop->Text = config[2];
-        EFocal->Text = config[3];
-        EApert->Text = config[4];
-        EInstrument->Text = config[5];
-        EComent->Text = config[6];
-        Edit_IP->Text = config[7];
-        ERetraso->Text = config[8];
-        ELimpiado->Text = config[9];
+    PX1->Caption = X1F;
+    PY1->Caption = Y1F;
+    PX2->Caption = X2F;
+    PY2->Caption = Y2F;
+    PB1->Width = NumeroColumnas;
+    PB1->Height = NumeroFilas;
+    PBF->Position = 0;
+    FotoPrincipal->Resizear(NumeroColumnas, NumeroFilas);
+    RellenarBitmap(0, 0, NumeroColumnas, NumeroFilas);
 
-        CBCCD_A->ItemIndex = atoi(config[11]);
-        CCDs[CBCCD_A->ItemIndex].FilaInicio =  atoi(config[12]);
-        CCDs[CBCCD_A->ItemIndex].FilaFin = atoi(config[13]);
-        CCDs[CBCCD_A->ItemIndex].ColumnaInicio = atoi(config[14]);
-        CCDs[CBCCD_A->ItemIndex].ColumnaFin = atoi(config[15]);
-        EFilaInicioA->Text = CCDs[CBCCD_A->ItemIndex].FilaInicio;//config[12];
-        EFilaFinA->Text = CCDs[CBCCD_A->ItemIndex].FilaFin;//config[13];
-        EColumnaInicioA->Text = CCDs[CBCCD_A->ItemIndex].ColumnaInicio;//config[14];
-        EColumnaFinA->Text = CCDs[CBCCD_A->ItemIndex].ColumnaFin;//config[15];
+    CBCCD_B->ItemIndex                     = ini.CamB.Index;
+    CCDs[CBCCD_B->ItemIndex].FilaInicio    = ini.CamB.RowIni;
+    CCDs[CBCCD_B->ItemIndex].FilaFin       = ini.CamB.RowFin;
+    CCDs[CBCCD_B->ItemIndex].ColumnaInicio = ini.CamB.ColIni;
+    CCDs[CBCCD_B->ItemIndex].ColumnaFin    = ini.CamB.ColFin;
 
-        // PBinin->Caption = ((TTrackBar*)Sender)->Position;
-        Binin = PBinin->Caption.ToInt();
-        NumeroFilas = CCDs[CBCCD_A->ItemIndex].FilasFisicas / Binin;
-        NumeroColumnas = CCDs[CBCCD_A->ItemIndex].ColumnasFisicas / Binin;
-        Y1F =  CCDs[CBCCD_A->ItemIndex].FilaInicio / Binin;
-        X1F = CCDs[CBCCD_A->ItemIndex].ColumnaInicio / Binin;
-        Y2F =  CCDs[CBCCD_A->ItemIndex].FilaFin / Binin;
-        X2F = CCDs[CBCCD_A->ItemIndex].ColumnaFin / Binin;
+    EFilaInicioB->Text = CCDsB[CBCCD_B->ItemIndex].FilaInicio;//config[23];
+    EFilaFinB->Text = CCDsB[CBCCD_B->ItemIndex].FilaFin;//config[24];
+    EColumnaInicioB->Text = CCDsB[CBCCD_B->ItemIndex].ColumnaInicio;//config[25];
+    EColumnaFinB->Text = CCDsB[CBCCD_B->ItemIndex].ColumnaFin;//config[26];
 
-        PX1->Caption = X1F;
-        PY1->Caption = Y1F;
-        PX2->Caption = X2F;
-        PY2->Caption = Y2F;
-        PB1->Width = NumeroColumnas;
-        PB1->Height = NumeroFilas;
-        PBF->Position = 0;
-        FotoPrincipal->Resizear(NumeroColumnas, NumeroFilas);
-        RellenarBitmap(0, 0, NumeroColumnas, NumeroFilas);
+    if (ini.Location.nosLatD == 1) nos = 'S';
+    sprintf(loc, "%02dº%02d'%02d\" %c",
+            ini.Location.degLatA, ini.Location.minLatB, ini.Location.secLatC, nos);
+    ELatitud->Text = loc;
 
-        CBCCD_B->ItemIndex = atoi(config[22]);
-        CCDsB[CBCCD_B->ItemIndex].FilaInicio =  atoi(config[23]);
-        CCDsB[CBCCD_B->ItemIndex].FilaFin = atoi(config[24]);
-        CCDsB[CBCCD_B->ItemIndex].ColumnaInicio = atoi(config[25]);
-        CCDsB[CBCCD_B->ItemIndex].ColumnaFin = atoi(config[26]);
-        EFilaInicioB->Text = CCDsB[CBCCD_B->ItemIndex].FilaInicio;//config[12];
-        EFilaFinB->Text = CCDsB[CBCCD_B->ItemIndex].FilaFin;//config[13];
-        EColumnaInicioB->Text = CCDsB[CBCCD_B->ItemIndex].ColumnaInicio;//config[14];
-        EColumnaFinB->Text = CCDsB[CBCCD_B->ItemIndex].ColumnaFin;//config[15];
+    if (ini.Location.eowLonH == 1) eow = 'W';
+    sprintf(loc, "%02dº%02d'%02d\" %c ",
+            ini.Location.degLonE, ini.Location.minLonF, ini.Location.secLonG, eow);
+    ELongitud->Text = loc;
 
-        ELatitud->Text = config[16];
-        ELongitud->Text = config[17];
+    CBFlipVertical->Checked   = ini.Image.FlipVert;
+    CBFlipHorizontal->Checked = ini.Image.FlipHori;
 
-        if ( strcmp(&config[18][0], "F") == 0 )
-            CBFlipVertical->State = cbChecked;
-        else  CBFlipVertical->State = cbUnchecked;
-        if ( strcmp(&config[19][0], "F") == 0 )
-            CBFlipHorizontal->State = cbChecked;
-        else  CBFlipHorizontal->State = cbUnchecked;
+    LeerConfMeteo();  //Lee valores del fichero ema.cfg a la estructura
 
-        Edit_IP->Text = config[20];
-    }
-    LeerConfMeteo();  //pasa valores del fichero de configuracion a la estructura
+
+//    TimeRead = ::GetTickCount();
+
+//    memset(config, ' ', sizeof(config));
+//
+//    if ((in = fopen("cor.cfg", "rt")) != NULL)
+//    {
+//        // GetCurrentDirectory( strlen(dir_trab), dir_trab);
+//
+//        fread(config, sizeof(config), 1, in);
+//        fclose(in);
+//
+//        ELocation->Text = config[0];
+//        EObserver->Text = config[1];
+//        ETelescop->Text = config[2];
+//        EFocal->Text = config[3];
+//        EApert->Text = config[4];
+//        EInstrument->Text = config[5];
+//        EComent->Text = config[6];
+//        Edit_IP->Text = config[7];
+//        ERetraso->Text = config[8];
+//        ELimpiado->Text = config[9];
+
+//        CBCCD_A->ItemIndex = atoi(config[11]);
+//        CCDs[CBCCD_A->ItemIndex].FilaInicio =  atoi(config[12]);
+//        CCDs[CBCCD_A->ItemIndex].FilaFin = atoi(config[13]);
+//        CCDs[CBCCD_A->ItemIndex].ColumnaInicio = atoi(config[14]);
+//        CCDs[CBCCD_A->ItemIndex].ColumnaFin = atoi(config[15]);
+//        EFilaInicioA->Text = CCDs[CBCCD_A->ItemIndex].FilaInicio;//config[12];
+//        EFilaFinA->Text = CCDs[CBCCD_A->ItemIndex].FilaFin;//config[13];
+//        EColumnaInicioA->Text = CCDs[CBCCD_A->ItemIndex].ColumnaInicio;//config[14];
+//        EColumnaFinA->Text = CCDs[CBCCD_A->ItemIndex].ColumnaFin;//config[15];
+
+//        // PBinin->Caption = ((TTrackBar*)Sender)->Position;
+//        Binin = PBinin->Caption.ToInt();
+//        NumeroFilas = CCDs[CBCCD_A->ItemIndex].FilasFisicas / Binin;
+//        NumeroColumnas = CCDs[CBCCD_A->ItemIndex].ColumnasFisicas / Binin;
+//        Y1F = CCDs[CBCCD_A->ItemIndex].FilaInicio / Binin;
+//        X1F = CCDs[CBCCD_A->ItemIndex].ColumnaInicio / Binin;
+//        Y2F = CCDs[CBCCD_A->ItemIndex].FilaFin / Binin;
+//        X2F = CCDs[CBCCD_A->ItemIndex].ColumnaFin / Binin;
+
+//        PX1->Caption = X1F;
+//        PY1->Caption = Y1F;
+//        PX2->Caption = X2F;
+//        PY2->Caption = Y2F;
+//        PB1->Width = NumeroColumnas;
+//        PB1->Height = NumeroFilas;
+//        PBF->Position = 0;
+//        FotoPrincipal->Resizear(NumeroColumnas, NumeroFilas);
+//        RellenarBitmap(0, 0, NumeroColumnas, NumeroFilas);
+
+//        CBCCD_B->ItemIndex = atoi(config[22]);
+//        CCDsB[CBCCD_B->ItemIndex].FilaInicio =  atoi(config[23]);
+//        CCDsB[CBCCD_B->ItemIndex].FilaFin = atoi(config[24]);
+//        CCDsB[CBCCD_B->ItemIndex].ColumnaInicio = atoi(config[25]);
+//        CCDsB[CBCCD_B->ItemIndex].ColumnaFin = atoi(config[26]);
+//        EFilaInicioB->Text = CCDsB[CBCCD_B->ItemIndex].FilaInicio;//config[12];
+//        EFilaFinB->Text = CCDsB[CBCCD_B->ItemIndex].FilaFin;//config[13];
+//        EColumnaInicioB->Text = CCDsB[CBCCD_B->ItemIndex].ColumnaInicio;//config[14];
+//        EColumnaFinB->Text = CCDsB[CBCCD_B->ItemIndex].ColumnaFin;//config[15];
+//
+//        ELatitud->Text = config[16];
+//        ELongitud->Text = config[17];
+//
+//        if ( strcmp(&config[18][0], "F") == 0 )
+//            CBFlipVertical->State = cbChecked;
+//        else  CBFlipVertical->State = cbUnchecked;
+//        if ( strcmp(&config[19][0], "F") == 0 )
+//            CBFlipHorizontal->State = cbChecked;
+//        else  CBFlipHorizontal->State = cbUnchecked;
+//
+//        Edit_IP->Text = config[20];
+//    }
+//    LeerConfMeteo();  //pasa valores del fichero de configuracion a la estructura
 
     // Historico->Mhistory->Lines->Add(" Leo : " + AnsiString(confEMA.direc_datos));
     //   Form1->Timer2->Interval = confEMA.DiasGrafico * 60000;  // ajusta tiempo entre muestras
+}
+
+//==============================================================================
+int _matherr(struct _exception *except)
+//==============================================================================
+{
+    return 1;
 }
 
 //------------------------------------------------------------------------------
@@ -2199,21 +2327,21 @@ void ProcesarCGEM()
             }
             break;
         case GetLoc:
-            telPos.degLatA =  BuffLX[0];
-            telPos.minLatB =  BuffLX[1];
-            telPos.secLatC =  BuffLX[2];
-            telPos.nosLatD =  BuffLX[3];
-            telPos.degLonE =  BuffLX[4];
-            telPos.minLonF =  BuffLX[5];
-            telPos.secLonG =  BuffLX[6];
-            telPos.eowLonH =  BuffLX[7];
+            ini.Location.degLatA = BuffLX[0];
+            ini.Location.minLatB = BuffLX[1];
+            ini.Location.secLatC = BuffLX[2];
+            ini.Location.nosLatD = BuffLX[3];
+            ini.Location.degLonE = BuffLX[4];
+            ini.Location.minLonF = BuffLX[5];
+            ini.Location.secLonG = BuffLX[6];
+            ini.Location.eowLonH = BuffLX[7];
 
-            if (telPos.nosLatD == 1) nos = 'S';
-            if (telPos.eowLonH == 1) eow = 'W';
+            if (ini.Location.nosLatD == 1) nos = 'S';
+            if (ini.Location.eowLonH == 1) eow = 'W';
 
             sprintf(loc, "%02dº%02d'%02d\" %c %02dh%02dm%02ds %c ",
-                    telPos.degLatA, telPos.minLatB, telPos.secLatC, nos,
-                    telPos.degLonE, telPos.minLonF, telPos.secLonG, eow);
+                    ini.Location.degLatA, ini.Location.minLatB, ini.Location.secLatC, nos,
+                    ini.Location.degLonE, ini.Location.minLonF, ini.Location.secLonG, eow);
 
             Form1->eGetPosition->Text = loc;
             break;
@@ -3249,6 +3377,8 @@ void __fastcall TForm1::Timer50Timer(TObject *Sender)
 
             //      SetCurrentDirectory( mPath.c_str());
 
+            // TODO Revisar con Cristobal
+            // TODO Crear directorio ini.Image.FotoDir + ini.Image.NameDir
             if ((CBGuardar->Checked == true) && (paquetesperdidos == 0))
             {
                 if (ENFotos->Text.ToInt() > 1)
@@ -5508,19 +5638,127 @@ void readINI()
     TIniFile *INI = new TIniFile(ChangeFileExt(Application->ExeName, ".ini"));
     //TIniFile *StartUp = new TIniFile(".\\Ini01.INI");
 
-    cfg.LocationName = INI->ReadString("Location", "Name", "Casa");
+    ini.Location.Name = INI->ReadString("Location", "Name", "Casa");
 
-//    //int val = StartUp->ReadInteger("FormPos", "Mivalor", 0);
-//    Left = StartUp->ReadInteger("FormPos", "Left", Left);
-//    Top  = StartUp->ReadInteger("FormPos", "Top", 200);
-//
-//    // The controls values section
-//    edtPreview->Text   = StartUp->ReadString("CtlValues",  "txtPreview", "Euzhan Palcy");
-//    cboFonts->Text     = StartUp->ReadString("CtlValues",  "FontSelected", "Times New Roman");
-//    cboFontSizes->Text = StartUp->ReadString("CtlValues",  "FontSize", "24");
-//    scrRed->Position   = StartUp->ReadInteger("CtlValues", "RedPos", 0);
-//    scrGreen->Position = StartUp->ReadInteger("CtlValues", "GreenPos", 0);
-//    scrBlue->Position  = StartUp->ReadInteger("CtlValues", "BluePos", 0);
+    ini.Location.degLatA = INI->ReadInteger("Location", "degLatA", 0);
+    ini.Location.minLatB = INI->ReadInteger("Location", "minLatB", 0);
+    ini.Location.secLatC = INI->ReadInteger("Location", "secLatC", 0);
+    ini.Location.nosLatD = INI->ReadInteger("Location", "nosLatD", 0);
+    ini.Location.degLonE = INI->ReadInteger("Location", "degLonE", 0);
+    ini.Location.minLonF = INI->ReadInteger("Location", "minLonF", 0);
+    ini.Location.secLonG = INI->ReadInteger("Location", "secLonG", 0);
+    ini.Location.eowLonH = INI->ReadInteger("Location", "eowLonH", 0);
+
+    ini.Observation.Observer  = INI->ReadString("Observation", "Observer" , "");
+    ini.Observation.Telescope = INI->ReadString("Observation", "Telescope", "");
+    ini.Observation.Focal     = INI->ReadString("Observation", "Focal"    , "");
+    ini.Observation.Aperture  = INI->ReadString("Observation", "Aperture" , "");
+    ini.Observation.Camera    = INI->ReadString("Observation", "Camera"   , "");
+    ini.Observation.Comment   = INI->ReadString("Observation", "Comment"  , "");
+    ini.Observation.IP        = INI->ReadString("Observation", "IP"       , "");
+    ini.Observation.Retraso   = INI->ReadString("Observation", "Retraso"  , "");
+    ini.Observation.Limpiado  = INI->ReadString("Observation", "Limpiado" , "");
+
+    ini.CamA.Name   = INI->ReadString ("CamA", "Name"  ,"");
+    ini.CamA.Index  = INI->ReadInteger("CamA", "Index" , 0);
+    ini.CamA.RowIni = INI->ReadInteger("CamA", "RowIni", 0);
+    ini.CamA.RowFin = INI->ReadInteger("CamA", "RowFin", 0);
+    ini.CamA.ColIni = INI->ReadInteger("CamA", "ColIni", 0);
+    ini.CamA.ColFin = INI->ReadInteger("CamA", "ColFin", 0);
+
+    ini.CamB.Name   = INI->ReadString ("CamB", "Name"  ,"");
+    ini.CamB.Index  = INI->ReadInteger("CamB", "Index" , 0);
+    ini.CamB.RowIni = INI->ReadInteger("CamB", "RowIni", 0);
+    ini.CamB.RowFin = INI->ReadInteger("CamB", "RowFin", 0);
+    ini.CamB.ColIni = INI->ReadInteger("CamB", "ColIni", 0);
+    ini.CamB.ColFin = INI->ReadInteger("CamB", "ColFin", 0);
+
+    ini.Image.FlipVert    = INI->ReadBool  ("Image", "FlipVert", false);
+    ini.Image.FlipHori    = INI->ReadBool  ("Image", "FlipHori", false);
+    ini.Image.FotoDir     = INI->ReadString("Image", "FotoDir"    , "");
+    ini.Image.NameDir     = INI->ReadString("Image", "NameDir"    , "");
+    ini.Image.ElbrusFile  = INI->ReadString("Image", "ElbrusFile" , "");
+
+    delete INI;
+}
+
+//==============================================================================
+void writeINI()
+//==============================================================================
+{
+    char c;
+    int ret;
+
+    // Válidos para usar el mismo nombre que el programa y
+    // un fichero en el mismo directorio que el ejecutable
+    TIniFile *INI = new TIniFile(ChangeFileExt(Application->ExeName, ".ini"));
+    //TIniFile *StartUp = new TIniFile(".\\Ini01.INI");
+
+    INI->WriteString("Location", "Name", Form1->ELocation->Text);
+    ret = sscanf(Form1->ELatitud->Text.c_str(),"%2dº%2d'%2d\" %c",
+                                               &ini.Location.degLatA,
+                                               &ini.Location.minLatB,
+                                               &ini.Location.secLatC,
+                                               &c);
+    if (ret != 4)
+    {
+        WriteHistory("Error en Latitud: " + Form1->ELatitud->Text);
+    }
+    else
+    {
+        INI->WriteInteger("Location", "degLatA", ini.Location.degLatA);
+        INI->WriteInteger("Location", "minLatB", ini.Location.minLatB);
+        INI->WriteInteger("Location", "secLatC", ini.Location.secLatC);
+        ini.Location.nosLatD = 0;
+        if (c == 'S' || c == 's') ini.Location.nosLatD = 1;
+        INI->WriteInteger("Location", "nosLatD", ini.Location.nosLatD);
+    }
+
+    ret = sscanf(Form1->ELongitud->Text.c_str(),"%2dº%2d'%2d\" %c",
+                                                &ini.Location.degLonE,
+                                                &ini.Location.minLonF,
+                                                &ini.Location.secLonG,
+                                                &c);
+    if (ret != 4)
+    {
+        WriteHistory("Error en Longitud: " + Form1->ELongitud->Text);
+    }
+    else
+    {
+        INI->WriteInteger("Location", "degLonE", ini.Location.degLonE);
+        INI->WriteInteger("Location", "minLonF", ini.Location.minLonF);
+        INI->WriteInteger("Location", "secLonG", ini.Location.secLonG);
+        ini.Location.eowLonH = 0;
+        if (c == 'W' || c == 'w') ini.Location.eowLonH = 1;
+        INI->WriteInteger("Location", "eowLonH", ini.Location.eowLonH);
+    }
+
+    INI->WriteString("Observation", "Observer",  Form1->EObserver->Text);
+    INI->WriteString("Observation", "Telescope", Form1->ETelescop->Text);
+    INI->WriteString("Observation", "Focal",     Form1->EFocal->Text);
+    INI->WriteString("Observation", "Aperture",  Form1->EApert->Text);
+    INI->WriteString("Observation", "Camera",    Form1->EInstrument->Text);
+    INI->WriteString("Observation", "Comment",   Form1->EComent->Text);
+    INI->WriteString("Observation", "IP",        Form1->Edit_IP->Text);
+    INI->WriteString("Observation", "Retraso",   Form1->ERetraso->Text);
+    INI->WriteString("Observation", "Limpiado",  Form1->ELimpiado->Text);
+
+    INI->WriteString ("CamA", "Name",   Form1->CBCCD_A->Text);
+    INI->WriteInteger("CamA", "Index",  Form1->CBCCD_A->ItemIndex);
+    INI->WriteInteger("CamA", "RowIni", atoi(Form1->EFilaInicioA   ->Text.c_str()));
+    INI->WriteInteger("CamA", "RowFin", atoi(Form1->EFilaFinA      ->Text.c_str()));
+    INI->WriteInteger("CamA", "ColIni", atoi(Form1->EColumnaInicioA->Text.c_str()));
+    INI->WriteInteger("CamA", "ColFin", atoi(Form1->EColumnaFinA   ->Text.c_str()));
+
+    INI->WriteString ("CamB", "Name",   Form1->CBCCD_B->Text);
+    INI->WriteInteger("CamB", "Index",  Form1->CBCCD_B->ItemIndex);
+    INI->WriteInteger("CamB", "RowIni", atoi(Form1->EFilaInicioB   ->Text.c_str()));
+    INI->WriteInteger("CamB", "RowFin", atoi(Form1->EFilaFinB      ->Text.c_str()));
+    INI->WriteInteger("CamB", "ColIni", atoi(Form1->EColumnaInicioB->Text.c_str()));
+    INI->WriteInteger("CamB", "ColFin", atoi(Form1->EColumnaFinB   ->Text.c_str()));
+
+    INI->WriteBool("Image", "FlipVert", Form1->CBFlipVertical->Checked);
+    INI->WriteBool("Image", "FlipHori", Form1->CBFlipHorizontal->Checked);
 
     delete INI;
 }
@@ -6184,57 +6422,60 @@ void __fastcall TForm1::BcambiaIPClick(TObject *Sender)
 void __fastcall TForm1::BGuardaConfigClick(TObject *Sender)
 //------------------------------------------------------------------------------
 {
-    FILE *out;
-
-    char config[100][50];
-    char auxi[+50];
-    char temp[300];
-
-    memset(config, ' ', sizeof(config));
-    strcpy(config[0],  ELocation->Text.c_str());
-    strcpy(config[1],  EObserver->Text.c_str());
-    strcpy(config[2],  ETelescop->Text.c_str());
-    strcpy(config[3],  EFocal->Text.c_str());
-    strcpy(config[4],  EApert->Text.c_str());
-    strcpy(config[5],  EInstrument->Text.c_str());
-    strcpy(config[6],  EComent->Text.c_str());
-    strcpy(config[7],  Edit_IP->Text.c_str());
-    strcpy(config[8],  ERetraso->Text.c_str());
-    strcpy(config[9],  ELimpiado->Text.c_str());
-    strcpy(config[10], CBCCD_A->Text.c_str());
-    strcpy(config[11], AnsiString(CBCCD_A->ItemIndex).c_str());
-    strcpy(config[12], EFilaInicioA->Text.c_str());
-    strcpy(config[13], EFilaFinA->Text.c_str());
-    strcpy(config[14], EColumnaInicioA->Text.c_str());
-    strcpy(config[15],  EColumnaFinA->Text.c_str());
-
-    strcpy(config[21], CBCCD_B->Text.c_str());
-    strcpy(config[22], AnsiString(CBCCD_B->ItemIndex).c_str());
-    strcpy(config[23], EFilaInicioB->Text.c_str());
-    strcpy(config[24], EFilaFinB->Text.c_str());
-    strcpy(config[25], EColumnaInicioB->Text.c_str());
-    strcpy(config[26],  EColumnaFinB->Text.c_str());
-
-    strcpy(config[16],  ELatitud->Text.c_str());
-    strcpy(config[17],  ELongitud->Text.c_str());
-
-    if (CBFlipVertical->State == cbChecked)
-        strcpy(config[18], "F");
-    else strcpy(config[18], "N");
-    if (CBFlipHorizontal->State == cbChecked)
-        strcpy(config[19], "F");
-    else strcpy(config[19], "N");
-    strcpy(config[20],  Edit_IP->Text.c_str());
-
-    strcpy(temp,  dir_trab);
-    strcat(temp, "cor.cfg");
-    out = fopen(temp, "wt");
-    fwrite(config, sizeof(config), 1, out); /* write struct s to file */
-
-    //      out = fopen("config.txt", "wt");
-    //      fwrite(config, sizeof(config), 1, out); /* write struct s to file */
-
-    fclose(out); /* close file */
+    writeINI();
+    readINI();
+    WriteHistory("Fichero " + ChangeFileExt(Application->ExeName, ".ini") + " grabado.");
+//    FILE *out;
+//
+//    char config[100][50];
+//    char auxi[+50];
+//    char temp[300];
+//
+//    memset(config, ' ', sizeof(config));
+//    strcpy(config[0],  ELocation->Text.c_str());
+//    strcpy(config[1],  EObserver->Text.c_str());
+//    strcpy(config[2],  ETelescop->Text.c_str());
+//    strcpy(config[3],  EFocal->Text.c_str());
+//    strcpy(config[4],  EApert->Text.c_str());
+//    strcpy(config[5],  EInstrument->Text.c_str());
+//    strcpy(config[6],  EComent->Text.c_str());
+//    strcpy(config[7],  Edit_IP->Text.c_str());
+//    strcpy(config[8],  ERetraso->Text.c_str());
+//    strcpy(config[9],  ELimpiado->Text.c_str());
+//    strcpy(config[10], CBCCD_A->Text.c_str());
+//    strcpy(config[11], AnsiString(CBCCD_A->ItemIndex).c_str());
+//    strcpy(config[12], EFilaInicioA->Text.c_str());
+//    strcpy(config[13], EFilaFinA->Text.c_str());
+//    strcpy(config[14], EColumnaInicioA->Text.c_str());
+//    strcpy(config[15],  EColumnaFinA->Text.c_str());
+//
+//    strcpy(config[21], CBCCD_B->Text.c_str());
+//    strcpy(config[22], AnsiString(CBCCD_B->ItemIndex).c_str());
+//    strcpy(config[23], EFilaInicioB->Text.c_str());
+//    strcpy(config[24], EFilaFinB->Text.c_str());
+//    strcpy(config[25], EColumnaInicioB->Text.c_str());
+//    strcpy(config[26],  EColumnaFinB->Text.c_str());
+//
+//    strcpy(config[16],  ELatitud->Text.c_str());
+//    strcpy(config[17],  ELongitud->Text.c_str());
+//
+//    if (CBFlipVertical->State == cbChecked)
+//        strcpy(config[18], "F");
+//    else strcpy(config[18], "N");
+//    if (CBFlipHorizontal->State == cbChecked)
+//        strcpy(config[19], "F");
+//    else strcpy(config[19], "N");
+//    strcpy(config[20],  Edit_IP->Text.c_str());
+//
+//    strcpy(temp,  dir_trab);
+//    strcat(temp, "cor.cfg");
+//    out = fopen(temp, "wt");
+//    fwrite(config, sizeof(config), 1, out); /* write struct s to file */
+//
+//    //      out = fopen("config.txt", "wt");
+//    //      fwrite(config, sizeof(config), 1, out); /* write struct s to file */
+//
+//    fclose(out); /* close file */
 }
 
 //------------------------------------------------------------------------------
@@ -7575,8 +7816,8 @@ void __fastcall TForm1::bPosClick(TObject *Sender)
 //------------------------------------------------------------------------------
 {
     pedidaRaDe = false;
-    char pos[10] = {'W', telPos.degLatA, telPos.minLatB, telPos.secLatC, telPos.nosLatD,
-                    telPos.degLonE, telPos.minLonF, telPos.secLonG, telPos.eowLonH
+    char pos[10] = {'W', ini.Location.degLatA, ini.Location.minLatB, ini.Location.secLatC, ini.Location.nosLatD,
+                         ini.Location.degLonE, ini.Location.minLonF, ini.Location.secLonG, ini.Location.eowLonH
                    };
 
     EnviaLX(pos, 9);
@@ -7719,32 +7960,37 @@ void __fastcall TForm1::FormCreate(TObject *Sender)
 void __fastcall TForm1::bTestClick(TObject *Sender)
 //------------------------------------------------------------------------------
 {
-    char aux[300];
-    char Name[80];
+//    char aux[300];
+//    char Name[80];
+//
+//    strcpy(aux,  "Test.fit");
+//    strcpy(Name, "M57_1.fit");
+//
+//    //    if (FileExists(aux) )
+//    //        DeleteFile(aux);
+//
+//    // CopyFile (ExistingFileName, NewFileName, FailIfExists);
+//    // Parameter 3: FailIfExists [TRUE/FALSE] (uppercase)
+//    // If this parameter is TRUE  and the new file specified by NewFileName already exists, the function fails.
+//    // If this parameter is FALSE and the new file already exists, the function overwrites the existing file and succeeds.
+//
+//    bool b = CopyFile(Name, aux, FALSE);
+//    int error = 0;
+//
+//    if (!b)
+//    {
+//        error = GetLastError();
+//        WriteHistory("Error: " + error);
+//    }
+//    else
+//    {
+//        WriteHistory("OK");
+//    }
 
-    strcpy(aux,  "Test.fit");
-    strcpy(Name, "M57_1.fit");
+    TDateTime* myTime = new TDateTime(Now());
+    AnsiString S = myTime->FormatString(ini.Image.NameDir);
+    WriteHistory(ini.Image.FotoDir + S);
 
-    //    if (FileExists(aux) )
-    //        DeleteFile(aux);
-
-    // CopyFile (ExistingFileName, NewFileName, FailIfExists);
-    // Parameter 3: FailIfExists [TRUE/FALSE] (uppercase)
-    // If this parameter is TRUE  and the new file specified by NewFileName already exists, the function fails.
-    // If this parameter is FALSE and the new file already exists, the function overwrites the existing file and succeeds.
-
-    bool b = CopyFile(Name, aux, FALSE);
-    int error = 0;
-
-    if (!b)
-    {
-        error = GetLastError();
-        WriteHistory("Error: " + error);
-    }
-    else
-    {
-        WriteHistory("OK");
-    }
 }
 
 //------------------------------------------------------------------------------
