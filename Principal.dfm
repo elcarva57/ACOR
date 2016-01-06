@@ -783,7 +783,7 @@ object Form1: TForm1
         object Label62: TLabel
           Left = 1
           Top = 17
-          Width = 223
+          Width = 110
           Height = 14
           Align = alTop
           Alignment = taCenter
@@ -811,7 +811,7 @@ object Form1: TForm1
         object Label43: TLabel
           Left = 1
           Top = 1
-          Width = 223
+          Width = 26
           Height = 16
           Align = alTop
           Alignment = taCenter
@@ -4374,7 +4374,7 @@ object Form1: TForm1
             Font.Height = -10
             Font.Name = 'Arial'
             Font.Style = []
-            ItemHeight = 13
+            ItemHeight = 0
             ParentFont = False
             TabOrder = 4
             OnChange = CBCCD_A_Change
@@ -4392,7 +4392,7 @@ object Form1: TForm1
             Font.Height = -10
             Font.Name = 'Arial'
             Font.Style = []
-            ItemHeight = 13
+            ItemHeight = 0
             ParentFont = False
             TabOrder = 5
             OnChange = CBCCD_B_Change
@@ -4507,7 +4507,7 @@ object Form1: TForm1
         object Label76: TLabel
           Left = 1
           Top = 1
-          Width = 223
+          Width = 48
           Height = 16
           Align = alTop
           Alignment = taCenter

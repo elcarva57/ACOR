@@ -3384,17 +3384,22 @@ void __fastcall TForm1::Timer50Timer(TObject *Sender)
                 if (ENFotos->Text.ToInt() > 1)
                 {
                     sprintf( aux, "%003d", (FotoActual - 1));
-                    sprintf(Name, (ENombreFichero->Text + AnsiString("_") + AnsiString(aux) + AnsiString(".fit")).c_str());
+                    sprintf(Name, (ini.Image.FotoDir + ini.Image.NameDir + ENombreFichero->Text + AnsiString("_") + AnsiString(aux) + AnsiString(".fit")).c_str());
                     //Historico->Mhistory->Lines->Add(" Nombre Fotos: " + AnsiString(Name));
                 }
                 else
                 {
-                    sprintf(Name, (ENombreFichero->Text + AnsiString(".fit")).c_str());
+                    sprintf(Name, (ini.Image.FotoDir + ini.Image.NameDir + ENombreFichero->Text + AnsiString(".fit")).c_str());
                     //Historico->Mhistory->Lines->Add(" Nombre Foto: " + AnsiString(Name));
                 }
 
                 if (FileExists(Name))
                     DeleteFile(Name);
+                else
+                {
+                    CreateDirectory((ini.Image.FotoDir + ini.Image.NameDir).c_str(), NULL);
+                    SetCurrentDirectory((ini.Image.FotoDir + ini.Image.NameDir).c_str());
+                }
                 GuardarFoto(Name);
 
 
