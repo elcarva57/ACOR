@@ -2319,6 +2319,10 @@ void ProcesarCGEM()
             break;
         case GotoProg:
             Form1->cbGotoProg->Checked = (buff0 == '1');
+            if (buff0 == '1')
+                Form1->sMove->Brush->Color = clRed;
+            else
+                Form1->sMove->Brush->Color = clLime;
             break;
         case GotoCancel:
             if (buff0 == '#')
@@ -5313,6 +5317,7 @@ void EnviaLX(char *orden, int long_orden)
     sprintf(temp, ", ind_wrLX %d ", ind_wrLX);
     bufConta = bufConta + temp;
 
+    if (command != GotoProg)
     WriteHistory(CmdToStr(command) + " EnviaLX: " + AnsiString(buffer) + " " + AnsiString(bufConta));
 
     ind_wrLX++;
@@ -7422,6 +7427,7 @@ void __fastcall TForm1::BAutoEnfoqueClick(TObject *Sender)
 
 //------------------------------------------------------------------------------
 // Timer de 1sg para gestion del autoenfoque
+// Y control de movimiento de telescopio
 void __fastcall TForm1::Timer1000Timer(TObject *Sender)
 //------------------------------------------------------------------------------
 {
@@ -7429,6 +7435,7 @@ void __fastcall TForm1::Timer1000Timer(TObject *Sender)
     char aux3[12];
     char aux4[12];
     char aux5[12];
+    char cmd[2] = {0};
 
     if ((AutoEnfoque == 1) && (FinX == 1)) // Moviendo a desenfoque Extremo
     {
@@ -7508,6 +7515,11 @@ void __fastcall TForm1::Timer1000Timer(TObject *Sender)
         indice_cfs++;
         strcpy(Buf_Cfs[indice_cfs],  "<xp>");  //
     }
+
+    command = GotoProg;
+    cmd[0] = 'L';
+    EnviaLX(cmd, 1);
+
 }
 
 //------------------------------------------------------------------------------

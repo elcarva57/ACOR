@@ -518,9 +518,9 @@ object Form1: TForm1
       end
       object Button3: TButton
         Left = 660
-        Top = 3
+        Top = 1
         Width = 28
-        Height = 24
+        Height = 18
         Caption = 'F 3'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -532,11 +532,32 @@ object Form1: TForm1
         OnClick = Button3Click
       end
       object PStatus: TPanel
-        Left = 667
-        Top = 28
-        Width = 17
-        Height = 13
+        Left = 640
+        Top = 24
+        Width = 94
+        Height = 16
         TabOrder = 5
+        object Label107: TLabel
+          Left = 3
+          Top = 0
+          Width = 44
+          Height = 16
+          Caption = 'Moving:'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object sMove: TShape
+          Left = 65
+          Top = 1
+          Width = 12
+          Height = 13
+          Brush.Color = clLime
+          Shape = stRoundSquare
+        end
       end
     end
     object Memo1: TMemo
@@ -756,7 +777,7 @@ object Form1: TForm1
     Top = 0
     Width = 250
     Height = 745
-    ActivePage = TELESCOPIO
+    ActivePage = tsCGEM
     Align = alLeft
     Constraints.MinWidth = 225
     Font.Charset = ANSI_CHARSET
@@ -768,7 +789,7 @@ object Form1: TForm1
     MultiLine = True
     ParentFont = False
     TabHeight = 17
-    TabIndex = 1
+    TabIndex = 7
     TabOrder = 1
     TabPosition = tpLeft
     object CAMARA: TTabSheet
@@ -4374,7 +4395,7 @@ object Form1: TForm1
             Font.Height = -10
             Font.Name = 'Arial'
             Font.Style = []
-            ItemHeight = 0
+            ItemHeight = 13
             ParentFont = False
             TabOrder = 4
             OnChange = CBCCD_A_Change
@@ -4392,7 +4413,7 @@ object Form1: TForm1
             Font.Height = -10
             Font.Name = 'Arial'
             Font.Style = []
-            ItemHeight = 0
+            ItemHeight = 13
             ParentFont = False
             TabOrder = 5
             OnChange = CBCCD_B_Change

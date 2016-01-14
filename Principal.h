@@ -497,6 +497,8 @@ __published:	// IDE-managed Components
     TEdit *eGetTime;
     TButton *bTest;
     TCheckBox *cbDisableAllTimers;
+    TLabel *Label107;
+    TShape *sMove;
     void __fastcall Timer50Timer(TObject *Sender);
     void __fastcall FormDestroy(TObject *Sender);
     void __fastcall BEnviarClick(TObject *Sender);
