@@ -777,7 +777,7 @@ object Form1: TForm1
     Top = 0
     Width = 250
     Height = 745
-    ActivePage = tsCGEM
+    ActivePage = TELESCOPIO
     Align = alLeft
     Constraints.MinWidth = 225
     Font.Charset = ANSI_CHARSET
@@ -789,7 +789,7 @@ object Form1: TForm1
     MultiLine = True
     ParentFont = False
     TabHeight = 17
-    TabIndex = 7
+    TabIndex = 1
     TabOrder = 1
     TabPosition = tpLeft
     object CAMARA: TTabSheet
@@ -4395,7 +4395,7 @@ object Form1: TForm1
             Font.Height = -10
             Font.Name = 'Arial'
             Font.Style = []
-            ItemHeight = 13
+            ItemHeight = 0
             ParentFont = False
             TabOrder = 4
             OnChange = CBCCD_A_Change
@@ -4413,7 +4413,7 @@ object Form1: TForm1
             Font.Height = -10
             Font.Name = 'Arial'
             Font.Style = []
-            ItemHeight = 13
+            ItemHeight = 0
             ParentFont = False
             TabOrder = 5
             OnChange = CBCCD_B_Change

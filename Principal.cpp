@@ -3828,7 +3828,7 @@ void __fastcall TForm1::Timer100Timer(TObject *Sender)
         indice_meteo--;
     }
 
-    //salida de mensajes para LX200
+    //salida de mensajes para LX200/CGEM
     if ((cont_mensLX > 0 && (PBF->Position == 0)))
     {
         if (CBver_envio_lx->Checked == true)
@@ -3888,7 +3888,8 @@ void __fastcall TForm1::Timer100Timer(TObject *Sender)
             ind_rdLX = 0;
     }
 
-    //Recentrado AR Telescopio
+    // TODO Esto sólo está implementado para LX200
+    // Recentrado AR Telescopio
     if (TiempoGuiaAR != 0.0)
     {
         CuentaGuiaAR++;
@@ -3910,8 +3911,8 @@ void __fastcall TForm1::Timer100Timer(TObject *Sender)
         TimeRead = ::GetTickCount(); //para retrasar pedir coordenadas
     }
 
-
-    //Recentrado Dec Telescopio
+    // TODO Esto sólo está implementado para LX200
+    // Recentrado Dec Telescopio
     if (TiempoGuiaDec != 0.0)
     {
         CuentaGuiaDec++;
@@ -3932,12 +3933,13 @@ void __fastcall TForm1::Timer100Timer(TObject *Sender)
         }
         TimeRead = ::GetTickCount(); //para retrasar pedir coordenadas
     }
-    //cada tiempo se piden coordenadas
+
+    // Cada tiempo se piden coordenadas
     if ((::GetTickCount() > (TimeRead + PerRefrescoTel * 1000)) && (LeyendoFoto == false))
     {
         TimeRead = ::GetTickCount();
         pedidaRaDe = true;
-        //if (CBCGEM->Checked == false)   //es LX200
+
         if (LX200)   //es LX200
         {
             if ( cont_mensLX == 0)
@@ -3977,6 +3979,13 @@ void __fastcall TForm1::Timer100Timer(TObject *Sender)
                     }
                 }
                 // arde = !arde; // Comentado siempre pide RAS_DEC nunca AZM_ALT
+
+                // Envia control de telescopio moviéndose
+                command = GotoProg;
+                EnviaLX("L");
+                // cmd[0] = 'L';
+                // EnviaLX(cmd, 1);
+
             }
             EsperaLX++;
         }
@@ -5318,7 +5327,7 @@ void EnviaLX(char *orden, int long_orden)
     bufConta = bufConta + temp;
 
     if (command != GotoProg)
-    WriteHistory(CmdToStr(command) + " EnviaLX: " + AnsiString(buffer) + " " + AnsiString(bufConta));
+        WriteHistory(CmdToStr(command) + " EnviaLX: " + AnsiString(buffer) + " " + AnsiString(bufConta));
 
     ind_wrLX++;
     if (ind_wrLX >= BUF_LX)
@@ -7435,7 +7444,7 @@ void __fastcall TForm1::Timer1000Timer(TObject *Sender)
     char aux3[12];
     char aux4[12];
     char aux5[12];
-    char cmd[2] = {0};
+//    char cmd[2] = {0};
 
     if ((AutoEnfoque == 1) && (FinX == 1)) // Moviendo a desenfoque Extremo
     {
@@ -7464,6 +7473,7 @@ void __fastcall TForm1::Timer1000Timer(TObject *Sender)
         pasos_x = Form1->EPasosEnfoque->Text.ToInt();
         Form1->IFotoMouseDown(NULL, (TMouseButton)NULL, TShiftState(), 0, 0);
     }
+
     else if ( (AutoEnfoque == 4) && (FinX == 1) && (FinFoto) && (FotoActual  > Form1->ENFotos->Text.ToInt()) )
     {
         AutoEnfoque = 5;
@@ -7516,9 +7526,10 @@ void __fastcall TForm1::Timer1000Timer(TObject *Sender)
         strcpy(Buf_Cfs[indice_cfs],  "<xp>");  //
     }
 
-    command = GotoProg;
-    cmd[0] = 'L';
-    EnviaLX(cmd, 1);
+//  Enviado al timer100
+//    command = GotoProg;
+//    cmd[0] = 'L';
+//    EnviaLX(cmd, 1);
 
 }
 
