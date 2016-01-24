@@ -2519,7 +2519,7 @@ void ProcesarGetPreRAS_DEC(AnsiString CadCgem)
     coordAZM = formatAZM(azm_f);
     coordALT = formatALT(alt_f);
 
-    //   Historico->Mhistory->Lines->Add("AR:" + AnsiString(ar_f) + "     Dec:"  + AnsiString(dec_f));
+    Historico->Mhistory->Lines->Add("AR:" + AnsiString(arh_f) + "     Dec:"  + AnsiString(dec_f));
 
     // Eduardo discovered bug
     // tRa = 15.0 * ( nRAHour + dRAMin / 60.0);
@@ -2572,7 +2572,7 @@ void ProcesarGetRAS_DEC(AnsiString CadCgem)
     coordAZM = formatAZM(azm_f);
     coordALT = formatALT(alt_f);
 
-    //   Historico->Mhistory->Lines->Add("AR:" + AnsiString(ar_f) + "     Dec:"  + AnsiString(dec_f));
+    Historico->Mhistory->Lines->Add("AR:" + AnsiString(arh_f) + "     Dec:"  + AnsiString(dec_f));
 
     // Eduardo discovered bug
     // tRa = 15.0 * ( nRAHour + dRAMin / 60.0);
@@ -3981,8 +3981,8 @@ void __fastcall TForm1::Timer100Timer(TObject *Sender)
                 // arde = !arde; // Comentado siempre pide RAS_DEC nunca AZM_ALT
 
                 // Envia control de telescopio moviéndose
-                command = GotoProg;
-                EnviaLX("L");
+                // command = GotoProg;
+                // EnviaLX("L");
                 // cmd[0] = 'L';
                 // EnviaLX(cmd, 1);
 
@@ -5326,7 +5326,7 @@ void EnviaLX(char *orden, int long_orden)
     sprintf(temp, ", ind_wrLX %d ", ind_wrLX);
     bufConta = bufConta + temp;
 
-    if (command != GotoProg)
+//    if (command != GotoProg)
         WriteHistory(CmdToStr(command) + " EnviaLX: " + AnsiString(buffer) + " " + AnsiString(bufConta));
 
     ind_wrLX++;

@@ -111,9 +111,9 @@ LeftCol=1
 
 [View1]
 Module=D:\Cpp\RocPcServidorAsp\Principal.cpp
-CursorX=25
-CursorY=7447
-TopLine=7438
+CursorX=59
+CursorY=2575
+TopLine=2554
 LeftCol=1
 
 [View2]
@@ -471,22 +471,6 @@ ClientWidth=726
 ClientHeight=783
 TBDockHeight=816
 LRDockWidth=742
-Dockable=1
-
-[fmToDo]
-Create=1
-Visible=1
-State=0
-Left=721
-Top=386
-Width=477
-Height=307
-MaxLeft=-1
-MaxTop=-1
-ClientWidth=461
-ClientHeight=274
-TBDockHeight=307
-LRDockWidth=477
 Dockable=1
 
 [CodeguardLog]
