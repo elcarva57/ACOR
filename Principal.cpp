@@ -2317,7 +2317,7 @@ void ProcesarCGEM()
         case AlignComplete:
             Form1->cbAligned->Checked = (buff0 == 1);
             break;
-        case GotoProg:
+        case GotoProg: // Moving control
             Form1->cbGotoProg->Checked = (buff0 == '1');
             if (buff0 == '1')
                 Form1->sMove->Brush->Color = clRed;
@@ -2519,7 +2519,7 @@ void ProcesarGetPreRAS_DEC(AnsiString CadCgem)
     coordAZM = formatAZM(azm_f);
     coordALT = formatALT(alt_f);
 
-    Historico->Mhistory->Lines->Add("AR:" + AnsiString(arh_f) + "     Dec:"  + AnsiString(dec_f));
+//    Historico->Mhistory->Lines->Add("AR:" + AnsiString(arh_f) + "     Dec:"  + AnsiString(dec_f));
 
     // Eduardo discovered bug
     // tRa = 15.0 * ( nRAHour + dRAMin / 60.0);
@@ -2572,7 +2572,7 @@ void ProcesarGetRAS_DEC(AnsiString CadCgem)
     coordAZM = formatAZM(azm_f);
     coordALT = formatALT(alt_f);
 
-    Historico->Mhistory->Lines->Add("AR:" + AnsiString(arh_f) + "     Dec:"  + AnsiString(dec_f));
+//    Historico->Mhistory->Lines->Add("AR:" + AnsiString(arh_f) + "     Dec:"  + AnsiString(dec_f));
 
     // Eduardo discovered bug
     // tRa = 15.0 * ( nRAHour + dRAMin / 60.0);
@@ -3712,6 +3712,7 @@ void __fastcall TForm1::Timer100Timer(TObject *Sender)
     char aux[3000];
     TJPEGImage *jp;
     TDateTime FalloCFS, FalloMeteo, Fech, DTenvio;
+//    char cmd[2] = {0}; //Moving control
 
     AnsiString buffer;
     char temp[50];
@@ -3961,8 +3962,13 @@ void __fastcall TForm1::Timer100Timer(TObject *Sender)
                     }
                     else
                     {
-                        command = GetPreAZM_ALT;
-                        EnviaLX("z");
+//                        command = GetPreAZM_ALT;
+//                        EnviaLX("z");
+                        // Envia control de telescopio moviéndose
+                        command = GotoProg; // Moving control
+                        EnviaLX("L");
+//                        cmd[0] = 'L'; // Moving control
+//                        EnviaLX(cmd, 1); // Moving control
                     }
                 }
                 else
@@ -3978,13 +3984,9 @@ void __fastcall TForm1::Timer100Timer(TObject *Sender)
                         EnviaLX("Z");
                     }
                 }
-                // arde = !arde; // Comentado siempre pide RAS_DEC nunca AZM_ALT
+                // Flag command type to send two differents commands
+                arde = !arde; // Comentado siempre pide RAS_DEC nunca AZM_ALT
 
-                // Envia control de telescopio moviéndose
-                // command = GotoProg;
-                // EnviaLX("L");
-                // cmd[0] = 'L';
-                // EnviaLX(cmd, 1);
 
             }
             EsperaLX++;
