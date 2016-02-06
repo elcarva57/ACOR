@@ -1,0 +1,520 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<title>RA and DEC to ALT and AZ </title>
+</head>
+
+<body bgcolor="#ffffff">
+
+<img src="RA%20and%20DEC%20to%20ALT%20and%20AZ_files/banner.gif" alt="Approximate astronomical positions" border="0" height="30" width="400">
+
+<h1><a name="twig00">Converting RA and DEC to ALT and AZ</a></h1>
+[<a href="http://www.stargazing.net/kepler/index.html#top">Root</a>]
+<p>
+
+</p><h2>Contents</h2>
+<ul>
+<li><a href="#twig01">Overview</a>
+</li><li><a href="#twig09">Calculator notes</a>
+</li><li><a href="#twig02a">Days before J2000</a>
+</li><li><a href="#twig02">Local Siderial Time</a>
+</li><li><a href="#twig03">Hour Angle</a>
+</li><li><a href="#twig04">HA and DEC to ALT and AZ</a>
+</li><li><a href="#twig07">Books</a>
+</li><li><a href="#twig08">Exercise</a>
+</li></ul>
+
+
+<p>
+
+
+
+</p><h2><a name="twig01">Overview</a></h2>
+[<a href="#twig00">Top</a>]
+
+<p><em>
+
+"Today, the latitude and longitude lines govern with more
+authority than I could have imagined forty odd years ago, for
+they stay fixed as the world changes its configuration underneath
+them - with continents adrift across a widening sea, and national
+boundaries repeatedly redrawn by war or peace"
+</em>
+
+<br>
+<br>
+-Dava Sobel <em>Longitude</em>
+
+</p><p>This page is concerned with astronomical calculations. You
+will find out how to calculate the <em>Azimuth</em> (AZ) and
+<em>Altitude</em> (ALT) of an object in the sky if you know the
+date, time (UT) and the location of your observing site together
+with the <em>Right Ascension</em> (RA) and <em>Declination</em>
+(DEC) of the object. You do not actually need to calculate
+positions these days - there are lots of computer programs which
+will do the work for you - but calculating a position at least
+once may give a better insight into how the coordinate systems
+work. I tend to reflect on the sheer hard labour involved before
+the invention of calculators and computers!
+
+</p><p>As a concrete example, I shall calculate the ALT and AZ of the
+Messier object M13 for 10th August 1998 at 2310 hrs UT, for Birmingham
+UK. The RA and DEC of M13 are given as;
+
+</p><pre>            RA  = 16 h 41.7 min
+            DEC = 36 d 28   min
+</pre> 
+
+according to <cite>The Cambridge Star Atlas</cite>, and my old school
+atlas gives the latitude and longitude of Birmingham UK as;
+
+<pre>            LAT = 52 d 30 min North
+            LONG = 1 d 55 min West
+</pre> 
+
+<p>We will need these figures in decimal form, along with the time;
+
+</p><pre>     RA   = 16 h 41.7 min     = 16 + 41.7/60 = 16.695     hrs
+     DEC  = 36 d 28   min     = 36 + 28/60   = 36.466667  degs
+     Time = 2310 hrs          = 23 + 10/60   = 23.166667  hrs
+     LAT  = 52 d 30 min North = 52 + 30/60   = 52.5       degs
+     LONG =  1 d 55 min West  = -(1 + 55/60) = -1.9166667 degs
+</pre>
+
+<p>It is a good idea to keep all the decimal places in the figures
+until the calculation is complete, then round off later on. Notice how
+Longitudes west are counted as <em>negative</em>, and East counted as
+positive. We will also need the RA in degrees, not hours. Just
+multiply the hours figure by 15;
+
+</p><pre>            RA  = 16.695 * 15 = 250.425 degrees           
+</pre>
+
+<p>In order to calculate the ALT and AZ of the comet for a given
+time and place, we need to calculate the <em>Local Siderial
+Time</em> (LST), and then work out the <em>Hour Angle</em> (HA)
+of the object. Then we can use some standard formulas from
+spherical trigonometry to transform the HA and DEC to the ALT and
+AZ.
+
+</p><p>
+If you are not sure what RA and DEC are, or about coordinate
+systems in general, then the following links might be useful;
+
+</p><ul>
+<li><a href="http://www.skypub.com/backyard/celcoord.html">
+Sky and Telescope Backyard Astronomer series - Celestial
+Coordinates</a>
+</li><li><a href="http://www.skypub.com/backyard/time.html">
+Sky and Telescope Backyard Astronomer series - About Time</a>
+</li><li><a href="http://www.physics.csbsju.edu/astro/CS/CSintro.html">
+A series of lecture notes, from constellations to RA and DEC</a>
+</li></ul>
+
+<p> I would strongly recommend the book by Peter Duffett-Smith
+(see Books section below) for further information and
+calculations, including precession.
+
+</p><h2><a name="twig09">Calculator notes</a></h2>
+[<a href="#twig00">Top</a>]
+
+<p> A cheap basic scientific calculator is all that is needed for
+these calculations - although a programmable calculator can cut
+the work down if you want to calculate a whole series of
+positions. A spreadsheet allows you to prepare a list of
+positions of the object for each hour throughout the day.
+
+</p><p>
+When putting numbers into formulas, you must remember;
+</p><ul>
+<li>I use '*' to represent multiply, and '/' to show divide. This
+means that the formulas can be copied straight into a
+spreadsheet, and the names changed to cell references.
+</li><li>Multiplication (or division) is 'done before' addition (or
+subtraction) so that 3 + 4 *5 is 3 + 20 = 23, <em>not</em> 35!
+Scientific calculators have been programmed with the rules of
+precedence.
+</li><li>Brackets are used to make sure certain results get calculated
+first, so (3+4) * 5 <em>does</em> give 35. Scientific calculators
+have brackets buttons.
+</li><li>Most scientific calculators understand these rules of
+precedence, so if you type (999 - 994) / (100 - 98) into your
+calculator and press the '=' or 'EXE' key, then you <em>should</em>
+get
+2.5 as the answer.
+</li><li>50 / (2 * 5) is 5, not 125!
+</li><li>the trigonometric functions usually work in degrees on
+calculators, but in <em>radians</em> on spreadsheets and in
+programming languages such as BASIC. 
+
+</li><li>To convert from degrees to radians, use
+<code>degs*3.14159265358979/180</code>, where <code>degs</code>
+is the angle in degrees.
+
+</li><li>To convert from radians to degrees, use
+<code>rads*180/3.14159265358979</code>, where <code>rads</code>
+is the angle in Radians.
+
+</li></ul>
+
+<h2><a name="twig02a">Days before J2000</a></h2>
+[<a href="#twig00">Top</a>]
+
+<p>
+Many things (including the siderial time) are measured from a
+fundamental epoch or date. For most modern astronomical purposes, the
+reference date is J2000, which corresponds to 1200 hrs UT on Jan 1st
+2000 AD, and you can use the table below to find how many days have
+gone by since J2000 for any date for the next 20 years or so.
+
+</p><pre>Calculating the days from J2000
+-------------------------------
+
+The tables below can be used to calculate the number of days and
+the fraction of a day since the epoch J2000. If you need the
+number of Julian centuaries, then just divide the 'day number' 
+by 36525.
+
+Table A                |  Table B
+Days to beginning of   |  Days since J2000 to
+month                  |  beginning of each year
+                       |
+Month   Normal   Leap  |  Year   Days    |  Year   Days
+        year     year  |                 |
+                       |                 |
+Jan       0        0   |  1998   -731.5  |   2010  3651.5
+Feb      31       31   |  1999   -366.5  |   2011  4016.5
+Mar      59       60   |  2000     -1.5  |   2012  4381.5
+Apr      90       91   |  2001    364.5  |   2013  4747.5
+May     120      121   |  2002    729.5  |   2014  5112.5    
+Jun     151      152   |  2003   1094.5  |   2015  5477.5
+Jul     181      182   |  2004   1459.5  |   2016  5842.5
+Aug     212      213   |  2005   1825.5  |   2017  6208.5
+Sep     243      244   |  2006   2190.5  |   2018  6573.5
+Oct     273      274   |  2007   2555.5  |   2019  6938.5
+Nov     304      305   |  2008   2920.5  |   2020  7303.5
+Dec     334      335   |  2009   3286.5  |   2021  7669.5
+
+Worked Example
+                                                               
+To find the number of days from J2000.0 for 2310 hrs UT on
+1998 August 10th, do the following;
+
+1. divide the number of minutes by 60 to obtain the decimal
+fraction of an hour, here 10/60 = 0.1666667
+   
+2. add this to the hours, then divide the total by 24 to obtain
+the decimal fraction of the day, here 23.166667/24 = 0.9652778 
+This is the first number used below
+   
+3. find from table A the number of days to the beginning of
+August from the start of the year, here 212 days
+   
+4. write down the day number within the month, here 10 above
+
+5. find from table B the days since J2000.0 to the beginning of
+the year, here -731.5
+   
+6. add these four numbers.
+
+For the date above;
+
+   0.9652778 + 212 + 10 - 731.5 = -508.53472 days from J2000.0
+
+Note that dates which fall before J2000.0 will have negative day
+numbers. Keep the negative sign in any calculations. 
+
+Exercise
+
+What is the day number for 15:30 UT, 4th April 2008?
+I got 3016.1458 days since J2000.0
+
+</pre>
+
+<h2><a name="twig02">Local Siderial Time</a></h2>
+[<a href="#twig00">Top</a>]
+
+<p>
+Suppose you have a sunny morning. Put a stick in the ground, and
+watch the shadow. The shadow will get shorter and shorter - and
+then start to get longer and longer. The time corresponding to
+the shortest shadow is your local noon. We reckon a Solar day as
+(roughly) the mean time between two local noons, and we call this
+24 hours of time. 
+
+</p><p>
+The stars keep a day which is about 4 minutes shorter than the
+Solar day. This is because during one day, the Earth moves in its
+orbit around the Sun, so the Sun has to travel a bit further to
+reach the next day's noon. The stars do not have to travel that
+bit further to catch up - so the siderial day is shorter.
+
+</p><p>
+We need to be able to tell time by the stars, and the siderial
+time can be calculated from a formula which involves the number
+of days from the epoch J2000. An approximate version of the formula
+is;
+
+</p><pre>LST = 100.46 + 0.985647 * d + long + 15*UT
+
+      d    is the days from J2000, including the fraction of
+           a day
+      UT   is the universal time in decimal hours
+      long is your longitude in decimal degrees, East positive.
+      
+Add or subtract multiples of 360 to bring LST in range 0 to 360
+degrees.
+</pre>
+
+and this formula gives your local siderial time in <em>degrees</em>.
+You can divide by 15 to get your local siderial time in hours, but
+often we leave the figure in degrees. The approximation is within 0.3
+seconds of time for dates within 100 years of J2000. 
+
+<h3>Worked Example for LST</h3>
+
+<pre>
+Find the local siderial time for 2310 UT, 10th August 1998
+at Birmingham UK (longitude 1 degree 55 minutes west).
+
+I know that UT = 23.166667
+             d = -508.53472 (last section)
+          long = -1.9166667  (West counts as negative)
+
+so 
+
+LST = 100.46 + 0.985647 * d + long + 15*UT
+    = 100.46 + 0.985647 * -508.53472 - 1.9166667 + 15 * 23.166667
+    = -55.192383 degrees
+    = 304.80762 degrees
+    
+note how we added 360 to LST to bring the number into the range
+0 to 360 degrees.
+</pre>
+
+<h2><a name="twig03">Hour Angle</a></h2>
+[<a href="#twig00">Top</a>]
+
+<p> We can build in the Earth's rotation by replacing the RA by
+the Hour Angle. The HA of an object increases with siderial time,
+but the declination stays the same, as the DEC measures the angle
+from the Earth's equator. We calculate the HA in degrees, so that
+we can take sines and cosines later.
+
+</p><pre>HA = LST - RA 
+
+If HA negative, then add 360 to bring in range 0 to 360
+RA must be in degrees.
+</pre>
+As you can see, the HA of the first point of Aries (where RA is
+0) is just the LST expressed in degrees. 
+
+<h3>Worked example of HA</h3>
+<pre> RA = 250.425 degs
+LST = 304.80762
+
+HA = LST - RA
+   = 304.80762 - 250.425
+   = 54.382617 degs
+   
+HA is in correct range, so leave the number
+</pre>
+
+<h2><a name="twig04">HA and DEC to ALT and AZ</a></h2>
+[<a href="#twig00">Top</a>]
+
+<p>
+Now we have the RA, DEC and HA for the object, and the Latitude
+(LAT) of the observing site, the following formulas will give us
+the ALT and AZ of the object at the current LST.
+</p><pre>sin(ALT) = sin(DEC)*sin(LAT)+cos(DEC)*cos(LAT)*cos(HA)
+
+ALT = asin(ALT) 
+
+               sin(DEC) - sin(ALT)*sin(LAT)
+cos(A)   =   ---------------------------------
+                   cos(ALT)*cos(LAT)
+
+A = acos(A)
+
+If sin(HA) is negative, then AZ = A, otherwise
+AZ = 360 - A
+</pre>
+
+<h3>Worked example of HA and DEC to ALT and AZ</h3>
+
+I find it a good idea to use the calculator to find the values of
+the sines and cosines of the numbers needed first, then calculate
+the formulas. I record calculations step by step, which makes
+mistakes easier to find.
+
+<pre>HA  =  54.382617
+DEC =  36.466667 degrees
+LAT =  52.5 degrees (North, so positive)
+
+sin(DEC) = 0.5943550  cos(DEC) = 0.8042028
+sin(LAT) = 0.7933533  cos(LAT) = 0.6087614
+sin(HA)  is positive  cos(HA)  = 0.5823696
+
+putting the values above into the first formula gives
+
+sin(ALT) = sin(DEC)*sin(LAT)+cos(DEC)*cos(LAT)*cos(HA)
+
+sin(ALT) = 0.5943550 * 0.7933533 + 0.8042028 * 0.6087614 * 0.5823696
+         = 0.4715335 + 0.2851093 
+         = 0.7566428
+
+ALT = 49.169122 degrees
+
+cos(ALT) = 0.6538285
+
+Putting values into the second formula below gives
+
+             sin(DEC) - sin(ALT)*sin(LAT)
+cos(A)   = ---------------------------------
+                  cos(ALT)*cos(LAT)
+
+            0.5943550 - 0.7566428 * 0.7933533
+cos(A)   = ----------------------------------
+                   0.6538285 * 0.6087614
+
+           -0.0059301
+         = -----------
+            0.3980256
+
+         = -0.0148987
+         
+    A    = 90.853664
+
+As sin(HA) is positive, the angle AZ is 360 - A
+
+AZ = 360 - 90.853664 degrees
+   = 269.14634 degs
+</pre>
+<p>
+
+You have finished! At 2310 UT on 10th August 1998, from Birmingham UK,
+M13 will be found at an altitude of 49.2 degrees, and an azimuth of
+269.1 degrees (about 6 degrees South of West).
+
+</p><p>
+If you want to use setting circles, which are usually calibrated in
+degrees and minutes, then just convert as follows;
+
+</p><pre>49.169122 degs = 49 d + 0.169122 * 60 min =  49 d 10 min
+269.14634 degs = 269 d + 0.14634 * 60 min = 269 d  9 min
+</pre>
+
+<h3>Using brackets - formulas on one line</h3>
+
+You can write the formula for AZ above all along one line by
+using brackets to ensure that the 'top' and 'bottom' of the
+formula get worked out before the division. Having formulas on
+one line is needed for spreadsheets or BASIC programs. You can
+enter the 'one line' versions straight into a scientific
+calculator - but I find I make mistakes that way.
+<p>The formula
+
+</p><pre>sin(ALT) = sin(DEC)*sin(LAT)+cos(DEC)*cos(LAT)*cos(HA)
+</pre>
+
+is already on one line - and could be put into a program a it is.
+The second formula;
+
+<pre>              sin(DEC) - sin(ALT)*sin(LAT)
+cos(A)   =   ---------------------------------
+                   cos(ALT)*cos(LAT)
+</pre>
+
+can be re-written as
+
+<pre>cos(A) = (sin(DEC) - sin(ALT)*sin(LAT))/(cos(ALT)*cos(LAT))
+</pre>
+
+where the two pairs of brackets ensure that the calculation is
+done in the right sequence. Try typing the following right into
+your calculator (remember to press the '=' button at the end!);
+
+<pre>cos(A) = (0.5943550 - 0.7566428 * 0.7933533)/(0.6538285 * 0.6087614)
+       = -0.0148987
+</pre>
+
+
+<h2><a name="twig07">Books</a></h2>
+[<a href="#twig00">Top</a>]
+
+<p> A copy of <cite>Practical Astronomy with your
+Calculator</cite> by Peter Duffett-Smith provides details on the
+co-ordinate systems and conversion calculations. I have devised
+programs for my TI-80 programmable calculator based on this book.
+You don't always want to boot up a PC to work out a rough azimuth
+for a comet - or to see how far below the horizon the Sun will
+be at a certain time. Here is the full reference;
+
+</p><p>
+<cite>Practical Astronomy with your calculator</cite><br>
+by Peter Duffett-Smith<br>
+Cambridge University Press<br>
+ISBN 0 521 28411 2 (2nd edition - 3rd now available)<br>
+Cost about UK Pounds 10.
+
+</p><p> A <a href="http://www.cnde.iastate.edu/staff/swormley/bkr/bkr.93.10">
+short review by Sam Wormley</a> of <cite>Practical Astronomy
+with your calculator</cite> is available.
+
+</p><p>The quotation at the head of this page is from;
+</p><p>
+<cite>Longitude</cite><br>
+by Dava Sobel<br>
+Fourth Estate, London<br>
+ISBN 1-85702-502-4<br>
+Cost about UK Pounds 10.
+
+</p><p> This book deals with the history of the determination of the
+Longitude at sea and tells the story of the clock maker John
+Harrison. The author brings the drama of the subject alive -
+ideal present for people who feel that science and technology are
+not of humanist concern.
+
+</p><p>
+A <a href="http://www.cnde.iastate.edu/staff/swormley/bkr/bkr.96.04">
+short review by Sam Wormley</a> of <cite>Longitude</cite>
+is available.
+
+
+</p><h2><a name="twig08">Exercise</a></h2>
+[<a href="#twig00">Top</a>]
+<p>
+As Hale Bopp is both an evening and morning object, try to
+calculate the ALT and AZ for the comet on 14th March 1997 for
+Birmingham UK at 19:00 UT. The data are given below;
+
+</p><pre>RA 22h 59.8min  DEC 42d 43min (epoch 1950, BAA comet section)
+Days 73
+Hours 1900
+Long 1d 55min West Lat 52d 30min North
+</pre>
+
+and I got
+
+<pre>LST = 6.367592 hrs
+ALT = 22.40100 d
+AZ  = 311.92258 d
+</pre>
+
+But I cheated by using my TI-80 program! My motivation in doing
+these calculations was to get the co-ordinates clear, and to
+understand the formulas before writing a simple program.
+
+<p>[<a href="http://www.stargazing.net/kepler/index.html#top">Root</a>]
+</p><p>
+Last Modified 27th May 1998<br>
+Keith Burnett<br>
+</p><address>keith@xylem.demon.co.uk</address><br>
+
+
+
+
+
+
+</body></html>

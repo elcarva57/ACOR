@@ -1,0 +1,13 @@
+Hand Control Firmware 4.21
+==========================
+- Custom Rate 9 on the ASGT (requires 5.18+ of Motor Control)
+- corrected meridian flip when slow goto started
+- Improved user feedback on "No Response" errors occurring after start up
+- Corrected an error in the GOTO RA-DEC sequence
+- Changed text strings in the GPS linking stage
+- Fix for syncing on stars in southern hemisphere via RS232 sync command
+- Bug fix: soft sync(e.g. polar align) when using OTA_Orientation (tandem mode) feature
+- Bug fix: hard sync(set mount Position) when using Meridian Mode (favor East/West)
+- Bug fix: land objects with negative dec are handled correctly
+- Other bug fixes
+

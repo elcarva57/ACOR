@@ -14,7 +14,7 @@
     <DEFFILE value=""/>
     <RESDEPEN value="$(RESFILES) ConfiFiltro.dfm Principal.dfm visualizar.dfm Unit3.dfm 
       conf_meteo.dfm Historia.dfm Enfoque.dfm Programacion.dfm"/>
-    <LIBFILES value="cfitsio.lib NTOFOCUS.LIB"/>
+    <LIBFILES value="cfitsio.lib NTOFOCUS.LIB VersionInfo.lib"/>
     <LIBRARIES value="vclnp.lib dclusr.lib indy.lib tee.lib bcbsmp.lib vclx.lib bdertl.lib 
       vcldb.lib dbrtl.lib vcl.lib rtl.lib"/>
     <SPARELIBS value="rtl.lib vcl.lib dbrtl.lib vcldb.lib bdertl.lib vclx.lib bcbsmp.lib tee.lib 
@@ -90,6 +90,7 @@
       <FILE FILENAME="Programacion.cpp" FORMNAME="Fprog" UNITNAME="Programacion" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="FocuserImpl.cpp" FORMNAME="" UNITNAME="FocuserImpl" COCLASSES="Focuser" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="CCD1Impl.cpp" FORMNAME="" UNITNAME="CCD1Impl" COCLASSES="CCD1" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="VersionInfo.lib" FORMNAME="" UNITNAME="VersionInfo.lib" CONTAINERID="LibTool" DESIGNCLASS="" LOCALCOMMAND=""/>
   </FILELIST>
   <BUILDTOOLS>
   </BUILDTOOLS>
@@ -101,7 +102,7 @@ AutoIncBuild=1
 MajorVer=1
 MinorVer=1
 Release=1
-Build=43
+Build=79
 Debug=0
 PreRelease=0
 Special=0
@@ -112,14 +113,14 @@ CodePage=1252
 
 [Version Info Keys]
 CompanyName=AstroHenares
-FileDescription=ACOR
-FileVersion=1.1.1.43
+FileDescription=Control Obervatorio Remoto
+FileVersion=1.1.1.79
 InternalName=RocPcServidor
 LegalCopyright=© AstroHenares 2015
 LegalTrademarks=
 OriginalFilename=
 ProductName=Acor
-ProductVersion=1.1.1.38
+ProductVersion=1.1
 Comments=
 PrivateBuild=
 

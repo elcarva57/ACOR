@@ -1,0 +1,109 @@
+* En ProcesarCGEM se leen los datos que envía el telescopio con 
+	Long = min(S1->nDatosLX200, 500);
+    S1->LeerLX200(BuffLX, Long); // <========
+    BuffLX[Long] = 0;
+  Los datos quedan en BuffLX
+
+* ProcesarCGEM se ejecuta en Timer4 cada 100ms
+
+* Para mostrar RAS/DEC en el mando: Menu, Get RA/DEC
+* Para mostrar AZM/ALT en el mando: Menu, Utilities, Get axis position
+
+POSICIONES
+==========
+El Cerro
+40 25  5 N   3 33 11 W   650m
+
+REGISTRAR SERVIDORES COM
+========================
+Ejemplos:
+Ema.exe /RegServer
+Para windows 7 64 bits hay dos programas RegSvr32,
+para 32bits est� en C:\Windows\System32\regsvr32.exe
+para 64bits est� en C:\Windows\SysWOW64\regsvr32.exe
+RegSvr32 Ema.exe
+Para DESINSTALAR
+Ema.exe /UnRegServer
+RegSvr32 /u Ema.exe
+Para servers ejecutables mejor usar:
+COM.exe /RegServer
+COM.exe /UnRegServer
+Para componentes dll, ocx, etc usar:
+RegSvr32 Ema.ocx
+RegSvr32 /u Ema.ocx
+
+CLSID
+=====
+// Type Lib: C:\User\Ema\ema.exe (1)
+// LIBID: {63E9DAE2-1FC2-41B0-80E7-98F3C9662865}
+
+// Type Lib: D:\Cpp\RocPcServidorAsp\RocPcServidor.tlb (1)
+// LIBID: {88B924B2-99C6-4B1B-B13A-EF64509CDE41}
+
+{533ECBF1-8A1C-4311-A9B0-D75A5ED30A0E} // Ema.exe /automation (Astronomy Weather Station)
+
+{936E0CDD-F317-4759-902A-5A6AFE01FF74} // Acor.exe /automation (Enfocador CFS))
+{ABD30286-D456-41A1-BC57-8D14A639FFA6} // Acor.exe /automation (cRocPcServidor Object)
+{FFE394F9-C03C-4B70-962D-AF8AD5AE06CF} // Acor.exe /automation (Camara CCD principal)
+
+ELEVATION PROBLEM
+=================
+http://stackoverflow.com/questions/9289527/com-elevation-moniker-fails-to-elevate-the-server-under-vista-windows-7
+
+
+//===== 2015-10-29 ============================================================
+* Hacer pruebas de fotografía automática
+* Probar ID = Auto para creación directorios de fecha
+* Revisar los distintos estados de la unidad Programacion.cpp
+* Buscar el 0,0 en Azm/Alt. Probar varias posiciones del telescopio
+
+//===== 2015-11-26 ============================================================
+* Directorio grabación de imágenes: C://Inetpub//wwwroot// procedente de EMA.CFG
+= Probado con un fichero testAntonio, se crean los siguientes:
+  * C:\user\Antonio\Cpp\RocPcServidorAsp\testAntonio.fit
+  * C:\inetpub\wwwroot\pp.jpg
+  * C:\inetpub\wwwroot\referen.fit
+  * C:\inetpub\aux_1.fit
+= Probado con un fichero test3Fotos, y 3 fotos se crean los siguientes:
+  * 18:33 C:\user\Antonio\Cpp\RocPcServidorAsp\test3Fotos_001.fit
+  * 18:34 C:\user\Antonio\Cpp\RocPcServidorAsp\test3Fotos_002.fit
+  * 18:34 C:\user\Antonio\Cpp\RocPcServidorAsp\test3Fotos_003.fit
+  * 18:33 C:\inetpub\wwwroot\referen.fit
+  * 18:34 C:\inetpub\wwwroot\pp.jpg
+  * 18:34 C:\inetpub\wwwroot\aux_1.fit
+  * 18:34 C:\inetpub\aux_1.fit
+
+* EMA.CFG es binario. Cómo se puede cambiar?
+= Con EMA.EXE, Ajustes, Guardar configuración
+
+* Pruebas y debug de grabaciones de imágenes.
+= Casi imposible de trazar, debido a los timers que descuadran el debug
+
+* Prueba coordenadas con espacio en vez de : -> fotoDif las reconoce bien?
+= SI
+
+* Prueba coordenadas con espacio en vez de : -> Elbrus las reconoce bien?
+= SI
+
+* Prueba nuevo Timer para slew
+= NO NECESARIO
+
+//===== 2015-12-08 ============================================================
+* Probar velocidades SLW
+= OK
+
+* Probar velocidades FND
+= OK
+
+* Probar velocidades CEN
+= OK
+
+* Probar velocidades GUI
+= OK
+
+* Probar bot�n STOP
+= OK
+
+* Desactivar nuevo Timer para slew
+= OK
+

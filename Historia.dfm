@@ -1,7 +1,7 @@
 object Historico: THistorico
-  Left = 786
-  Top = 193
-  Width = 506
+  Left = 757
+  Top = 194
+  Width = 717
   Height = 405
   Caption = 'Mensajes'
   Color = clBtnFace
@@ -43,7 +43,7 @@ object Historico: THistorico
   object Mhistory: TMemo
     Left = 0
     Top = 0
-    Width = 490
+    Width = 701
     Height = 337
     Align = alClient
     Color = cl3DLight
@@ -61,15 +61,15 @@ object Historico: THistorico
   object Panel1: TPanel
     Left = 0
     Top = 337
-    Width = 490
+    Width = 701
     Height = 33
     Align = alBottom
     TabOrder = 1
     DesignSize = (
-      490
+      701
       33)
     object BClearHistory: TButton
-      Left = 376
+      Left = 587
       Top = 6
       Width = 89
       Height = 20
@@ -78,5 +78,22 @@ object Historico: THistorico
       TabOrder = 0
       OnClick = BClearHistoryClick
     end
+    object bGrabarHistoria: TButton
+      Left = 27
+      Top = 6
+      Width = 89
+      Height = 20
+      Anchors = [akTop, akRight, akBottom]
+      Caption = 'Grabar Historia'
+      TabOrder = 1
+      OnClick = bGrabarHistoriaClick
+    end
+  end
+  object SaveDialog1: TSaveDialog
+    DefaultExt = '*.txt'
+    FileName = 'Historia'
+    Filter = 'Test file (*,txt)|*.txt'
+    Left = 136
+    Top = 336
   end
 end

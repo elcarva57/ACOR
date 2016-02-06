@@ -1,0 +1,49 @@
+Log
+COR NO Conectado 14/01/2016 19:59:58
+COR Conectado OK 14/01/2016 20:00:00
+Exceso datos de TESs: 200
+Exceso datos de TESs: 200
+Exceso datos de TESs: 200
+CFS NO RESPONDE
+METEO NO responde  14/01/2016 20:00:13
+LX200 Conectado     14/01/2016 20:00:44
+LX200 Desconectado  14/01/2016 20:01:15
+LX200 Conectado     14/01/2016 20:01:22
+LX200 Desconectado  14/01/2016 20:01:59
+LX200 Conectado     14/01/2016 20:02:05
+LX200 Desconectado  14/01/2016 20:02:42
+LX200 Conectado     14/01/2016 20:02:49
+GetTrackMode EnviaLX: 74  cont_mensLX: 0 , ind_wrLX 273 
+GetTrackMode EnviaLX: 54 03  cont_mensLX: 0 , ind_wrLX 274 
+GetTrackMode EnviaLX: 54 02  cont_mensLX: 0 , ind_wrLX 275 
+GetTrackMode EnviaLX: 54 03  cont_mensLX: 0 , ind_wrLX 276 
+GetTrackMode EnviaLX: 74  cont_mensLX: 0 , ind_wrLX 286 
+GetTrackMode EnviaLX: 54 03  cont_mensLX: 0 , ind_wrLX 287 
+GetTrackMode EnviaLX: 54 02  cont_mensLX: 0 , ind_wrLX 288 
+GetTrackMode EnviaLX: 54 03  cont_mensLX: 0 , ind_wrLX 289 
+GetTrackMode EnviaLX: 74  cont_mensLX: 0 , ind_wrLX 303 
+GetPreRAS_DEC EnviaLX: 48 14 03 16 01 0E 10 00 00  cont_mensLX: 1 , ind_wrLX 312 
+LX200 Desconectado  14/01/2016 20:03:26
+LX200 Conectado     14/01/2016 20:03:32
+Slewd Ra: 193,680218633775 De: 55,8684847591634
+Slew:  12h 54m 43.25s +55º 52' 06.55" (r89BA67EA,27BA8C2A)
+LX200 Desconectado  14/01/2016 20:04:59
+LX200 Conectado     14/01/2016 20:05:06
+Slewd Ra: 303,444582836034 De: 46,8671718776943
+Slew:  20h 13m 46.70s +46º 52' 01.82" (rD7C8668D,2153E888)
+LX200 Desconectado  14/01/2016 20:05:37
+LX200 Conectado     14/01/2016 20:05:49
+Slewd Ra: 355,834112004048 De: -2,43739017987864
+Slew:  23h 43m 20.19s -02º 26' 14.60" (rFD09A027,FE444971)
+LX200 Desconectado  14/01/2016 20:06:27
+LX200 Conectado     14/01/2016 20:06:33
+LX200 Desconectado  14/01/2016 20:07:10
+LX200 Conectado     14/01/2016 20:07:16
+Exceso datos de TESs: 182
+Exceso datos de TESs: 182
+LX200 Desconectado  14/01/2016 20:08:00
+LX200 Conectado     14/01/2016 20:08:06
+
+=====================================
+Buscar fichero horizone El Cerro
+=====================================

@@ -1,0 +1,35 @@
+﻿// Instrucciones de arranque de ACOR conectado al telescopio
+// 2015-10-27
+
+ESTADO INICIAL
+* Interruptor del telescopio en ON (telescopio apagado)
+* Interruptores de la fuente de alimentación en OFF (4)
+* Selector de la fuente de alimentación en AUTO1
+* Regleta principal (inferior) de la montura en OFF
+* Telescopio en HOME POSITION
+* Telescopio HIBERNADO
+* PC configurado con la hora UTC (no es estrictamente necesario)
+* SkyMap configurado con el driver: RocPcServidor (Telescope, Configure)
+
+ARRANQUE
+* Encender el PC
+* Encender la regleta principal (inferior) de la montura
+* Arrancar ACOR, esto arrancará EMA y TESS
+* Arrancar SkyMap
+* Desde SkyMap conectarse al telescopio (TTelescope, Open connection)
+* Desde ACOR, encender el telescopio: Desde la pestaña CONTROL, Panel Alimentaciones, pulsar sobre los botones 1 (CCD + CFS) y 2 (Telescopio), y a continuación pulsar sobre el botón Validar. Los LEDs 1 y 2 se deben encender en rojo y el telescopio se encenderá.
+* Desde el mando del telescopio pulsar ENTER cuando el display diga "Wake up. Press ENTER to wake from hibernate. UNDO to exit"
+* Cuando muestre y pida la hora pulsar ENTER, ENTER, ENTER ... hasta que aparezca el mensaje "CGEM Ready", ya que mandaremos la hora desde ACOR
+* Desde ACOR, enviar la hora UTC: Desde la pestaña CGEM, Panel Time/Location Commands, asegúrese de que el checkbox "Daylight Saving Time" esté desactivado y pulsar sobre el botón "Send UTC".
+
+PARADA
+* Desde el mando del telescopio pulsar MENU, UTILITIES, HOME POSITION, GOTO. Hasta que el telescopio se detenga y no haya actividad en el mando.
+* Salir con UNDO hasta el menú UTILITIES y pulsar HIBERNATE. "???", ENTER, "Power off the telescope???"
+* Desde ACOR, apagar el telescopio: Desde la pestaña CONTROL, Panel Alimentaciones, pulsar sobre los botones 1 (CCD + CFS) y 2 (Telescopio), y a continuación pulsar sobre el botón Validar. Los LEDs 1 y 2 se deben apagar y el telescopio se apagará.
+* Apagar la regleta principal (inferior) de la montura
+* Desde SkyMap desconectarse del telescopio (TTelescope, Close connection)
+* Salir de SkyMap
+* Detener ACOR, esto detendrá EMA y TESS
+* Apagar el PC
+
+SINCRONIZACIÓN

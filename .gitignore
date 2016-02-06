@@ -27,6 +27,10 @@
 *.out
 *.app
 
+# Binaries
+*.res
+*.tds
+
 # Temporary files
 *.~*
 *.bak
@@ -34,3 +38,7 @@
 
 # Photo files
 *.fit
+*.jpg
+
+# NTOFOCUS Info
+*NTOFOCUS.TXT
