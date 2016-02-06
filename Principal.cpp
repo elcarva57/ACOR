@@ -2519,7 +2519,10 @@ void ProcesarGetPreRAS_DEC(AnsiString CadCgem)
     coordAZM = formatAZM(azm_f);
     coordALT = formatALT(alt_f);
 
-//    Historico->Mhistory->Lines->Add("AR:" + AnsiString(arh_f) + "     Dec:"  + AnsiString(dec_f));
+    TimeRxLX200 = Fecha.CurrentTime();
+
+    //    Historico->Mhistory->Lines->Add("AR:" + AnsiString(arh_f) + "     Dec:"  + AnsiString(dec_f));
+    Historico->Mhistory->Lines->Add(AnsiString(TimeRxLX200) + "-> " + "AR:" + coordARE + "     Dec:"  + coordDEC);
 
     // Eduardo discovered bug
     // tRa = 15.0 * ( nRAHour + dRAMin / 60.0);
@@ -2572,7 +2575,10 @@ void ProcesarGetRAS_DEC(AnsiString CadCgem)
     coordAZM = formatAZM(azm_f);
     coordALT = formatALT(alt_f);
 
-//    Historico->Mhistory->Lines->Add("AR:" + AnsiString(arh_f) + "     Dec:"  + AnsiString(dec_f));
+    TimeRxLX200 = Fecha.CurrentTime();
+
+    Historico->Mhistory->Lines->Add(AnsiString(TimeRxLX200) + "-> " + "AR:" + coordARE + "     Dec:"  + coordDEC);
+    //    Historico->Mhistory->Lines->Add("AR:" + AnsiString(arh_f) + "     Dec:"  + AnsiString(dec_f));
 
     // Eduardo discovered bug
     // tRa = 15.0 * ( nRAHour + dRAMin / 60.0);
@@ -3385,16 +3391,20 @@ void __fastcall TForm1::Timer50Timer(TObject *Sender)
             // TODO Crear directorio ini.Image.FotoDir + ini.Image.NameDir
             if ((CBGuardar->Checked == true) && (paquetesperdidos == 0))
             {
+                TDateTime* myTime = new TDateTime(Now());
+                AnsiString S = myTime->FormatString(ini.Image.NameDir);
+                WriteHistory(ini.Image.FotoDir + S);
+
                 if (ENFotos->Text.ToInt() > 1)
                 {
                     sprintf( aux, "%003d", (FotoActual - 1));
-                    sprintf(Name, (ini.Image.FotoDir + ini.Image.NameDir + ENombreFichero->Text + AnsiString("_") + AnsiString(aux) + AnsiString(".fit")).c_str());
-                    //Historico->Mhistory->Lines->Add(" Nombre Fotos: " + AnsiString(Name));
+                    sprintf(Name, (ini.Image.FotoDir + S + "\\" +            ENombreFichero->Text + AnsiString("_") + AnsiString(aux) + AnsiString(".fit")).c_str());
+                    Historico->Mhistory->Lines->Add(" Nombre Fotos: " + AnsiString(Name));
                 }
                 else
                 {
-                    sprintf(Name, (ini.Image.FotoDir + ini.Image.NameDir + ENombreFichero->Text + AnsiString(".fit")).c_str());
-                    //Historico->Mhistory->Lines->Add(" Nombre Foto: " + AnsiString(Name));
+                    sprintf(Name, (ini.Image.FotoDir + S + "\\" + ENombreFichero->Text + AnsiString(".fit")).c_str());
+                    Historico->Mhistory->Lines->Add(" Nombre Foto: " + AnsiString(Name));
                 }
 
                 if (FileExists(Name))
@@ -5099,8 +5109,17 @@ void GuardarFoto(char* nombre)
     /* Estas keywords estan vacias a la espera de poner cajas de texto para
     introducir datos */
 
-    fits_write_key(fptr, TSTRING, "SITELONG",  Form1->ELongitud->Text.c_str() , "Site Longitude", &status);
-    fits_write_key(fptr, TSTRING, "SITELAT", Form1->ELatitud->Text.c_str() , "Site Latitude", &status);
+    A = Form1->ELongitud->Text;
+    A = StringReplace(A, "º",  " ", TReplaceFlags() << rfReplaceAll);
+    A = StringReplace(A, "'",  " ", TReplaceFlags() << rfReplaceAll);
+    A = StringReplace(A, "\"", " ", TReplaceFlags() << rfReplaceAll);
+    fits_write_key(fptr, TSTRING, "SITELONG", A.c_str(), "Site Longitude", &status);
+
+    A = Form1->ELatitud->Text;
+    A = StringReplace(A, "º",  " ", TReplaceFlags() << rfReplaceAll);
+    A = StringReplace(A, "'",  " ", TReplaceFlags() << rfReplaceAll);
+    A = StringReplace(A, "\"", " ", TReplaceFlags() << rfReplaceAll);
+    fits_write_key(fptr, TSTRING, "SITELAT", A.c_str(),  "Site Latitude" , &status);
 
     /* Las valores definidos por el Amateur FITS standard para IMAGETYP son:
     Light Frame para los objetos de interes
