@@ -38,7 +38,7 @@ extern int Binin;
 extern int FotoActual;
 extern bool FinFoto;
 extern bool FinY;    //motor filtros
-extern char dir_trab[300];
+extern char dir_trab[250];
 extern double tDe, tRa;
 extern AnsiString HoraSideral_hms;
 extern bool StopLX;

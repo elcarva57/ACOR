@@ -17,7 +17,7 @@
 
 FILE *conf_ema;
 extern char Meteo[200];
-extern char dir_trab[300];
+extern char dir_trab[250];
 char ConfMeteo[800];
 char temp[300];
 extern bool OrdenCalibrar;
@@ -50,7 +50,7 @@ typedef struct {
 }CONF_METEO;
 
 extern CONF_METEO confEMA;
-extern char dir_trab[300];
+extern char dir_trab[250];
 
 extern char Buf_Meteo[500][16];
 extern int indice_meteo;
